@@ -8,14 +8,21 @@ interface HomeLayoutProps {
 
 const HomeLayout = ({children} : HomeLayoutProps) => {
   return (
-    <div className=" flex flex-col  w-full ">
-      <div className=" w-full sticky top-0 z-50">
+    <div className=" flex flex-col min-h-screen  w-full gap-3">
+
+      <div className=" w-full sticky">
         <HomeHeader />
       </div>
-      <div className="w-full   ">
-        <div className="flex justify-center">{children}</div>
+
+        <div className="w-full flex flex-grow justify-center">
+          {children}
+        </div>
+      
+
+      <div className="w-full">
+        <Footer />
       </div>
-      <Footer />
+
     </div>
   )
 }

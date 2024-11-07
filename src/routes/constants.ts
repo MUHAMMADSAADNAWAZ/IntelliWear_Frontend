@@ -1,3 +1,10 @@
 export const ROUTE_HOME = "/";
 export const ROUTE_LOGIN = "/login";
 export const ROUTE_SIGNUP = "/signup";
+export const ROUTE_CLOTHES = "/clothes";
+export const ROUTE_FOOTWEAR = "/footwear";
+export const ROUTE_ACCESSORIES = "/accessories";
+export const ROUTE_MEN_CLOTHING = "/men-clothing";
+export const ROUTE_WOMEN_CLOTHING = "/women-clothing";
+export const ROUTE_CHILDREN_CLOTHING = "/children-clothing";
+export const ROUTE_PRODUCT_DETAILS = "/product/:productId";
