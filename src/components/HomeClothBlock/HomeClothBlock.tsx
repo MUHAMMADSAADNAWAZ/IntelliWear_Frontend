@@ -2,21 +2,21 @@ import ClothInfo from "../HomeClothInfo/HomeClothInfo";
 import { clothesData, footwearData, accessoriesData } from "../../Data/data.ts";
 import { Link } from "react-router-dom";
 import { ROUTE_CLOTHES , ROUTE_FOOTWEAR , ROUTE_ACCESSORIES } from "../../routes/constants.ts";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 const ClothBlock = () => {
 
-  const preloadImages = (srcArray : any) => {
-    srcArray.forEach((src: any) => {
-      const img = new Image();
-      img.src = src;
-    });
-  };
+  // const preloadImages = (srcArray : any) => {
+  //   srcArray.forEach((src: any) => {
+  //     const img = new Image();
+  //     img.src = src;
+  //   });
+  // };
   
-  useEffect(() => {
-    const allImages = [...clothesData, ...footwearData, ...accessoriesData].map((item) => item.img);
-    preloadImages(allImages);
-  }, []);
+  // useEffect(() => {
+  //   const allImages = [...clothesData, ...footwearData, ...accessoriesData].map((item) => item.img);
+  //   preloadImages(allImages);
+  // }, []);
   
 
   return (

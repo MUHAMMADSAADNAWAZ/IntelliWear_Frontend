@@ -11,7 +11,7 @@ export interface ClothInfoProps {
   id: number;
   img: string;
   name: string;
-  size: string;
+  size?: string;
   price: number;
   product?: any
 }

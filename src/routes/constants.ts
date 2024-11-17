@@ -8,3 +8,4 @@ export const ROUTE_MEN_CLOTHING = "/men-clothing";
 export const ROUTE_WOMEN_CLOTHING = "/women-clothing";
 export const ROUTE_CHILDREN_CLOTHING = "/children-clothing";
 export const ROUTE_PRODUCT_DETAILS = "/product/:productId";
+export const ADMIN_HOME = "/admin-home";
