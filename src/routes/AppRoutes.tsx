@@ -17,12 +17,9 @@ import NotFound from "../pages/NotFound/NotFound"
 import Login from "../pages/Login/Login"
 import Signup from "../pages/Signup/Signup"
 import Clothes from "../pages/Clothes/Clothes"
-import Footwear from "../pages/Footwear/Footwear"
-import Accessories from "../pages/Accessories/Accessories"
 import MenClothing from "../pages/MenClothing/MenClothing"
-import WomenClothing from "../pages/WomenClothing/WomenClothing"
-import ChildrenClothing from "../pages/ChildrenClothing/ChildrenClothing"
 import ProductDetails from "../pages/ProductDetails/ProductDetails"
+import { clothesData , footwearData , accessoriesData  } from "../Data/data"
 
 const AppRoutes = () => {
   return (
@@ -37,37 +34,37 @@ const AppRoutes = () => {
 
         <Route path={ROUTE_CLOTHES} element={
           <HomeLayout>
-            <Clothes />
+            <Clothes heading="Clothes" data={clothesData} />
           </HomeLayout>
         } />
 
         <Route path={ROUTE_FOOTWEAR} element={
           <HomeLayout>
-            <Footwear />
+            <Clothes heading="Footwear" data={footwearData} />
           </HomeLayout>
         } />
 
         <Route path={ROUTE_ACCESSORIES} element={
           <HomeLayout>
-            <Accessories />
+            <Clothes heading="Accessories" data={accessoriesData} />
           </HomeLayout>
         } />
 
         <Route path={ROUTE_MEN_CLOTHING} element={
           <HomeLayout>
-            <MenClothing />
+            <MenClothing heading="Men’s Style Picks" category="men" />
           </HomeLayout>
         } />
 
         <Route path={ROUTE_WOMEN_CLOTHING} element={
           <HomeLayout>
-            <WomenClothing />
+            <MenClothing heading="Women’s Style Picks" category="women" />
           </HomeLayout>
         } />
 
         <Route path={ROUTE_CHILDREN_CLOTHING} element={
           <HomeLayout>
-            <ChildrenClothing />
+            <MenClothing heading="Children’s Style Picks" category="children" />
           </HomeLayout>
         } />
 

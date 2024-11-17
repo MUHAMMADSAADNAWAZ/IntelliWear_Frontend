@@ -1,27 +1,39 @@
 import { ReactNode } from "react";
 import HomeHeader from "../common/Homeheader/homeheader";
 import Footer from "../Footer/Footer";
+import ChatIcon from '@mui/icons-material/Chat';
+import { useSelector } from "react-redux";
+import { selectCart } from "../../redux/slices/cartSlice";
 
 interface HomeLayoutProps {
     children?: ReactNode;
 }
 
 const HomeLayout = ({children} : HomeLayoutProps) => {
-  return (
-    <div className=" flex flex-col min-h-screen  w-full gap-3">
 
-      <div className=" w-full sticky">
+  const cart = useSelector(selectCart);
+  const cartVisibility = cart.cartVisibility;
+
+  return (
+    <div className=" flex flex-col min-h-screen  w-full">
+
+      {/* <div className=" w-full"> */}
         <HomeHeader />
-      </div>
+      {/* </div> */}
 
         <div className="w-full flex flex-grow justify-center">
           {children}
         </div>
-      
 
       <div className="w-full">
         <Footer />
       </div>
+
+      <button
+        className={` ${cartVisibility ? "right-96" : "right-6"} fixed bottom-6  bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600`}
+      >
+        <ChatIcon style={{ fontSize: 30 }} />
+      </button>
 
     </div>
   )

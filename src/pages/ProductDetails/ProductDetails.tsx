@@ -5,8 +5,13 @@ import { Button, Input, Select } from "../../components/common";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart , selectProduct, updateQuantity } from "../../redux/slices/cartSlice";
 import { ClothInfoProps } from "../../components/HomeClothInfo/HomeClothInfo";
+import { toast } from "react-toastify";
+import { selectUser } from "../../redux/slices/userSlice";
 
 const ProductDetails = () => {
+
+  const user = useSelector(selectUser);
+  const email = user?.email;
 
   const options = {
     sizes : ["X-Small" , "Small" , "Medium" , "Large" , "X-Large"],
@@ -18,8 +23,8 @@ const ProductDetails = () => {
                   footwearData.find(item => item.id === Number(productId)) ||
                   accessoriesData.find(item => item.id === Number(productId));
 
-  const [quantity, setQuantity] = useState(0);
-  const [selectedSize, setSelectedSize] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [size, setSelectedSize] = useState("X-Small");
 
   const dispatch = useDispatch();
 
@@ -27,14 +32,19 @@ const ProductDetails = () => {
 
   if (!product) return <p className="font-bold text-center text-3xl">Product Not Found</p>;
 
-  const existingItem = cartItems.find((item : ClothInfoProps) => item.id === product.id)
+  const existingItem = cartItems.find((item : ClothInfoProps) => item.id === product.id && item.size === size)
 
   const handleAddToCart = () =>{
-    if(existingItem){
-      dispatch(updateQuantity({id: product.id , quantity}))
+    if(email === undefined){
+      toast.info("You need to login first before adding products to cart.");
+    }
+    else if(existingItem){
+      toast.success("Product quantity updated successfully");
+      dispatch(updateQuantity({id: product.id , quantity , size}))
     }
     else{
-      dispatch(addToCart({...product , quantity}))
+      toast.success("Product added to cart successfully");
+      dispatch(addToCart({...product , quantity , size}))
     }
   }
 
@@ -58,9 +68,9 @@ const ProductDetails = () => {
           <Select
             id="size"
             placeholder="Select Size"
-            labelText={`Select Size : ${selectedSize}`}
+            labelText={`Select Size : ${size}`}
             labelClass="text-[#FF6900] font-medium"
-          
+            value={size}
             onChange={(e) => setSelectedSize(e.target.value)}
             options={options.sizes.map((element : string) =>{
                 return {
@@ -82,9 +92,18 @@ const ProductDetails = () => {
         <Input 
           type="number"
           id="quantity"
-          placeholder="Select Quantity"
-        //   value={quantity}
-          onChange={(e) => setQuantity(Number(e.target.value))}
+          placeholder="1"
+          // value={quantity}
+          onChange={(e) => {
+            const value = Number(e.target.value);
+            if (value >= 1 && value <= 5) {
+              setQuantity(value); 
+            } else if (value < 1) {
+              setQuantity(1); 
+            } else if (value > 5) {
+              setQuantity(5);
+            }
+          }}
           min="1"
           max="5"
           />
