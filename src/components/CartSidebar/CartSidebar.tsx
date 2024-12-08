@@ -4,7 +4,6 @@ import { RootState } from '../../redux/store';
 import { CartItem , closeCart} from '../../redux/slices/cartSlice';
 import CloseIcon from '@mui/icons-material/Close';
 
-
 const CartSidebar = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state : RootState) => state.cart.items);
@@ -26,7 +25,8 @@ const CartSidebar = () => {
         ) : (
           cartItems.map((item : CartItem) => (
             <div key={`${item.id}-${item.size}`} className="flex items-center justify-between mb-4">
-              <img src={item.img} alt={item.name} className="w-16 h-16 object-cover" />
+              <input type="checkbox" checked />
+              <img src={item.img} alt={item.name} className="pl-2 w-16 h-16 object-cover" />
               <div className="flex flex-col flex-grow ml-2">
                 <span className="font-medium">{item.name}</span>
                 <span className="text-gray-500">Size: {item.size}</span>

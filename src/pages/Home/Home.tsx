@@ -3,7 +3,7 @@ import ClothBlock from "../../components/HomeClothBlock/HomeClothBlock";
 
 const Home = () => {
   return (
-    <div className="w-full px-8 py-4 bg-gray-100 text-gray-900">
+    <div className="w-full py-4">
       <Carousal />
       <div className="mt-8">
         <ClothBlock />

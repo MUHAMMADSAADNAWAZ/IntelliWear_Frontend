@@ -8,8 +8,8 @@ import { toast } from "react-toastify";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { IoEyeOutline } from "react-icons/io5";
 import { useState } from "react";
-import logo from "../../assets/logo3.jpg"
-import { ROUTE_HOME } from "../../routes/constants";
+import logo from "../../assets/logo3_bg_removed.png.png"
+import { ROUTE_HOME, ROUTE_LOGIN } from "../../routes/constants";
 
 
 const Signup = () => {
@@ -34,7 +34,7 @@ const Signup = () => {
         onSubmit: async (values) => {
             console.log("signup Dto Values are", values);
             toast.success("Account created Successfully!");
-            navigate("/login");
+            navigate(ROUTE_LOGIN);
         },
     });
 
@@ -49,9 +49,9 @@ const Signup = () => {
             <div className="w-1/2 flex items-center justify-center bg-gray-100">
                 <form onSubmit={form.handleSubmit} className="bg-white p-8 rounded-lg shadow-lg w-3/4 max-w-md">
 
-                <div className="mb-6 text-center " >
-                        <img src={logo} alt="Website Logo" className="mx-auto mb-2 w-24 h-24 cursor-pointer" onClick={()=>{navigate(ROUTE_HOME)}}/>
-                        <h1 className="text-3xl font-bold text-yellow-500">IntelliWear</h1>
+                <div className=" text-center " >
+                        <img src={logo} alt="Website Logo" className="mx-auto mb-2 w-44 h-44 cursor-pointer" onClick={()=>{navigate(ROUTE_HOME)}}/>
+                        {/* <h1 className="text-3xl font-bold text-yellow-500">IntelliWear</h1> */}
                 </div>
 
                     <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Signup</h2>
@@ -74,6 +74,7 @@ const Signup = () => {
                         labelClass="text-blue-500 font-semibold"
                         required
                         name="email"
+                        type="email"
                         formik={form}
                     />
                     </div>
@@ -102,8 +103,9 @@ const Signup = () => {
                             showPassword ? (
                               <FaRegEyeSlash
                                 color=""
-                                className=" w-8 h-8  font-Arimo cursor-pointer"
+                                className=" w-8 h-8  font-Arimo cursor-pointer "
                                 onClick={handlePassword}
+                                // size={"2"}
                               />
                             ) : (
                               <IoEyeOutline
@@ -146,7 +148,7 @@ const Signup = () => {
                     <Button type="submit" className="w-full bg-blue-500 text-white hover:bg-blue-600 mb-4">Signup</Button>
 
                     <div className="text-center">
-                        <Link to="/login" className="text-blue-500 hover:underline">Already have an account? Login here</Link>
+                        <Link to={ROUTE_LOGIN} className="text-blue-500 hover:underline">Already have an account? Login here</Link>
                     </div>
                 </form>
             </div>

@@ -57,8 +57,8 @@ const ProductDetails = () => {
       
       <div className="w-1/2 flex flex-col space-y-4">
       
-        <h2 className="text-2xl font-bold text-gray-800">Name : {product.name}</h2>
-        <p className="text-xl text-gray-600 font-semibold">Price : {product.price}</p>
+        <h2 className="text-2xl font-bold text-gray-800">{product.name}</h2>
+        <p className="text-xl text-gray-600 font-semibold">Price : {product.price} Rs</p>
         <p className="text-gray-700 text-lg font-medium">Description : {product.desc}</p>
 
         <hr />

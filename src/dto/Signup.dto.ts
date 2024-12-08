@@ -16,7 +16,7 @@ export class SignUpDto{
             .nullable(),
             email: yup.string().required("Please Enter your Email").nullable(),
             password: yup.string().min(8).required("Please Enter Your Password").nullable(),
-            confirm_password: yup.string().required("Please Enter Your Password").oneOf([yup.ref("password")] , "passwrods must match").nullable(),
+            confirm_password: yup.string().required("Please Enter Your Password").oneOf([yup.ref("password")] , "passwords must match").nullable(),
         })
     }
 

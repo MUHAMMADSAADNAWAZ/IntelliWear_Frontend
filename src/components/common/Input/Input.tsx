@@ -5,7 +5,7 @@ import { cn } from "../../../shared/utils/tailwind-merge-classes";
 export interface inputProps<FormValues>
   extends React.InputHTMLAttributes<HTMLInputElement> {
   labelText?: string;
-  icon?: React.ReactNode;
+  icon?: any;
   className?: string;
   labelClass?: string;
   wrapperClass?: string;

@@ -8,8 +8,8 @@ import { toast } from "react-toastify";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { IoEyeOutline } from "react-icons/io5";
 import { useState } from "react";
-import logo from "../../assets/logo3.jpg"
-import { ROUTE_HOME } from "../../routes/constants";
+import logo from "../../assets/logo3_bg_removed.png.png"
+import { ROUTE_ADMIN_HOME, ROUTE_HOME, ROUTE_SIGNUP } from "../../routes/constants";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/slices/userSlice";
 
@@ -29,10 +29,11 @@ const Login = () => {
         validationSchema: LoginDto.yupSchema(),
         onSubmit: async (values) => {
             console.log("login Dto Values are", values);
-            const userData = {email: values.email};
+            const role = values.email === "admin@gmail.com" ? "admin" : "buyer"
+            const userData = {email: values.email , role: role};
             dispatch(login(userData));
             toast.success("Login Successfully!");
-            navigate("/");
+            values.email === "admin@gmail.com" ? navigate(ROUTE_ADMIN_HOME) : navigate(ROUTE_HOME)
         },
     });
 
@@ -47,9 +48,9 @@ const Login = () => {
             <div className="w-1/2 flex items-center justify-center bg-gray-100">
                 <form onSubmit={form.handleSubmit} className="bg-white p-8 rounded-lg shadow-lg w-3/4 max-w-md">
 
-                <div className="mb-6 text-center">
-                        <img src={logo} alt="Website Logo" className="mx-auto mb-2 w-24 h-24  cursor-pointer"  onClick={()=>{navigate(ROUTE_HOME)}}/>
-                        <h1 className="text-3xl font-bold text-yellow-500">IntelliWear</h1>
+                <div className="text-center">
+                        <img src={logo} alt="Website Logo" className="mx-auto mb-2 w-44 h-44 cursor-pointer"  onClick={()=>{navigate(ROUTE_HOME)}}/>
+                        {/* <h1 className="text-3xl font-bold text-yellow-500">IntelliWear</h1> */}
                 </div>
 
                     <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Login</h2>
@@ -61,6 +62,7 @@ const Login = () => {
                         labelClass="text-blue-500 font-semibold"
                         required
                         name="email"
+                        type="email"
                         formik={form}
                     />
                     </div>
@@ -95,7 +97,7 @@ const Login = () => {
                     <Button type="submit" className="w-full bg-blue-500 text-white hover:bg-blue-600 mb-4">Login</Button>
 
                     <div className="text-center">
-                        <Link to="/signup" className="text-blue-500 hover:underline">Don't have an account? Sign up here</Link>
+                        <Link to={ROUTE_SIGNUP} className="text-blue-500 hover:underline">Don't have an account? Sign up here</Link>
                     </div>
                 </form>
             </div>

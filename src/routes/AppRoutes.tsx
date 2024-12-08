@@ -10,6 +10,11 @@ import {
   ROUTE_WOMEN_CLOTHING,
   ROUTE_CHILDREN_CLOTHING,
   ROUTE_PRODUCT_DETAILS,
+  ROUTE_ADMIN_HOME,
+  ROUTE_ADMIN_ANALYTICS,
+  ROUTE_ADMIN_PRODUCTS,
+  ROUTE_ADMIN_REVIEWS,
+  ROUTE_MYPROFILE
  } from "./constants"
 import HomeLayout from "../components/HomeLayout/HomeLayout"
 import Home from "../pages/Home/Home"
@@ -19,9 +24,22 @@ import Signup from "../pages/Signup/Signup"
 import Clothes from "../pages/Clothes/Clothes"
 import MenClothing from "../pages/MenClothing/MenClothing"
 import ProductDetails from "../pages/ProductDetails/ProductDetails"
+import AdminOverview from "../components/AdminOverview/AdminOverview"
+import AdminProducts from "../components/AdminProducts/AdminProducts"
+import AdminAnalytics from "../components/AdminAnalytics/AdminAnalytics"
+import AdminReviews from "../components/AdminReviews/AdminReviews"
 import { clothesData , footwearData , accessoriesData  } from "../Data/data"
+import AdminHome from "../pages/AdminHome/AdminHome"
+import ProtectedRoute from "../components/ProtectedRoutes/ProtectedRoute"
+import { useSelector } from "react-redux"
+import { selectUser } from "../redux/slices/userSlice"
+import MyProfile from "../pages/MyProfile/MyProfile"
 
 const AppRoutes = () => {
+
+  const user = useSelector(selectUser)
+  const role = user ? user.role : undefined
+
   return (
     <div>
       <Routes>
@@ -74,9 +92,30 @@ const AppRoutes = () => {
           </HomeLayout>
         } />
 
+        <Route path={ROUTE_MYPROFILE} element={
+          <HomeLayout>
+            <MyProfile />
+          </HomeLayout>
+        } />
+
         <Route path={ROUTE_LOGIN} element={<Login />} />
 
         <Route path={ROUTE_SIGNUP} element={<Signup />} />
+
+        <Route path={ROUTE_ADMIN_HOME} element={
+          <ProtectedRoute 
+          isAuthenticated={true}
+          role={role}
+          allowedRoles={['admin']}
+          >
+            <AdminHome />
+          </ProtectedRoute>
+          } >
+            <Route index element={<AdminOverview />} />
+            <Route path={ROUTE_ADMIN_PRODUCTS} element={<AdminProducts />} /> 
+            <Route path={ROUTE_ADMIN_ANALYTICS} element={<AdminAnalytics />} /> 
+            <Route path={ROUTE_ADMIN_REVIEWS} element={<AdminReviews />} />
+          </Route>            
 
         <Route path="*" element={<NotFound />} />
 

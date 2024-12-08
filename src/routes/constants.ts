@@ -1,4 +1,4 @@
-export const ROUTE_HOME = "/";
+export const ROUTE_HOME = "/home";
 export const ROUTE_LOGIN = "/login";
 export const ROUTE_SIGNUP = "/signup";
 export const ROUTE_CLOTHES = "/clothes";
@@ -8,4 +8,8 @@ export const ROUTE_MEN_CLOTHING = "/men-clothing";
 export const ROUTE_WOMEN_CLOTHING = "/women-clothing";
 export const ROUTE_CHILDREN_CLOTHING = "/children-clothing";
 export const ROUTE_PRODUCT_DETAILS = "/product/:productId";
-export const ADMIN_HOME = "/admin-home";
+export const ROUTE_MYPROFILE = "/myprofile";
+export const ROUTE_ADMIN_HOME = "/";
+export const ROUTE_ADMIN_PRODUCTS = "/admin-products";
+export const ROUTE_ADMIN_ANALYTICS = "/admin-analytics";
+export const ROUTE_ADMIN_REVIEWS = "/admin-reviews";
