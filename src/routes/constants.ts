@@ -13,3 +13,4 @@ export const ROUTE_ADMIN_HOME = "/";
 export const ROUTE_ADMIN_PRODUCTS = "/admin-products";
 export const ROUTE_ADMIN_ANALYTICS = "/admin-analytics";
 export const ROUTE_ADMIN_REVIEWS = "/admin-reviews";
+export const ROUTE_ADMIN_PROFILE = "/admin-profile";

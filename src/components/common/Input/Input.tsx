@@ -20,6 +20,8 @@ export interface inputProps<FormValues>
   name?: string;
   hideErrors?: boolean | (() => boolean);
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
+  iconBackground?: boolean;
 }
 
 function Input<FormValues>({
@@ -37,8 +39,10 @@ function Input<FormValues>({
   required,
   formik,
   topMostWrapper,
+  iconBackground,
 
   onChange,
+  disabled,
   ...rest
 }: inputProps<FormValues>) {
   if (formik) {
@@ -64,9 +68,9 @@ function Input<FormValues>({
     // handleBlur = handleBlur || formik.handleBlur;
   }
 
-  const inputBaseClasses = `d-block  text-primaryBlue-200 bg-primaryBlue-500 py-[12px] w-full font-lexend text-base  text-black-700  outline-0 	`;
+  const inputBaseClasses = `d-block  text-primaryBlue-200 bg-primaryBlue-500 py-[12px] w-full font-lexend text-base  text-black-700 outline-0 ${disabled ? "cursor-not-allowed" : ""}	`;
   const labelBaseClass = `text-[#1F1F1F] font-normal text-base leading-6 mb-2 font-sans `;
-  const baseWrapperClass = `flex items-center w-full px-4  text-[#8B8B8B] font-normal text-base leading-6 border border-gray-300 rounded-xl focus:outline-none  `;
+  const baseWrapperClass = `flex items-center w-full px-4  text-[#8B8B8B] font-normal text-base leading-6 border border-green-400 rounded-xl focus:outline-none `;
 
   const shouldDisplayError =
     (touched || (formik && formik.submitCount > 0)) &&
@@ -93,9 +97,10 @@ function Input<FormValues>({
             name={name}
             value={value}
             onChange={onChange}
+            disabled={disabled}
             {...rest}
           />
-          {icon && <div>{icon}</div>}
+          {icon && <div className={` p-1 ml-1 rounded-full ${iconBackground? "bg-gray-100" : ""}`}>{icon}</div>}
         </div>
       </div>
       {shouldDisplayError && (

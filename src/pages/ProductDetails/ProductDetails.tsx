@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { accessoriesData, clothesData, footwearData } from "../../Data/data";
 import { useState } from "react";
-import { Button, Input, Select } from "../../components/common";
+import { Button, Select } from "../../components/common";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart , selectProduct, updateQuantity } from "../../redux/slices/cartSlice";
 import { ClothInfoProps } from "../../components/HomeClothInfo/HomeClothInfo";
@@ -48,6 +48,18 @@ const ProductDetails = () => {
     }
   }
 
+  const addQuantity = (quan: number) =>{
+    if(quantity + quan > 5){
+      return
+    }
+    else if(quantity + quan < 1){
+      return
+    }
+    else{
+      setQuantity(quantity+quan)
+    }
+  }
+
   return (
     <div className="flex flex-row gap-6 p-6 bg-gray-100 w-full">
 
@@ -89,9 +101,11 @@ const ProductDetails = () => {
 
         <div className="flex gap-4 ">
           
-        <Input 
+        {/* <Input 
           type="number"
           id="quantity"
+          wrapperClass="w-1/5"
+          className="bg-red-500"
           placeholder="1"
           // value={quantity}
           onChange={(e) => {
@@ -106,10 +120,15 @@ const ProductDetails = () => {
           }}
           min="1"
           max="5"
-          />
+          /> */}
+          <div className="flex gap-2 items-center justify-center w-[22%] h-12 border-2 bg-white text-black border-[#e9e9e9] ">
+            <Button onClick={() =>{addQuantity(1)}} className="bg-white text-black h-8 hover:bg-gray-100 rounded-none w-1/3 ml-2">+</Button>
+            <p>{quantity}</p>
+            <Button onClick={() =>{addQuantity(-1)}} className="bg-white text-black h-8 hover:bg-gray-100 rounded-none w-1/3 mr-2">-</Button>
+          </div>
           
-          <Button className="w-1/3 bg-yellow-500 px-3 py-2 hover:bg-yellow-600 " onClick={handleAddToCart}>Add to Cart</Button>
-          <button className="w-1/3 py-2 bg-green-600 text-white rounded hover:bg-green-700">Buy Now</button>
+          <Button className="w-[40%] bg-yellow-500 px-3 py-2 hover:bg-yellow-600 " onClick={handleAddToCart}>Add to Cart</Button>
+          <Button className="w-[40%] py-2 bg-green-600 text-white rounded hover:bg-green-700">Buy Now</Button>
         </div>
       </div>
     </div>

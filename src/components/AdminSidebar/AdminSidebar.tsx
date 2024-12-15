@@ -2,6 +2,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import RateReviewIcon from '@mui/icons-material/RateReview';
+// import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { NavLink } from 'react-router-dom';
 import { ROUTE_ADMIN_ANALYTICS, ROUTE_ADMIN_HOME, ROUTE_ADMIN_PRODUCTS, ROUTE_ADMIN_REVIEWS, ROUTE_LOGIN } from '../../routes/constants';
@@ -15,6 +16,7 @@ const AdminSidebar = () => {
     { name: 'Products', icon: <InventoryIcon /> , elementNav: ROUTE_ADMIN_PRODUCTS },
     { name: 'Analytics', icon: <BarChartIcon /> , elementNav: ROUTE_ADMIN_ANALYTICS },
     { name: 'Reviews', icon: <RateReviewIcon /> , elementNav: ROUTE_ADMIN_REVIEWS },
+    // { name: 'Profile', icon: <PersonOutlinedIcon /> , elementNav: ROUTE_ADMIN_PROFILE },
     { name: 'Logout', icon: <LogoutIcon /> , elementNav: ROUTE_LOGIN },
   ];
 
@@ -32,7 +34,12 @@ const AdminSidebar = () => {
           <li
             key={index}
             className=" p-2 hover:bg-gray-700 rounded-lg cursor-pointer"
-            onClick={() => {item.name === "Logout" ? dispatch(logout()) : ""  ; toast.success("Logged out Successfully")}}
+            onClick={() => {
+              if (item.name === "Logout") {
+                dispatch(logout());
+                toast.success("Logged out Successfully");
+              }
+            }}            
           >
             <NavLink to={item.elementNav}className={({ isActive }: { isActive: boolean }) =>
             `${isActive ? "text-blue-500" : ""}  font-bold flex items-center gap-3 p-2`}>

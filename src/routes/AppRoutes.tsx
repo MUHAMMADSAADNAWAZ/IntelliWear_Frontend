@@ -14,7 +14,8 @@ import {
   ROUTE_ADMIN_ANALYTICS,
   ROUTE_ADMIN_PRODUCTS,
   ROUTE_ADMIN_REVIEWS,
-  ROUTE_MYPROFILE
+  ROUTE_MYPROFILE,
+  ROUTE_ADMIN_PROFILE
  } from "./constants"
 import HomeLayout from "../components/HomeLayout/HomeLayout"
 import Home from "../pages/Home/Home"
@@ -24,7 +25,6 @@ import Signup from "../pages/Signup/Signup"
 import Clothes from "../pages/Clothes/Clothes"
 import MenClothing from "../pages/MenClothing/MenClothing"
 import ProductDetails from "../pages/ProductDetails/ProductDetails"
-import AdminOverview from "../components/AdminOverview/AdminOverview"
 import AdminProducts from "../components/AdminProducts/AdminProducts"
 import AdminAnalytics from "../components/AdminAnalytics/AdminAnalytics"
 import AdminReviews from "../components/AdminReviews/AdminReviews"
@@ -34,6 +34,7 @@ import ProtectedRoute from "../components/ProtectedRoutes/ProtectedRoute"
 import { useSelector } from "react-redux"
 import { selectUser } from "../redux/slices/userSlice"
 import MyProfile from "../pages/MyProfile/MyProfile"
+import AdminProfile from "../components/AdminProfile/AdminProfile"
 
 const AppRoutes = () => {
 
@@ -111,10 +112,10 @@ const AppRoutes = () => {
             <AdminHome />
           </ProtectedRoute>
           } >
-            <Route index element={<AdminOverview />} />
             <Route path={ROUTE_ADMIN_PRODUCTS} element={<AdminProducts />} /> 
             <Route path={ROUTE_ADMIN_ANALYTICS} element={<AdminAnalytics />} /> 
             <Route path={ROUTE_ADMIN_REVIEWS} element={<AdminReviews />} />
+            <Route path={ROUTE_ADMIN_PROFILE} element={<AdminProfile />} />
           </Route>            
 
         <Route path="*" element={<NotFound />} />

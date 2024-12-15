@@ -1,44 +1,66 @@
-// const AdminAnalytics = () => {
-//   return (
-//     <div>AdminAnalytics</div>
-//   )
-// }
+import AnalyticsComponent from "../SalesAnalyticsComponent/AnalyticsComponent";
 
-// export default AdminAnalytics
+const Analytics =[
+  {
+    name: "Total Sales",
+    price: "890,000 Rs",
+    color: "text-blue-500"
+  },
+  {
+    name: "Today's Sales",
+    price: "100,000 Rs",
+    color: "text-red-500"
+  },
+  {
+    name: "Orders",
+    price: "1500",
+    color: "text-green-500"
+  },
+  {
+    name: "Avg Order Value",
+    price: "5000 Rs",
+    color: "text-orange-500"
+  },
+]
 
-import React from "react";
+const topProducts = [
+  {
+    name: "Stylish Bracelet",
+    units_sold: "60",
+    total_revenue: "40,000 Rs"
+  },
+  {
+    name: "Leather Wallet",
+    units_sold: "50",
+    total_revenue: "15,000 Rs"
+  },
+  {
+    name: "Sports Cap",
+    units_sold: "85",
+    total_revenue: "11,560 Rs"
+  },
+]
 
-const AdminAnalytics: React.FC = () => {
+const AdminAnalytics= () => {
   return (
     <div className="p-6 bg-gray-100">
       <h2 className="text-3xl font-bold mb-6">Analytics Overview</h2>
 
-      {/* Sales Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        <div className="bg-white p-4 rounded-lg shadow">
-          <h3 className="text-lg font-semibold text-gray-700">Total Sales</h3>
-          <p className="text-2xl font-bold text-green-500">$25,000</p>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow">
-          <h3 className="text-lg font-semibold text-gray-700">Orders</h3>
-          <p className="text-2xl font-bold text-blue-500">1,500</p>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow">
-          <h3 className="text-lg font-semibold text-gray-700">Avg Order Value</h3>
-          <p className="text-2xl font-bold text-purple-500">$60</p>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+       
+        {Analytics.map((analtics)=>{
+          return <AnalyticsComponent name={analtics.name} price={analtics.price} color={analtics.color} />
+        })}
+
       </div>
 
-      {/* Charts */}
       <div className="bg-white p-6 rounded-lg shadow mb-6">
         <h3 className="text-lg font-semibold text-gray-700 mb-4">Monthly Sales</h3>
         <div className="h-64 bg-gray-200 rounded">
-          {/* Placeholder for chart component */}
           <p className="text-center text-gray-500">Chart goes here</p>
         </div>
       </div>
 
-      {/* Top-Selling Products */}
       <div className="bg-white p-6 rounded-lg shadow mb-6">
         <h3 className="text-lg font-semibold text-gray-700 mb-4">Top-Selling Products</h3>
         <table className="min-w-full bg-white text-left text-sm">
@@ -50,21 +72,16 @@ const AdminAnalytics: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b">
-              <td className="px-6 py-4">Stylish Bracelet</td>
-              <td className="px-6 py-4">120</td>
-              <td className="px-6 py-4">$3,000</td>
-            </tr>
-            <tr className="border-b">
-              <td className="px-6 py-4">Leather Wallet</td>
-              <td className="px-6 py-4">95</td>
-              <td className="px-6 py-4">$4,275</td>
-            </tr>
-            <tr>
-              <td className="px-6 py-4">Sporty Cap</td>
-              <td className="px-6 py-4">85</td>
-              <td className="px-6 py-4">$1,572</td>
-            </tr>
+            {
+              topProducts.map((product)=>{
+              return  <tr className="border-b">
+              <td className="px-6 py-4">{product.name}</td>
+              <td className="px-6 py-4">{product.units_sold}</td>
+              <td className="px-6 py-4">{product.total_revenue}</td>
+              </tr>
+              })
+              
+            }
           </tbody>
         </table>
       </div>

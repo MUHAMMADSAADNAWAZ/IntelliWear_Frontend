@@ -7,7 +7,8 @@ export interface CartItem {
     size: string;
     price: number;
     quantity: number;
-    img: string;  
+    img: string; 
+    checked: false 
   }
   
   // Define the initial state type
@@ -36,7 +37,7 @@ const cartSlice = createSlice({
                 action.payload.quantity ? existingItem.quantity += action.payload.quantity : existingItem.quantity += 1;
             }
             else{
-                action.payload.quantity ? state.items.push({ ...action.payload , quantity : action.payload.quantity , size: action.payload.size}) :state.items.push({ ...action.payload , quantity : 1 }) ;
+                action.payload.quantity ? state.items.push({ ...action.payload , quantity : action.payload.quantity , size: action.payload.size , checked: true}) :state.items.push({ ...action.payload , quantity : 1 , checked: true }) ;
             }
             action.payload.quantity ? state.totalQuantity += action.payload.quantity : state.totalQuantity += 1;
             action.payload.quantity ? state.totalPrice += (action.payload.quantity * action.payload.price) : state.totalPrice += action.payload.price;
@@ -79,11 +80,18 @@ const cartSlice = createSlice({
         },
         closeCart: (state)=>{
             state.cartVisibility = false
-        }
+        },
+        updateChecked: (state, action) => {
+            const { id, size, checked } = action.payload;
+            const item = state.items.find((item) => item.id === id && item.size === size);
+            if (item) {
+              item.checked = checked;
+            }
+          },
     }
 })
 
-export const {addToCart , removeFromCart , updateQuantity , clearCart , toggleCart , closeCart} = cartSlice.actions
+export const {addToCart , removeFromCart , updateQuantity , clearCart , toggleCart , closeCart , updateChecked} = cartSlice.actions
 export const selectProduct = (state: any) => state.cart.items;
 export const selectCart = (state: any) => state.cart;
 export default cartSlice.reducer

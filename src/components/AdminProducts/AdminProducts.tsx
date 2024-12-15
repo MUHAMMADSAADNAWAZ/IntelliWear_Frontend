@@ -1,12 +1,3 @@
-// const AdminProducts = () => {
-//   return (
-//     <div>AdminProducts</div>
-//   )
-// }
-
-// export default AdminProducts
-
-import React from "react";
 import { clothesData , footwearData , accessoriesData } from "../../Data/data";
 
 interface Product {
@@ -18,18 +9,16 @@ interface Product {
   desc: string;
 }
 
-const AdminProducts: React.FC = () => {
-  // Combine all product arrays
+const AdminProducts = () => {
+ 
   const allProducts: Product[] = [...clothesData, ...footwearData, ...accessoriesData];
 
   const handleEdit = (id: number) => {
     console.log(`Edit product with ID: ${id}`);
-    // Add logic for editing a product
-  };
+  }
 
   const handleDelete = (id: number) => {
     console.log(`Delete product with ID: ${id}`);
-    // Add logic for deleting a product
   };
 
   return (
@@ -40,6 +29,7 @@ const AdminProducts: React.FC = () => {
         <table className="min-w-full bg-white text-left text-sm">
           <thead className="bg-gray-200 text-gray-700 uppercase">
             <tr>
+              <th className="px-6 py-3">Product ID</th>
               <th className="px-6 py-3">Image</th>
               <th className="px-6 py-3">Name</th>
               <th className="px-6 py-3">Price</th>
@@ -50,16 +40,17 @@ const AdminProducts: React.FC = () => {
           <tbody>
             {allProducts.map((product) => (
               <tr key={product.id} className="border-b">
+                <td className="px-6 py-4">{product.id}</td>
                 <td className="px-6 py-4">
                   <img src={product.img} alt={product.name} className="h-16 w-16 object-cover rounded" />
                 </td>
                 <td className="px-6 py-4">{product.name}</td>
-                <td className="px-6 py-4">${product.price.toFixed(2)}</td>
+                <td className="px-6 py-4">{product.price.toFixed(2)} Rs</td>
                 <td className="px-6 py-4">{product.category}</td>
-                <td className="px-6 py-4 flex gap-2">
+                <td className="px-6 py-4">
                   <button
                     onClick={() => handleEdit(product.id)}
-                    className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                    className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 mr-2"
                   >
                     Edit
                   </button>
