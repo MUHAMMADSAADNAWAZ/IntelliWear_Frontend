@@ -1,6 +1,6 @@
-import clothcarousal from '../../assets/clothescarousal.jpg';
-import shoescarousal from '../../assets/shoesCarousal.jpg';
-import accessorycarousal from '../../assets/accessorycarousal.jpg';
+import clothcarousal from '@assets/clothescarousal.jpg';
+import shoescarousal from '@assets/shoesCarousal.jpg';
+import accessorycarousal from '@assets/accessorycarousal.jpg';
 import { useState } from 'react';
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
 

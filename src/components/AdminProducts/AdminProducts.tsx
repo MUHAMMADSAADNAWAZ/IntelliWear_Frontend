@@ -1,4 +1,9 @@
-import { clothesData , footwearData , accessoriesData } from "../../Data/data";
+import { clothesData , footwearData , accessoriesData } from "@Data/data";
+import ActionsMenu from "@components/ActionMenu/ActionMenu";
+import BaseDataTable from "@components/BaseDataTable/BaseDataTable";
+
+
+import './AdminProducts.css'
 
 interface Product {
   id: number;
@@ -6,66 +11,100 @@ interface Product {
   name: string;
   price: number;
   category: string;
-  desc: string;
+  description: string;
 }
 
-const AdminProducts = () => {
- 
-  const allProducts: Product[] = [...clothesData, ...footwearData, ...accessoriesData];
+const AdminProducts = ({name} : {name?: string}) => {
 
-  const handleEdit = (id: number) => {
-    console.log(`Edit product with ID: ${id}`);
-  }
-
-  const handleDelete = (id: number) => {
-    console.log(`Delete product with ID: ${id}`);
-  };
+  const allProducts: Product[] = (() => {
+    switch (name) {
+      case 'Clothes':
+        return [...clothesData];
+      case 'Footwear':
+        return [...footwearData];
+      case 'Accessories':
+        return [...accessoriesData];
+      default:
+        return [...clothesData, ...footwearData, ...accessoriesData];
+    }
+  })();
 
   return (
-    <div className="p-6 bg-gray-100">
-      <h2 className="text-3xl font-bold mb-6">Products</h2>
+    <div className="p-6 bg-gray-100 rounded-t-xl">
+      <h2 className="text-3xl font-bold mb-6 text-blue-600">{name}</h2>
 
-      <div className="overflow-x-auto shadow-md rounded-lg">
-        <table className="min-w-full bg-white text-left text-sm">
-          <thead className="bg-gray-200 text-gray-700 uppercase">
-            <tr>
-              <th className="px-6 py-3">Product ID</th>
-              <th className="px-6 py-3">Image</th>
-              <th className="px-6 py-3">Name</th>
-              <th className="px-6 py-3">Price</th>
-              <th className="px-6 py-3">Category</th>
-              <th className="px-6 py-3">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allProducts.map((product) => (
-              <tr key={product.id} className="border-b">
-                <td className="px-6 py-4">{product.id}</td>
-                <td className="px-6 py-4">
-                  <img src={product.img} alt={product.name} className="h-16 w-16 object-cover rounded" />
-                </td>
-                <td className="px-6 py-4">{product.name}</td>
-                <td className="px-6 py-4">{product.price.toFixed(2)} Rs</td>
-                <td className="px-6 py-4">{product.category}</td>
-                <td className="px-6 py-4">
-                  <button
-                    onClick={() => handleEdit(product.id)}
-                    className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 mr-2"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(product.id)}
-                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <BaseDataTable 
+      customStyles={{
+        headRow: {
+          style: {
+            background: "linear-gradient(to bottom right, #f8fafc, #f8fafc)",
+            color: "#1b2559",
+          },
+        },
+        pagination: {
+          style: {
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+          },
+        },
+        row: {
+          style: {
+            border: "1px solid",
+          },
+        },
+      }}
+      columns={[
+        {
+          name: "Product ID",
+          style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
+          selector: (row: Product) => (row.id),
+          sortable: true,
+        },
+        {
+          name: "Image",
+          style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
+          selector: (row: Product) => ( <img src={row.img} alt={row.name} className="h-16 w-16 object-cover rounded py-2" />),
+          sortable: true,
+        },
+        {
+          name: "Name",
+          style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
+          selector: (row: Product) => (row.name),
+          sortable: true,
+        },
+        {
+          name: "Category",
+          style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
+          selector: (row: Product) => (row.category),
+          sortable: true,
+        },
+        {
+          name: "Price (PKR)",
+          style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
+          selector: (row: Product) => (row.price),
+          sortable: true,
+        },
+        {
+          name: "Actions",
+          style: "display:flex;justify-content:center !important",
+          selector: (row: Product) => (
+            <ActionsMenu
+              onEdit={() => {
+                console.log("Edit clicked for product:", row.name);
+              }}
+              onDelete={() => {
+                console.log("Delete clicked for product:", row.name);
+              }}
+            />
+          ),
+          sortable: false,
+        }, 
+
+      ]}
+      data={allProducts}
+      pagination
+      />
     </div>
   );
 };

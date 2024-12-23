@@ -1,9 +1,9 @@
 import { useFormik } from "formik";
-import { Button, Input } from "../../components/common";
-import { MyProfileDto } from "../../dto/myprofile.dto";
+import { Button, Input } from "@components/common";
+import { MyProfileDto } from "@dto/myprofile.dto";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../redux/slices/userSlice";
+import { selectUser } from "@redux/slices/userSlice";
 
 const MyProfile = () => {
 

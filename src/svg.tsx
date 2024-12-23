@@ -46,4 +46,86 @@ export const UserIcon = ({ color }: { color: string }) => {
       </svg>
     );
   };
-    
+  export const ThreeVerticalDots = ({ onClick }: any) => {
+    return (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        onClick={onClick}
+        className="select-none cursor-pointer"
+      >
+        <path
+          d="M11.9922 12H12.0012"
+          stroke="#141B34"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M11.9844 18H11.9934"
+          stroke="#141B34"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M12 6H12.009"
+          stroke="#141B34"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  };
+
+  export const Deleteicon = ({ onClick }: any) => {
+    return (
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 18 18"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        onClick={onClick}
+        className="cursor-default"
+      >
+        <path
+          d="M14.625 4.125L14.1602 11.6438C14.0414 13.5648 13.9821 14.5253 13.5006 15.2159C13.2625 15.5573 12.956 15.8455 12.6005 16.062C11.8816 16.5 10.9192 16.5 8.99452 16.5C7.06734 16.5 6.10372 16.5 5.38429 16.0612C5.0286 15.8443 4.722 15.5556 4.48401 15.2136C4.00266 14.5219 3.94459 13.5601 3.82846 11.6364L3.375 4.125"
+          stroke="#E42727"
+          strokeWidth="1.125"
+          strokeLinecap="round"
+        />
+        <path
+          d="M2.25 4.125H15.75M12.0418 4.125L11.5298 3.0688C11.1897 2.3672 11.0196 2.01639 10.7263 1.79761C10.6612 1.74908 10.5923 1.7059 10.5203 1.66852C10.1954 1.5 9.80558 1.5 9.02588 1.5C8.2266 1.5 7.827 1.5 7.49676 1.67559C7.42357 1.71451 7.35373 1.75943 7.28797 1.80988C6.99123 2.03753 6.82547 2.40116 6.49396 3.12844L6.03969 4.125"
+          stroke="#E42727"
+          strokeWidth="1.125"
+          strokeLinecap="round"
+        />
+        <path
+          d="M7.125 12.375V7.875"
+          stroke="#E42727"
+          strokeWidth="1.125"
+          strokeLinecap="round"
+        />
+        <path
+          d="M10.875 12.375V7.875"
+          stroke="#E42727"
+          strokeWidth="1.125"
+          strokeLinecap="round"
+        />
+      </svg>
+    );
+  };
+export const FileUpload = () =>{
+  return(
+    <svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.83337 16V19.3923C5.83337 23.7189 5.83337 25.8823 7.0148 27.3476C7.25348 27.6436 7.52312 27.9132 7.81915 28.1519C9.28445 29.3333 11.4478 29.3333 15.7744 29.3333C16.7152 29.3333 17.1855 29.3333 17.6163 29.1813C17.7059 29.1497 17.7936 29.1133 17.8794 29.0724C18.2915 28.8752 18.624 28.5427 19.2892 27.8775L25.6046 21.5621C26.3754 20.7913 26.7607 20.406 26.9638 19.9159C27.1667 19.4259 27.1667 18.8808 27.1667 17.7908V13.3333C27.1667 8.305 27.1667 5.79086 25.6046 4.22875C24.0426 2.66666 21.5283 2.66666 16.5 2.66666M17.8334 28.6667V28C17.8334 24.2288 17.8334 22.3432 19.005 21.1716C20.1766 20 22.0622 20 25.8334 20H26.5" stroke="#283577" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M13.8334 6.66666C13.0469 5.85754 10.9537 2.66666 9.83337 2.66666C8.71301 2.66666 6.61983 5.85754 5.83337 6.66666M9.83337 3.99999V13.3333" stroke="#283577" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+  )
+
+}        

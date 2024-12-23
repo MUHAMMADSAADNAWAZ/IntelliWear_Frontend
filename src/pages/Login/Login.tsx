@@ -1,17 +1,17 @@
 
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Input } from "../../components/common";
+import { Button, Input } from "@components/common";
 import { useFormik } from "formik";
-import { LoginDto } from "../../dto/Login.dto";
-import clothImage from "../../assets/clothes9.jpg";
+import { LoginDto } from "@dto/Login.dto";
+import clothImage from "@assets/clothes9.jpg";
 import { toast } from "react-toastify";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { IoEyeOutline } from "react-icons/io5";
 import { useState } from "react";
-import logo from "../../assets/logo3_bg_removed.png.png"
-import { ROUTE_ADMIN_HOME, ROUTE_HOME, ROUTE_SIGNUP } from "../../routes/constants";
+import logo from "@assets/logo3_bg_removed.png.png"
+import { ROUTE_ADMIN_HOME, ROUTE_HOME, ROUTE_SIGNUP } from "@routes/constants";
 import { useDispatch } from "react-redux";
-import { login } from "../../redux/slices/userSlice";
+import { login } from "@redux/slices/userSlice";
 
 const Login = () => {
 

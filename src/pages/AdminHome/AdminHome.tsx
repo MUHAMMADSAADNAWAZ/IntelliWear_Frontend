@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import AdminSidebar from "../../components/AdminSidebar/AdminSidebar"
+import AdminSidebar from "@components/AdminSidebar/AdminSidebar"
 
 const AdminHome = () => {
   return (
@@ -8,7 +8,6 @@ const AdminHome = () => {
    <AdminSidebar />
    
     <div className="flex-1 p-6 bg-gray-100">
-      <h1 className="text-3xl font-bold text-blue-600 pl-5">Welcome to Admin Dashboard</h1>
       
       <Outlet />
 

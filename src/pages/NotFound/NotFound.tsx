@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ROUTE_HOME } from '../../routes/constants';
+import { ROUTE_HOME } from '@routes/constants';
 
 const NotFound = () => {
   return (

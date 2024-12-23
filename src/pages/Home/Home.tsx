@@ -1,5 +1,5 @@
-import Carousal from "../../components/Carousal/Carousal";
-import ClothBlock from "../../components/HomeClothBlock/HomeClothBlock";
+import Carousal from "@components/Carousal/Carousal";
+import ClothBlock from "@components/HomeClothBlock/HomeClothBlock";
 
 const Home = () => {
   return (
@@ -7,6 +7,7 @@ const Home = () => {
       <Carousal />
       <div className="mt-8">
         <ClothBlock />
+        
       </div>
     </div>
   );

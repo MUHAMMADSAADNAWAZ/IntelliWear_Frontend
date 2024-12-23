@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
-import HomeHeader from "../common/Homeheader/homeheader";
+import HomeHeader from "@components/common/Homeheader/homeheader";
 import Footer from "../Footer/Footer";
 import ChatIcon from '@mui/icons-material/Chat';
 import { useSelector } from "react-redux";
-import { selectCart } from "../../redux/slices/cartSlice";
+import { selectCart } from "@redux/slices/cartSlice";
 
 interface HomeLayoutProps {
     children?: ReactNode;

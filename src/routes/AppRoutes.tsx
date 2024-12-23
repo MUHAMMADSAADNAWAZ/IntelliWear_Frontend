@@ -15,26 +15,43 @@ import {
   ROUTE_ADMIN_PRODUCTS,
   ROUTE_ADMIN_REVIEWS,
   ROUTE_MYPROFILE,
-  ROUTE_ADMIN_PROFILE
- } from "./constants"
-import HomeLayout from "../components/HomeLayout/HomeLayout"
-import Home from "../pages/Home/Home"
-import NotFound from "../pages/NotFound/NotFound"
-import Login from "../pages/Login/Login"
-import Signup from "../pages/Signup/Signup"
-import Clothes from "../pages/Clothes/Clothes"
-import MenClothing from "../pages/MenClothing/MenClothing"
-import ProductDetails from "../pages/ProductDetails/ProductDetails"
-import AdminProducts from "../components/AdminProducts/AdminProducts"
-import AdminAnalytics from "../components/AdminAnalytics/AdminAnalytics"
-import AdminReviews from "../components/AdminReviews/AdminReviews"
-import { clothesData , footwearData , accessoriesData  } from "../Data/data"
-import AdminHome from "../pages/AdminHome/AdminHome"
-import ProtectedRoute from "../components/ProtectedRoutes/ProtectedRoute"
+  ROUTE_ADMIN_PROFILE,
+  ROUTE_ADMIN_ADD_PRODUCTS,
+  ROUTE_ADMIN_ORDERS,
+  ROUTE_ADMIN_PENDING_ORDERS,
+  ROUTE_ADMIN_INPROGRESS_ORDERS,
+  ROUTE_ADMIN_COMPLETED_ORDERS,
+  ROUTE_ADMIN_REFUND_ORDERS,
+  ROUTE_ADMIN_CANCELED_ORDERS,
+  ROUTE_ADMIN_CLOTHPRODUCTS,
+  ROUTE_ADMIN_FOOTWEARPRODUCTS,
+  ROUTE_ADMIN_ACCESSORIEPRODUCTS,
+  ROUTE_ADMIN_CUSTOMERS,
+  ROUTE_MYORDERS
+ } from "@routes/constants" 
+import HomeLayout from "@components/HomeLayout/HomeLayout"
+import Home from "@pages/Home/Home"
+import NotFound from "@pages/NotFound/NotFound"
+import Login from "@pages/Login/Login"
+import Signup from "@pages/Signup/Signup" 
+import Clothes from "@pages/Clothes/Clothes"
+import MenClothing from "@pages/MenClothing/MenClothing"
+import ProductDetails from "@pages/ProductDetails/ProductDetails"
+import AdminProducts from "@components/AdminProducts/AdminProducts"
+import AdminAnalytics from "@components/AdminAnalytics/AdminAnalytics"  
+import AdminReviews from "@components/AdminReviews/AdminReviews"
+import { clothesData , footwearData , accessoriesData  } from "@Data/data"
+import AdminHome from "@pages/AdminHome/AdminHome"  
+import ProtectedRoute from "@components/ProtectedRoutes/ProtectedRoute"
 import { useSelector } from "react-redux"
-import { selectUser } from "../redux/slices/userSlice"
-import MyProfile from "../pages/MyProfile/MyProfile"
-import AdminProfile from "../components/AdminProfile/AdminProfile"
+import { selectUser } from "@redux/slices/userSlice"
+import MyProfile from "@pages/MyProfile/MyProfile"  
+import AdminProfile from "@components/AdminProfile/AdminProfile"  
+import AdminOverview from "@pages/AdminOverview/AdminOverview"
+import AddProducts from "@components/Addproducts/AddProducts"
+import OrderMenu from "@components/AdminOrderMenu/OrderMenu"
+import Customers from "@components/Customers/Customers"
+import MyOrders from "@pages/MyOrders/MyOrders"
 
 const AppRoutes = () => {
 
@@ -99,6 +116,12 @@ const AppRoutes = () => {
           </HomeLayout>
         } />
 
+        <Route path={ROUTE_MYORDERS} element={
+          <HomeLayout>
+            <MyOrders />
+          </HomeLayout>
+        } />
+
         <Route path={ROUTE_LOGIN} element={<Login />} />
 
         <Route path={ROUTE_SIGNUP} element={<Signup />} />
@@ -112,10 +135,22 @@ const AppRoutes = () => {
             <AdminHome />
           </ProtectedRoute>
           } >
-            <Route path={ROUTE_ADMIN_PRODUCTS} element={<AdminProducts />} /> 
+            <Route index element={<AdminOverview />} /> 
+            <Route path={ROUTE_ADMIN_PRODUCTS} element={<AdminProducts name="Products"/>} /> 
+            <Route path={ROUTE_ADMIN_CLOTHPRODUCTS} element={<AdminProducts name="Clothes"/>} /> 
+            <Route path={ROUTE_ADMIN_FOOTWEARPRODUCTS} element={<AdminProducts name="Footwear"/>} /> 
+            <Route path={ROUTE_ADMIN_ACCESSORIEPRODUCTS} element={<AdminProducts name="Accessories"/>} /> 
+            <Route path={ROUTE_ADMIN_ADD_PRODUCTS} element={<AddProducts />} /> 
+            <Route path={ROUTE_ADMIN_CUSTOMERS} element={<Customers />} /> 
+            <Route path={ROUTE_ADMIN_PROFILE} element={<AdminProfile />} />
+            <Route path={ROUTE_ADMIN_ORDERS} element={<OrderMenu name="All" />} /> 
+            <Route path={ROUTE_ADMIN_PENDING_ORDERS} element={<OrderMenu name="Pending" />} /> 
+            <Route path={ROUTE_ADMIN_INPROGRESS_ORDERS} element={<OrderMenu name="In Progress" />} /> 
+            <Route path={ROUTE_ADMIN_COMPLETED_ORDERS} element={<OrderMenu name="Completed" />} /> 
+            <Route path={ROUTE_ADMIN_CANCELED_ORDERS} element={<OrderMenu name="Canceled" />} /> 
+            <Route path={ROUTE_ADMIN_REFUND_ORDERS} element={<OrderMenu name="Refund" />} /> 
             <Route path={ROUTE_ADMIN_ANALYTICS} element={<AdminAnalytics />} /> 
             <Route path={ROUTE_ADMIN_REVIEWS} element={<AdminReviews />} />
-            <Route path={ROUTE_ADMIN_PROFILE} element={<AdminProfile />} />
           </Route>            
 
         <Route path="*" element={<NotFound />} />

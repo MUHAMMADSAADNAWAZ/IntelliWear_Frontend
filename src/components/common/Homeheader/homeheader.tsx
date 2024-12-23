@@ -1,11 +1,12 @@
-import { Button } from "../Button";
-import { Input } from "../Input";
+import { Button } from "@components/common/Button";
+import { Input } from "@components/common/Input";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import SearchIcon from "@mui/icons-material/Search";
+import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
 import MicIcon from "@mui/icons-material/Mic";
 // import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
-import logo from "../../../assets/logo3_bg_removed.png.png";
+import logo from "@assets/IntelliWear-logo-for-website-removebg-preview.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   ROUTE_HOME,
@@ -15,6 +16,7 @@ import {
   ROUTE_WOMEN_CLOTHING,
   ROUTE_CHILDREN_CLOTHING,
   ROUTE_MYPROFILE,
+  ROUTE_MYORDERS,
 } from "../../../routes/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../../../redux/slices/userSlice";
@@ -42,6 +44,7 @@ const HomeHeader = () => {
   const handleLogout = () => {
     dispatch(logout());
     dispatch(clearCart());
+    navigate(ROUTE_HOME);
     toast.success("Logged out Successfully");
   };
 
@@ -58,6 +61,15 @@ const HomeHeader = () => {
     >
       <UserIcon color="#1f1f1f" />
       My Profile
+    </div>,
+    <div
+      onClick={() => {
+        navigate(ROUTE_MYORDERS);
+      }}
+      className=" flex justify-start items-center px-4 gap-2 hover:bg-[#F4F5F9] h-[42px] w-[160px] font-Arimo font-normal text-base text-[#1F1F1FF1] rounded-lg"
+    >
+      <ReceiptOutlinedIcon />
+      My Orders
     </div>,
     <div
       onClick={handleLogout}
@@ -82,15 +94,13 @@ const HomeHeader = () => {
 
   return (
     <>
-      <div className="flex flex-col w-full">
-        {/* Main Navbar */}
-        <div className="navbar flex items-center justify-around gap-2 bg-white border-b border-gray-200 shadow-sm">
+       <div className="navbar flex items-center justify-around gap-2 bg-white border-b border-gray-200 shadow-sm py-2">
           {/* Logo */}
           <div className="logo w-1/12 flex items-center gap-4">
             <img
               src={logo}
               alt="website logo"
-              className="w-24 h-24 p-2.5 cursor-pointer"
+              className="h-12 p-2.5 cursor-pointer"
               onClick={() => {
                 navigate(ROUTE_HOME);
               }}
@@ -98,10 +108,10 @@ const HomeHeader = () => {
           </div>
 
           {/* Search Bar */}
-          <div className="search w-1/2 flex items-center justify-center gap-2 border border-green-300 p-2 rounded-lg bg-gray-50">
+          <div className="search w-1/2 flex items-center justify-center gap-2 border border-green-500 p-2 rounded-lg bg-gray-50">
             <Input
               placeholder="Search"
-              className="py-4 border-none outline-none bg-gray-50 text-gray-800 placeholder-gray-500 h-10 px-0"
+              className="border-none outline-none bg-gray-50 text-gray-800 placeholder-gray-500 h-10 px-0"
               iconBackground={true}
               icon={
                 <SearchIcon
@@ -217,7 +227,7 @@ const HomeHeader = () => {
 
         <CartSidebar />
 
-        <div className="flex items-center justify-center p-1 text-lg text-gray-800 bg-gray-100 sticky z-50 w-full top-0">
+        <div className="flex items-center justify-center p-1 text-lg text-gray-800 bg-gray-200 sticky z-20 w-full top-0">
           <div className="flex gap-3">
             <NavLink
               to={ROUTE_MEN_CLOTHING}
@@ -252,7 +262,6 @@ const HomeHeader = () => {
           </div>
         </div>
         
-      </div>
     </>
   );
 };

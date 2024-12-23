@@ -47,9 +47,9 @@ function TextArea<FormValues>({
     onChange = onChange || formik.handleChange;
     // handleBlur = handleBlur || formik.handleBlur;
   }
-  const textAreaBaseClasses = `border-[1px] w-full border-[#302E60]  mt-4`;
-  const labelBaseClass = `text-base text-white font-lexend text-black-700 font-medium  mb-[8px]`;
-  console.log("the error iis", error);
+  const textAreaBaseClasses = `border-[1px] w-full border-[#302E60]`;
+  const labelBaseClass = `text-[#1F1F1F] font-normal text-base leading-6 mb-2 font-sans`;
+  // console.log("the error iis", error);
 
   const shouldDisplayError =
     (touched || (formik && formik.submitCount > 0)) &&
@@ -73,7 +73,7 @@ function TextArea<FormValues>({
         </div>
       </div>
       {shouldDisplayError && (
-        <p className="text-red-500 italic  mr-0 w-full text-sm  text-left mt-2 mx-2">
+        <p className="text-red-500 italic  mr-0 w-full text-sm  text-left mx-2">
           {error}
         </p>
       )}

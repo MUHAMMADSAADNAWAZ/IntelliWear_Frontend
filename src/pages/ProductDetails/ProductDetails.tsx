@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom";
-import { accessoriesData, clothesData, footwearData } from "../../Data/data";
+import { accessoriesData, clothesData, footwearData } from "@Data/data";
 import { useState } from "react";
-import { Button, Select } from "../../components/common";
+import { Button, Select } from "@components/common";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart , selectProduct, updateQuantity } from "../../redux/slices/cartSlice";
+import { addToCart , selectProduct, updateQuantity } from "@redux/slices/cartSlice";
 import { ClothInfoProps } from "../../components/HomeClothInfo/HomeClothInfo";
 import { toast } from "react-toastify";
-import { selectUser } from "../../redux/slices/userSlice";
+import { selectUser } from "@redux/slices/userSlice";
 
 const ProductDetails = () => {
 
@@ -71,7 +71,7 @@ const ProductDetails = () => {
       
         <h2 className="text-2xl font-bold text-gray-800">{product.name}</h2>
         <p className="text-xl text-gray-600 font-semibold">Price : {product.price} Rs</p>
-        <p className="text-gray-700 text-lg font-medium">Description : {product.desc}</p>
+        <p className="text-gray-700 text-lg font-medium">Description : {product.description}</p>
 
         <hr />
 

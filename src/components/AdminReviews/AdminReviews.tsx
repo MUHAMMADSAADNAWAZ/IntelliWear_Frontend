@@ -1,7 +1,9 @@
 
-import accessory1 from "../../assets/ac1.jpeg"
-import accessory2 from "../../assets/ac2.jpeg"
-import accessory3 from "../../assets/ac3.jpeg"
+import { Tooltip } from "@mui/material";
+import accessory1 from "@assets/ac1.jpeg"
+import accessory2 from "@assets/ac2.jpeg"
+import accessory3 from "@assets/ac3.jpeg"
+import BaseDataTable from "@components/BaseDataTable/BaseDataTable";
 
 interface Review {
   id: number;
@@ -48,91 +50,85 @@ const dummyReviews: Review[] = [
 ];
 
 const AdminReviews = () => {
-  // const reviews = useState<Review[]>(dummyReviews);
-
-  // const handleStatusChange = (id: number, newStatus: "Approved" | "Rejected") => {
-  //   const updatedReviews = reviews.map((review) =>
-  //     review.id === id ? { ...review, status: newStatus } : review
-  //   );
-  //   setReviews(updatedReviews);
-  // };
 
   return (
     <div className="p-6 bg-gray-100 ">
-      <h2 className="text-3xl font-bold mb-6">Product Reviews</h2>
+      <h2 className="text-3xl font-bold mb-6 text-blue-600">Product Reviews</h2>
 
-      <div className="bg-white p-4 rounded-lg shadow ">
-        <table className=" bg-white text-sm">
-          <thead className="bg-gray-200 text-gray-700 uppercase">
-            <tr>
-              <th className="px-6 py-3 w-[30%]">Product</th>
-              <th className="px-6 py-3 w-[10%]">User</th>
-              <th className="px-6 py-3 w-[10%]">Rating</th>
-              <th className="px-6 py-3 w-[30%]">Review</th>
-              {/* <th className="px-6 py-3">Status</th> */}
-              <th className="px-6 py-3 w-[20%]">Date</th>
-              {/* <th className="px-6 py-3">Actions</th> */}
-            </tr>
-          </thead>
-          <tbody>
-            {dummyReviews.map((review) => (
-              <tr key={review.id} className="border-b ">
-                <td className="px-6 py-4 flex items-center gap-3 border-r">
-                  <img
-                    src={review.productImg}
-                    alt={review.productName}
-                    className="w-10 h-10 object-cover rounded"
-                  />
-                  <span>{review.productName}</span>
-                </td>
-                <td className="px-6 py-4 border-r w-[15%]">{review.userName}</td>
-                <td className="px-6 py-4 border-r w-[10%]">{`⭐️ ${review.rating}/5`}</td>
-                <td className="px-6 py-4 border-r w-[30%] break-all">{review.reviewText}</td>
-                {/* <td className="px-6 py-4">
-                  <span
-                    className={`px-2 py-1 rounded ${
-                      review.status === "Approved"
-                        ? "bg-green-200 text-green-700"
-                        : review.status === "Rejected"
-                        ? "bg-red-200 text-red-700"
-                        : "bg-yellow-200 text-yellow-700"
-                    }`}
-                  >
-                    {review.status}
-                  </span>
-                </td> */}
-                <td className="px-6 py-4 w-[20%]">{review.date}</td>
-                {/* <td className="px-6 py-4 flex gap-3">
-                  {review.status === "Pending" && (
-                    <>
-                      <button
-                        onClick={() => handleStatusChange(review.id, "Approved")}
-                        className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
-                      >
-                        Approve
-                      </button>
-                      <button
-                        onClick={() => handleStatusChange(review.id, "Rejected")}
-                        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                      >
-                        Reject
-                      </button>
-                    </>
-                  )}
-                  <button
-                    onClick={() =>
-                      setReviews(reviews.filter((r) => r.id !== review.id))
-                    }
-                    className="bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-600"
-                  >
-                    Delete
-                  </button>
-                </td> */}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <BaseDataTable 
+      customStyles={{
+        headRow: {
+          style: {
+            background: "linear-gradient(to bottom right, #f8fafc, #f8fafc)",
+            color: "#1b2559",
+          },
+        },
+        pagination: {
+          style: {
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+          },
+        },
+        row: {
+          style: {
+            border: "1px solid",
+          },
+        },
+      }}
+      columns={[
+        {
+          name: "Product ID",
+          style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
+          selector: (row: Review) => (row.id),
+          sortable: true,
+        },
+        {
+          name: "Product",
+          style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
+          selector: (row: Review) => (
+              <Tooltip title={row.productName} placement="top" arrow>
+            <div className=" py-4 flex items-center justify-center gap-3">
+            <span>{row.productName}</span>
+          </div>
+          </Tooltip>
+          ),
+          sortable: true,
+        },
+        {
+          name: "Customer",
+          style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
+          selector: (row: Review) => (row.userName),
+          sortable: true,
+        },
+        {
+          name: "Ratings",
+          style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
+          selector: (row: Review) => (`⭐️ ${row.rating}/5`),
+          sortable: true,
+        },
+        {
+          name: "Review",
+          style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
+          selector: (row: Review) => (
+            <Tooltip title={row.reviewText} arrow placement="top">
+                <span>{row.reviewText}</span>
+             </Tooltip>
+          ),
+          
+          sortable: true,
+        },
+        {
+          name: "Date",
+          style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
+          selector: (row: Review) => (row.date),
+          sortable: true,
+        },
+      ]}
+      data={dummyReviews}
+      pagination
+      />
+
     </div>
   );
 };

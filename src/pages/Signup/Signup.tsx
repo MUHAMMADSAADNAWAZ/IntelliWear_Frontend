@@ -1,15 +1,15 @@
 
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Input } from "../../components/common";
+import { Button, Input } from "@components/common";
 import { useFormik } from "formik";
-import { SignUpDto } from "../../dto/Signup.dto";
-import clothImage from "../../assets/clothes10.jpg";
+import { SignUpDto } from "@dto/Signup.dto";
+import clothImage from "@assets/clothes10.jpg";
 import { toast } from "react-toastify";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { IoEyeOutline } from "react-icons/io5";
 import { useState } from "react";
-import logo from "../../assets/logo3_bg_removed.png.png"
-import { ROUTE_HOME, ROUTE_LOGIN } from "../../routes/constants";
+import logo from "@assets/logo3_bg_removed.png.png"
+import { ROUTE_HOME, ROUTE_LOGIN } from "@routes/constants";
 
 
 const Signup = () => {
