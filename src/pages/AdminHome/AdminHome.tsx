@@ -1,6 +1,5 @@
+import { AdminSidebar } from "@components/AdminSidebar"
 import { Outlet } from "react-router-dom"
-import AdminSidebar from "@components/AdminSidebar/AdminSidebar"
-
 const AdminHome = () => {
   return (
     <div className="flex">

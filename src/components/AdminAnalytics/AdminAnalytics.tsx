@@ -1,5 +1,5 @@
-import BaseDataTable from "@components/BaseDataTable/BaseDataTable";
-import AnalyticsComponent from "@components/SalesAnalyticsComponent/AnalyticsComponent"; 
+import { BaseDataTable } from "@components/BaseDataTable";
+import { SalesAnalyticsComponent } from "@components/SalesAnalyticsComponent";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 const Analytics =[
@@ -65,7 +65,7 @@ const AdminAnalytics= () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
        
         {Analytics.map((analtics)=>{
-          return <AnalyticsComponent name={analtics.name} price={analtics.price} color={analtics.color} />
+          return <SalesAnalyticsComponent name={analtics.name} price={analtics.price} color={analtics.color} />
         })}
 
       </div>

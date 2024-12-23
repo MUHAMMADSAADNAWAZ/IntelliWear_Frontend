@@ -3,7 +3,7 @@ import { Tooltip } from "@mui/material";
 import accessory1 from "@assets/ac1.jpeg"
 import accessory2 from "@assets/ac2.jpeg"
 import accessory3 from "@assets/ac3.jpeg"
-import BaseDataTable from "@components/BaseDataTable/BaseDataTable";
+import { BaseDataTable } from "@components/BaseDataTable";
 
 interface Review {
   id: number;

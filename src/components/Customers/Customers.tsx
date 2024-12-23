@@ -1,5 +1,5 @@
 import { Tooltip } from "@mui/material";
-import BaseDataTable from "@components/BaseDataTable/BaseDataTable";
+import { BaseDataTable } from "@components/BaseDataTable";
 import CopyToClipboard from "react-copy-to-clipboard";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { useState } from "react";

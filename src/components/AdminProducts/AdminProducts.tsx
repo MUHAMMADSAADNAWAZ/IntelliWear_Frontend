@@ -1,9 +1,8 @@
 import { clothesData , footwearData , accessoriesData } from "@Data/data";
-import ActionsMenu from "@components/ActionMenu/ActionMenu";
-import BaseDataTable from "@components/BaseDataTable/BaseDataTable";
-
-
 import './AdminProducts.css'
+import { BaseDataTable } from "@components/BaseDataTable";
+import { ActionsMenu } from "@components/ActionMenu";
+
 
 interface Product {
   id: number;

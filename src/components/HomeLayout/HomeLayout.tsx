@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import HomeHeader from "@components/common/Homeheader/homeheader";
+import { HomeHeader } from "@components/common";
 import Footer from "../Footer/Footer";
 import ChatIcon from '@mui/icons-material/Chat';
 import { useSelector } from "react-redux";

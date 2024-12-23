@@ -4,7 +4,7 @@ interface AnalyticsComponentProps {
     color: string
 }
 
-const AnalyticsComponent = ({name , price , color}: AnalyticsComponentProps) => {
+const SalesAnalyticsComponent = ({name , price , color}: AnalyticsComponentProps) => {
   return (
     <div className="bg-white p-4 rounded-lg shadow">
     <h3 className="text-lg font-semibold text-gray-700">{name}</h3>
@@ -13,4 +13,4 @@ const AnalyticsComponent = ({name , price , color}: AnalyticsComponentProps) => 
   )
 }
 
-export default AnalyticsComponent
+export default SalesAnalyticsComponent

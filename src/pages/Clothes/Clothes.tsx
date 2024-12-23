@@ -1,4 +1,4 @@
-import ClothInfo , { ClothInfoProps } from "@components/HomeClothInfo/HomeClothInfo"
+import ClothInfo, { ClothInfoProps } from "@components/HomeClothInfo/HomeClothInfo";
 
 interface ClothProps{
   heading: string;

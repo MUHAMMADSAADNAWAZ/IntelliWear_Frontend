@@ -4,9 +4,9 @@ import { useState } from "react";
 import { Button, Select } from "@components/common";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart , selectProduct, updateQuantity } from "@redux/slices/cartSlice";
-import { ClothInfoProps } from "../../components/HomeClothInfo/HomeClothInfo";
 import { toast } from "react-toastify";
 import { selectUser } from "@redux/slices/userSlice";
+import { ClothInfoProps } from "@components/HomeClothInfo/HomeClothInfo";
 
 const ProductDetails = () => {
 

@@ -1,8 +1,8 @@
+import { BaseDataTable } from '@components/BaseDataTable';
+import OrdersActionMenu from '@components/OrdersActionMenu/OrderActionsMenu';
 import { useState, useEffect } from 'react';
 // import { NavLink } from 'react-router-dom';
 // import { Button } from '@mui/material';
-import BaseDataTable from '@components/BaseDataTable/BaseDataTable';
-import OrdersActionMenu from '@components/OrdersActionMenu/OrderActionsMenu';
 import { toast } from 'react-toastify';
 
 const OrderMenu = ({ name }: { name?: string }) => {
