@@ -1,10 +1,11 @@
 import { useFormik } from "formik";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+
 import { Button, Input } from "@components/common";
 import { MyProfileDto } from "@dto/myprofile.dto";
-import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
-import { selectUser } from "@redux/slices/userSlice";
 import { PasswordDto } from "@dto/password.dto";
+import { selectUser } from "@redux/slices/userSlice";
 
 const AdminProfile = () => {
   const user = useSelector(selectUser);

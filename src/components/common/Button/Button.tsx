@@ -50,7 +50,7 @@ const Button: React.FC<ButtonProps> = ({
       variantClasses = "bg-blue-500 hover:bg-blue-700 ";
   }
 
-  const buttonBaseClasses = `py-[14px] px-6 rounded-lg font-medium font-lexend gap-2 flex items-center justify-center text-white ${disabled ? "bg-gray-300 " : variantClasses} ${fullWidth && "w-full"}`;
+  const buttonBaseClasses = `py-[14px] px-6 rounded-lg font-medium font-poppins gap-2 flex items-center justify-center text-white ${disabled ? "bg-gray-300 " : variantClasses} ${fullWidth && "w-full"}`;
   return (
     <button
       disabled={disabled}

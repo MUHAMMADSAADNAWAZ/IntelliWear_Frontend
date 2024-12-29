@@ -1,16 +1,15 @@
-
-import { Link, useNavigate } from "react-router-dom";
-import { Button, Input } from "@components/common";
 import { useFormik } from "formik";
-import { SignUpDto } from "@dto/Signup.dto";
-import clothImage from "@assets/clothes10.jpg";
-import { toast } from "react-toastify";
+import { useState } from "react";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { IoEyeOutline } from "react-icons/io5";
-import { useState } from "react";
-import logo from "@assets/logo3_bg_removed.png.png"
-import { ROUTE_HOME, ROUTE_LOGIN } from "@routes/constants";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
+import clothImage from "@assets/clothes10.jpg";
+import logo from "@assets/logo3_bg_removed.png.png";
+import { Button, Input } from "@components/common";
+import { SignUpDto } from "@dto/Signup.dto";
+import { ROUTE_HOME, ROUTE_LOGIN } from "@routes/constants";
 
 const Signup = () => {
 
@@ -39,14 +38,14 @@ const Signup = () => {
     });
 
     return (
-        <div className="flex min-h-screen">
+        <div className="flex flex-col-reverse md:flex-row min-h-screen">
             
-            <div className="w-1/2 bg-cover bg-center" style={{ backgroundImage: `url(${clothImage})` }}>
+            <div className="w-full md:w-1/2 bg-cover bg-center " style={{ backgroundImage: `url(${clothImage})` }}>
                 
             </div>
 
             
-            <div className="w-1/2 flex items-center justify-center bg-gray-100">
+            <div className="w-full md:w-1/2 flex items-center justify-center bg-gray-100">
                 <form onSubmit={form.handleSubmit} className="bg-white p-8 rounded-lg shadow-lg w-3/4 max-w-md">
 
                 <div className=" text-center " >

@@ -25,8 +25,8 @@ const Tabs: React.FC<TabsProps> = ({ TabsData }) => {
                     key={index}
                     className={
                       item?.label === activeTab
-                        ? `${styles.active}  border-b-2 border-orange-500 !font-Arimo !font-bold !text-base`
-                        : "text-[#8B8B8B] !font-Arimo !font-normal !text-base"
+                        ? `${styles.active}  border-b-2 border-orange-500 !font-poppins !font-bold !text-base`
+                        : "text-[#8B8B8B] !font-poppins !font-normal !text-base"
                     }
                     onClick={() => changeTab(item?.label)}
                   >

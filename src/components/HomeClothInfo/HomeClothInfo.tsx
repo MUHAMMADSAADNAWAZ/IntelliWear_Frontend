@@ -1,10 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "@redux/slices/cartSlice";
+import { ShoppingCart } from 'lucide-react';
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+
+import { addToCart } from "@redux/slices/cartSlice";
 import { selectUser } from "@redux/slices/userSlice";
 import { ROUTE_LOGIN } from "@routes/constants";
-import { ShoppingCart } from 'lucide-react';
 
 export interface ClothInfoProps {
   id: number;
@@ -50,13 +51,13 @@ const ClothInfo = ({ img, name, price, id, product , description }: ClothInfoPro
         </div>
       </Link>
 
-      <div className="p-4 space-y-3">
+      <div className="p-4 space-y-3 h-full flex flex-col">
         <div className="flex justify-between items-center">
           <h2 className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-200">
             {name}
           </h2>
           <span className="text-blue-600 font-semibold text-lg">
-            {price} Rs
+            Rs: {price}
           </span>
         </div>
 
@@ -68,7 +69,7 @@ const ClothInfo = ({ img, name, price, id, product , description }: ClothInfoPro
 
         <button 
           onClick={handleAddToCart}
-          className="w-full flex items-center justify-center gap-2 bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition-all duration-300 group/button"
+          className="w-full flex items-center justify-center gap-2 bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition-all duration-300 group/button mt-auto"
         >
           <ShoppingCart
             size={20} 

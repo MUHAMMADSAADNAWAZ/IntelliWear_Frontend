@@ -1,35 +1,37 @@
+
+import { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import ImageSearchIcon from "@mui/icons-material/ImageSearch";
+import MicIcon from "@mui/icons-material/Mic";
+import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
+import SearchIcon from "@mui/icons-material/Search";
+import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
+
 import { Button } from "@components/common/Button";
 import { Input } from "@components/common/Input";
-import ImageSearchIcon from "@mui/icons-material/ImageSearch";
-import SearchIcon from "@mui/icons-material/Search";
-import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
-import MicIcon from "@mui/icons-material/Mic";
 // import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import logo from "@assets/IntelliWear-logo-for-website-removebg-preview.png";
-import { NavLink, useNavigate } from "react-router-dom";
+import { CartSidebar } from "@components/CartSidebar";
+import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import {
+  clearCart,
+  selectCart,
+  toggleCart,
+} from "@redux/slices/cartSlice";
+import { logout, selectUser } from "@redux/slices/userSlice";
+import {
+  ROUTE_CHILDREN_CLOTHING,
   ROUTE_HOME,
   ROUTE_LOGIN,
-  ROUTE_SIGNUP,
   ROUTE_MEN_CLOTHING,
-  ROUTE_WOMEN_CLOTHING,
-  ROUTE_CHILDREN_CLOTHING,
-  ROUTE_MYPROFILE,
   ROUTE_MYORDERS,
-} from "../../../routes/constants";
-import { useDispatch, useSelector } from "react-redux";
-import { logout, selectUser } from "../../../redux/slices/userSlice";
-import { toast } from "react-toastify";
-import { useRef, useState } from "react";
-import {
-  selectCart,
-  clearCart,
-  toggleCart,
-} from "../../../redux/slices/cartSlice";
-import CartSidebar from "../../CartSidebar/CartSidebar";
-import { LogoutIcon, UserIcon } from "../../../svg";
-import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
+  ROUTE_MYPROFILE,
+  ROUTE_SIGNUP,
+  ROUTE_WOMEN_CLOTHING,
+} from "@routes/constants";
+import { LogoutIcon, UserIcon } from "@svg";
 
 const HomeHeader = () => {
   const navigate = useNavigate();
@@ -57,7 +59,7 @@ const HomeHeader = () => {
       onClick={() => {
         navigate(ROUTE_MYPROFILE);
       }}
-      className=" flex justify-start items-center px-4 gap-2 hover:bg-[#F4F5F9] h-[42px] w-[160px] font-Arimo font-normal text-base text-[#1F1F1FF1] rounded-lg"
+      className=" flex justify-start items-center px-2 md:px-4 gap-2 hover:bg-[#F4F5F9] h-auto md:h-10 md:w-40 font-poppins font-normal text-base text-[#1F1F1FF1] rounded-lg"
     >
       <UserIcon color="#1f1f1f" />
       My Profile
@@ -66,14 +68,14 @@ const HomeHeader = () => {
       onClick={() => {
         navigate(ROUTE_MYORDERS);
       }}
-      className=" flex justify-start items-center px-4 gap-2 hover:bg-[#F4F5F9] h-[42px] w-[160px] font-Arimo font-normal text-base text-[#1F1F1FF1] rounded-lg"
+      className=" flex justify-start items-center px-2 md:px-4 gap-2  hover:bg-[#F4F5F9] h-auto md:h-10 w-auto md:w-40 font-poppins font-normal text-base text-[#1F1F1FF1] rounded-lg"
     >
       <ReceiptOutlinedIcon />
       My Orders
     </div>,
     <div
       onClick={handleLogout}
-      className=" flex justify-start items-center  w-[160px] px-4 gap-2 hover:bg-[#F4F5F9] h-[42px] font-Arimo font-normal text-base text-[#E42727F1] rounded-lg "
+      className=" flex justify-start items-center px-2 md:px-4 gap-2 w-auto md:w-40  hover:bg-[#F4F5F9] h-auto md:h-10 font-poppins font-normal text-base text-[#E42727F1] rounded-lg "
     >
       <LogoutIcon />
       Log Out
@@ -96,11 +98,11 @@ const HomeHeader = () => {
     <>
        <div className="navbar flex items-center justify-around gap-2 bg-white border-b border-gray-200 shadow-sm py-2">
           {/* Logo */}
-          <div className="logo w-1/12 flex items-center gap-4">
+          <div className="logo w-28 md:w-1/12 flex items-center gap-4">
             <img
               src={logo}
               alt="website logo"
-              className="h-12 p-2.5 cursor-pointer"
+              className=" p-2.5 cursor-pointer"
               onClick={() => {
                 navigate(ROUTE_HOME);
               }}
@@ -108,28 +110,31 @@ const HomeHeader = () => {
           </div>
 
           {/* Search Bar */}
-          <div className="search w-1/2 flex items-center justify-center gap-2 border border-green-500 p-2 rounded-lg bg-gray-50">
+          <div className="search w-1/2 flex items-center justify-center gap-1 md:gap-2 border border-green-500 p-1.5 md:p-2 rounded-lg bg-gray-50">
+          <div className="w-full">
+
             <Input
               placeholder="Search"
-              className="border-none outline-none bg-gray-50 text-gray-800 placeholder-gray-500 h-10 px-0"
+              className="border-none outline-none bg-gray-50 text-gray-800 placeholder-gray-500 h-0 md:h-10 px-0"
               iconBackground={true}
               icon={
                 <SearchIcon
-                  style={{ fontSize: 25, color: "#4A5568" }}
-                  className="cursor-pointer"
+                  style={{ color: "#4A5568" }}
+                  className="cursor-pointer text-xs md:text-lg"
                 />
               }
-            />
-            <div className="bg-gray-100 p-2 rounded-full">
+              />
+              </div>
+            <div className="bg-gray-100 p-1.5 md:p-2 rounded-full w-1/6 md:w-auto flex items-center justify-center">
               <MicIcon
-                style={{ fontSize: 25, color: "#4A5568" }}
-                className="cursor-pointer"
+                style={{ color: "#4A5568" }}
+                className="cursor-pointer text-xs md:text-lg"
               />
             </div>
-            <div className="bg-gray-100 p-2 rounded-full">
+            <div className="bg-gray-100 p-1.5 md:p-2 rounded-full w-1/6 md:w-auto flex items-center justify-center">
               <ImageSearchIcon
-                style={{ fontSize: 25, color: "#4A5568" }}
-                className="cursor-pointer"
+                style={{ color: "#4A5568" }}
+                className="cursor-pointer text-xs md:text-lg"
               />
             </div>
           </div>
@@ -140,9 +145,10 @@ const HomeHeader = () => {
               dispatch(toggleCart());
             }}
           >
-            <div className="bg-gray-100 p-2 rounded-full">
+            <div className="bg-gray-100 p-1.5 md:p-2 rounded-full">
               <ShoppingBagOutlinedIcon
-                style={{ fontSize: 30, color: "#4A5568" }}
+                style={{ color: "#4A5568" }}
+                className="text-sx md:text-lg"
               />
             </div>
             {totalQuantity > 0 && (
@@ -153,11 +159,11 @@ const HomeHeader = () => {
           </div>
 
           {/* Auth Buttons */}
-          <div className="w-1/5 flex gap-2 items-center justify-center">
+          <div className="w-1/5 flex gap-1 md:gap-2 items-center justify-center">
             {email === undefined ? (
               <>
                 <Button
-                  className="bg-blue-600 text-white hover:bg-blue-700 px-3 py-2 rounded-md"
+                  className="bg-blue-600 text-white hover:bg-blue-700 text-xs md:text-base font-normal md:font-medium p-1 md:px-3 md:py-2 rounded-md"
                   onClick={() => {
                     navigate(ROUTE_LOGIN);
                   }}
@@ -165,7 +171,7 @@ const HomeHeader = () => {
                   Login
                 </Button>
                 <Button
-                  className="bg-blue-600 text-white hover:bg-blue-700 px-3 py-2 rounded-md"
+                  className="bg-blue-600 text-white hover:bg-blue-700 text-xs md:text-base font-normal md:font-medium p-1 md:px-3 md:py-2 rounded-md"
                   onClick={() => {
                     navigate(ROUTE_SIGNUP);
                   }}
@@ -174,18 +180,20 @@ const HomeHeader = () => {
                 </Button>
               </>
             ) : (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 relative">
                 <IconButton
                   onClick={handleOpenUserMenu}
                   ref={avatarRef}
-                  sx={{ p: 0 }}
+                  sx={{ p: 0  }}
                 >
                   <Avatar>SN</Avatar>
                 </IconButton>
-                <p className="text-gray-800 text-lg">Saad Nawaz</p>
+             
+
+                <p className="text-gray-800 text-sm md:text-lg hidden md:block">Saad Nawaz</p>
                 <Menu
                   ref={menuRef}
-                  sx={{ mt: "45px" }}
+                  sx={{ mt: "45px" , position: "absolute" }}
                   id="menu-appbar"
                   anchorEl={anchorElUser}
                   anchorOrigin={{
@@ -227,7 +235,7 @@ const HomeHeader = () => {
 
         <CartSidebar />
 
-        <div className="flex items-center justify-center p-1 text-lg text-gray-800 bg-gray-200 sticky z-20 w-full top-0">
+        <div className="flex items-center justify-center p-1 text-base md:text-lg text-gray-800 bg-gray-200 sticky z-20 w-full top-0">
           <div className="flex gap-3">
             <NavLink
               to={ROUTE_MEN_CLOTHING}
@@ -267,177 +275,3 @@ const HomeHeader = () => {
 };
 
 export default HomeHeader;
-
-// <>
-//   <div className="flex flex-col w-full">
-//     {/* Main Navbar */}
-//     <div className="navbar flex items-center justify-around gap-2 bg-gray-900">
-//       {/* Logo */}
-//       <div className="logo w-1/12 flex items-center gap-4">
-//         <img
-//           src={logo}
-//           alt="website logo"
-//           className="w-24 h-24 p-2.5 cursor-pointer"
-//           onClick={() => {
-//             navigate(ROUTE_HOME);
-//           }}
-//         />
-//         {/* <h1 className="text-3xl font-bold text-yellow-500">IntelliWear</h1> */}
-//       </div>
-
-//       {/* Search Bar */}
-//       <div className="search w-1/2 flex items-center justify-center gap-2 border border-blue-400 p-2 rounded-lg">
-
-//         <Input
-//           placeholder="Search"
-//           className="py-4 border-none outline-none bg-gray-800 text-white placeholder-gray-500 h-10 px-0 "
-//           icon={
-//             <SearchIcon
-//               style={{ fontSize: 25, color: "#FFD700" }}
-//               className="cursor-pointer"
-//             />
-//           }
-//         />
-//         <div className="bg-gray-800 p-2 rounded-full">
-//           <MicIcon
-//             style={{ fontSize: 25, color: "#FFD700" }}
-//             className="cursor-pointer"
-//           />
-//           </div>
-//           <div className="bg-gray-800 p-2 rounded-full">
-//         <ImageSearchIcon
-//           style={{ fontSize: 25, color: "#FFD700" }}
-//           className="cursor-pointer "
-//           />
-//           </div>
-//       </div>
-
-//       <div
-//         className="cart relative cursor-pointer "
-//         onClick={() => {
-//           dispatch(toggleCart());
-//         }}
-//       >
-//         <div className="bg-gray-800 p-2 rounded-full">
-//         <ShoppingBagOutlinedIcon
-//           style={{ fontSize: 30, color: "#FFD700" }}
-//         />
-//         </div>
-//         {totalQuantity > 0 && (
-//           <span className="absolute -bottom-1 left-5 text-xs bg-red-500 rounded-full w-5 h-5 flex items-center justify-center">
-//             {totalQuantity}
-//           </span>
-//         )}
-//       </div>
-
-//       {/* Auth Buttons */}
-//       <div className="w-1/5 flex gap-2 items-center justify-center ">
-//         {email === undefined ? (
-//           <>
-//             <Button
-//               className="bg-blue-500 text-white hover:bg-blue-600 px-3 py-2"
-//               onClick={() => {
-//                 navigate(ROUTE_LOGIN);
-//               }}
-//             >
-//               Login
-//             </Button>
-//             <Button
-//               className="bg-blue-500 text-white hover:bg-blue-600 px-3 py-2"
-//               onClick={() => {
-//                 navigate(ROUTE_SIGNUP);
-//               }}
-//             >
-//               SignUp
-//             </Button>
-//           </>
-//         ) : (
-
-//           <div className="flex items-center gap-2  ">
-//             <IconButton
-//               onClick={handleOpenUserMenu}
-//               ref={avatarRef}
-//               sx={{ p: 0 }}
-//             >
-//               <Avatar>SN</Avatar>
-//             </IconButton>
-//             <p className="text-white text-lg">Saad Nawaz</p>
-//             <Menu
-//               ref={menuRef}
-//               sx={{ mt: "45px" }}
-//               id="menu-appbar"
-//               anchorEl={anchorElUser}
-//               anchorOrigin={{
-//                 vertical: "top",
-//                 horizontal: "right",
-//               }}
-//               keepMounted
-//               transformOrigin={{
-//                 vertical: "top",
-//                 horizontal: "center",
-//               }}
-//               disableScrollLock={true}
-//               open={Boolean(anchorElUser)}
-//               onClose={handleCloseUserMenu}
-//             >
-//               {settings.map((setting, id) => (
-//                 <MenuItem
-//                   key={id}
-//                   onClick={handleCloseUserMenu}
-//                   sx={{
-//                     backgroundColor: "#FFFFFF",
-//                     height: "100%",
-//                     fontFamily: "Arimo",
-//                     "&:hover": {
-//                       backgroundColor: "transparent", // Custom hover color
-//                       color: "none", // Change text color on hover if needed
-//                     },
-//                   }}
-//                 >
-//                   {setting}
-//                 </MenuItem>
-//               ))}
-//             </Menu>
-//           </div>
-//         )}
-//       </div>
-//     </div>
-
-//     <CartSidebar />
-//   </div>
-
-//   <div className="flex items-center justify-center p-1 text-lg text-white bg-gray-800 sticky z-10 w-full top-0">
-//     <div className="flex gap-3">
-//       <NavLink
-//         to={ROUTE_MEN_CLOTHING}
-//         className={({ isActive }) =>
-//           isActive
-//             ? "text-yellow-500"
-//             : "hover:text-yellow-500 cursor-pointer"
-//         }
-//       >
-//         Men
-//       </NavLink>
-//       <NavLink
-//         to={ROUTE_WOMEN_CLOTHING}
-//         className={({ isActive }) =>
-//           isActive
-//             ? "text-yellow-500"
-//             : "hover:text-yellow-500     cursor-pointer"
-//         }
-//       >
-//         Women
-//       </NavLink>
-//       <NavLink
-//         to={ROUTE_CHILDREN_CLOTHING}
-//         className={({ isActive }) =>
-//           isActive
-//             ? "text-yellow-500"
-//             : "hover:text-yellow-500 cursor-pointer"
-//         }
-//       >
-//         Children
-//       </NavLink>
-//     </div>
-//   </div>
-// </>

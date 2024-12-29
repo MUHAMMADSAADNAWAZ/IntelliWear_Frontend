@@ -1,8 +1,10 @@
 export { BaseDataTable } from "./BaseDataTable";
 export {ActionsMenu} from "./ActionMenu"
 export {AddProducts} from "./Addproducts"
+export {EditProducts} from "./EditProducts"
 export {AdminAnalytics} from "./AdminAnalytics"
 export {OrderMenu} from "./AdminOrderMenu"
+export {OrderDetailsDialog} from "./OrderDetails"
 export {AdminProducts} from "./AdminProducts"
 export {AdminProfile} from "./AdminProfile"
 export {AdminSidebar} from "./AdminSidebar"

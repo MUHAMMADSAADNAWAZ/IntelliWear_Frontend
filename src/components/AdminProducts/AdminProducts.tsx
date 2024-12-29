@@ -1,7 +1,8 @@
-import { clothesData , footwearData , accessoriesData } from "@Data/data";
-import './AdminProducts.css'
-import { BaseDataTable } from "@components/BaseDataTable";
 import { ActionsMenu } from "@components/ActionMenu";
+import { BaseDataTable } from "@components/BaseDataTable";
+import { accessoriesData, clothesData, footwearData } from "@Data/data";
+
+import './AdminProducts.css';
 
 
 interface Product {
@@ -9,6 +10,7 @@ interface Product {
   img: string;
   name: string;
   price: number;
+  avaQuantity: number;
   category: string;
   description: string;
 }
@@ -64,7 +66,7 @@ const AdminProducts = ({name} : {name?: string}) => {
           name: "Image",
           style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
           selector: (row: Product) => ( <img src={row.img} alt={row.name} className="h-16 w-16 object-cover rounded py-2" />),
-          sortable: true,
+          sortable: false,
         },
         {
           name: "Name",
@@ -79,6 +81,12 @@ const AdminProducts = ({name} : {name?: string}) => {
           sortable: true,
         },
         {
+          name: "Quantity",
+          style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
+          selector: (row: Product) => (row.avaQuantity),
+          sortable: true,
+        },
+        {
           name: "Price (PKR)",
           style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
           selector: (row: Product) => (row.price),
@@ -89,9 +97,7 @@ const AdminProducts = ({name} : {name?: string}) => {
           style: "display:flex;justify-content:center !important",
           selector: (row: Product) => (
             <ActionsMenu
-              onEdit={() => {
-                console.log("Edit clicked for product:", row.name);
-              }}
+              id = {row?.id}
               onDelete={() => {
                 console.log("Delete clicked for product:", row.name);
               }}

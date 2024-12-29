@@ -1,8 +1,10 @@
-import { Tooltip } from "@mui/material";
-import { BaseDataTable } from "@components/BaseDataTable";
-import CopyToClipboard from "react-copy-to-clipboard";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { Tooltip } from "@mui/material";
 import { useState } from "react";
+import CopyToClipboard from "react-copy-to-clipboard";
+
+import { BaseDataTable } from "@components/BaseDataTable";
+import { customers } from "@Data/data";
 
 interface Customer {
     id: number;
@@ -11,115 +13,6 @@ interface Customer {
     orders: number;
     totalSpend: string;
 }
-
-const customers = [
-    {
-      id: 1,
-      name: "Ahmed Khan",
-      email: "ahmed.khan@example.com",
-      orders: 4,
-      totalSpend: 4000,
-    },
-    {
-      id: 2,
-      name: "Sara Ahmed",
-      email: "sara.ahmed@example.com",
-      orders: 6,
-      totalSpend: 6000,
-    },
-    {
-      id: 3,
-      name: "Ali Raza",
-      email: "ali.raza@example.com",
-      orders: 2,
-      totalSpend: 2000,
-    },
-    {
-      id: 4,
-      name: "Fatima Noor",
-      email: "fatima.noor@example.com",
-      orders: 7,
-      totalSpend: 7000,
-    },
-    {
-      id: 5,
-      name: "Usman Tariq",
-      email: "usman.tariq@example.com",
-      orders: 5,
-      totalSpend: 5000,
-    },
-    {
-      id: 6,
-      name: "Zainab Malik",
-      email: "zainab.malik@example.com",
-      orders: 3,
-      totalSpend: 3000,
-    },
-    {
-      id: 7,
-      name: "Bilal Shah",
-      email: "bilal.shah@example.com",
-      orders: 8,
-      totalSpend: 8000,
-    },
-    {
-      id: 8,
-      name: "Hina Farooq",
-      email: "hina.farooq@example.com",
-      orders: 1,
-      totalSpend: 1000,
-    },
-    {
-      id: 9,
-      name: "Rizwan Ali",
-      email: "rizwan.ali@example.com",
-      orders: 10,
-      totalSpend: 10000,
-    },
-    {
-      id: 10,
-      name: "Ayesha Siddiqui",
-      email: "ayesha.siddiqui@example.com",
-      orders: 4,
-      totalSpend: 4000,
-    },
-    {
-      id: 11,
-      name: "Hassan Butt",
-      email: "hassan.butt@example.com",
-      orders: 6,
-      totalSpend: 6000,
-    },
-    {
-      id: 12,
-      name: "Nida Khan",
-      email: "nida.khan@example.com",
-      orders: 9,
-      totalSpend: 9000,
-    },
-    {
-      id: 13,
-      name: "Tariq Mehmood",
-      email: "tariq.mehmood@example.com",
-      orders: 2,
-      totalSpend: 2000,
-    },
-    {
-      id: 14,
-      name: "Sana Javed",
-      email: "sana.javed@example.com",
-      orders: 3,
-      totalSpend: 3000,
-    },
-    {
-      id: 15,
-      name: "Kamran Aslam",
-      email: "kamran.aslam@example.com",
-      orders: 7,
-      totalSpend: 7000,
-    },
-  ];
-  
 
 const Customers = () => {
 

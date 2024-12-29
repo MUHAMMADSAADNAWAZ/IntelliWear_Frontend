@@ -68,9 +68,9 @@ function Input<FormValues>({
     // handleBlur = handleBlur || formik.handleBlur;
   }
 
-  const inputBaseClasses = `d-block  text-primaryBlue-200 bg-primaryBlue-500 py-[12px] w-full font-lexend text-base  text-black-700 outline-0 ${disabled ? "cursor-not-allowed" : ""}	`;
+  const inputBaseClasses = `d-block  text-primaryBlue-200 bg-primaryBlue-500 py-[12px] w-full font-poppins text-base  text-black-700 outline-0 ${disabled ? "cursor-not-allowed" : ""}	`;
   const labelBaseClass = `text-[#1F1F1F] font-normal text-base leading-6 mb-2 font-sans `;
-  const baseWrapperClass = `flex items-center w-full px-4  text-[#8B8B8B] font-normal text-base leading-6 border  rounded-xl focus:outline-none `;
+  const baseWrapperClass = `flex items-center w-full px-1 md:px-4  text-[#8B8B8B] font-normal text-base leading-6 border  rounded-xl focus:outline-none `;
 
   const shouldDisplayError =
     (touched || (formik && formik.submitCount > 0)) &&

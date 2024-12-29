@@ -1,14 +1,16 @@
-import { useState } from "react";
-import { Menu, MenuItem } from "@mui/material";
-import { Deleteicon, ThreeVerticalDots } from "@svg";
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import { Menu, MenuItem } from "@mui/material";
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+
+import { Deleteicon, ThreeVerticalDots } from "@svg";
 
 interface ActionsMenuProps {
-    onDelete: () => void;
-    onEdit: () => void; 
+  id?: number
+  onDelete: () => void;
 }
 
-const ActionsMenu = ({ onDelete, onEdit  }: ActionsMenuProps) => {
+const ActionsMenu = ({ onDelete , id  }: ActionsMenuProps) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -48,6 +50,8 @@ const ActionsMenu = ({ onDelete, onEdit  }: ActionsMenuProps) => {
           },
         }}
       >
+        <NavLink to={`/admin-editproducts/${id}`}>
+
         <MenuItem
           sx={{
             color: "#1F1F1F",
@@ -58,12 +62,12 @@ const ActionsMenu = ({ onDelete, onEdit  }: ActionsMenuProps) => {
           }}
           onClick={() => {
             handleClose();
-            onEdit();
           }}
-        >
+          >
           <ModeEditOutlineOutlinedIcon  style={{ fontSize: 15 }} />
           Edit
         </MenuItem>
+          </NavLink>
 
         <MenuItem
           sx={{

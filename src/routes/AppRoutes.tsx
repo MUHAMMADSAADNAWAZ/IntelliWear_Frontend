@@ -12,7 +12,6 @@ import {
   ROUTE_PRODUCT_DETAILS,
   ROUTE_ADMIN_HOME,
   ROUTE_ADMIN_ANALYTICS,
-  ROUTE_ADMIN_PRODUCTS,
   ROUTE_ADMIN_REVIEWS,
   ROUTE_MYPROFILE,
   ROUTE_ADMIN_PROFILE,
@@ -27,7 +26,10 @@ import {
   ROUTE_ADMIN_FOOTWEARPRODUCTS,
   ROUTE_ADMIN_ACCESSORIEPRODUCTS,
   ROUTE_ADMIN_CUSTOMERS,
-  ROUTE_MYORDERS
+  ROUTE_MYORDERS,
+  ROUTE_ADMIN_EDIT_PRODUCTS,
+  ROUTE_CHECKOUT,
+  ROUTE_ADMIN_PRODUCTS
  } from "@routes/constants" 
 import { clothesData , footwearData , accessoriesData  } from "@Data/data"
 import { useSelector } from "react-redux"
@@ -43,7 +45,6 @@ import { Login } from "@pages/Login"
 import { Signup } from "@pages/Signup"
 import { ProtectedRoute } from "@components/ProtectedRoutes"
 import { AdminHome } from "@pages/AdminHome"
-import { AdminOverview } from "@pages/AdminOverview"
 import { AdminProducts } from "@components/AdminProducts"
 import { AddProducts } from "@components/Addproducts"
 import { Customers } from "@components/Customers"
@@ -52,6 +53,8 @@ import { OrderMenu } from "@components/AdminOrderMenu"
 import { AdminAnalytics } from "@components/AdminAnalytics"
 import { AdminReviews } from "@components/AdminReviews"
 import { NotFound } from "@pages/NotFound"
+import { EditProducts } from "@components/EditProducts"
+import { Checkout } from "@pages/Checkout"
 
 const AppRoutes = () => {
 
@@ -122,6 +125,12 @@ const AppRoutes = () => {
           </HomeLayout>
         } />
 
+        <Route path={ROUTE_CHECKOUT} element={
+          <HomeLayout>
+            <Checkout />
+          </HomeLayout>
+        } />
+
         <Route path={ROUTE_LOGIN} element={<Login />} />
 
         <Route path={ROUTE_SIGNUP} element={<Signup />} />
@@ -135,12 +144,13 @@ const AppRoutes = () => {
             <AdminHome />
           </ProtectedRoute>
           } >
-            <Route index element={<AdminOverview />} /> 
+            <Route index element={<AdminProducts name="Products"/>} /> 
             <Route path={ROUTE_ADMIN_PRODUCTS} element={<AdminProducts name="Products"/>} /> 
             <Route path={ROUTE_ADMIN_CLOTHPRODUCTS} element={<AdminProducts name="Clothes"/>} /> 
             <Route path={ROUTE_ADMIN_FOOTWEARPRODUCTS} element={<AdminProducts name="Footwear"/>} /> 
             <Route path={ROUTE_ADMIN_ACCESSORIEPRODUCTS} element={<AdminProducts name="Accessories"/>} /> 
             <Route path={ROUTE_ADMIN_ADD_PRODUCTS} element={<AddProducts />} /> 
+            <Route path={ROUTE_ADMIN_EDIT_PRODUCTS} element={<EditProducts />} /> 
             <Route path={ROUTE_ADMIN_CUSTOMERS} element={<Customers />} /> 
             <Route path={ROUTE_ADMIN_PROFILE} element={<AdminProfile />} />
             <Route path={ROUTE_ADMIN_ORDERS} element={<OrderMenu name="All" />} /> 

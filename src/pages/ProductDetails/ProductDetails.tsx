@@ -1,12 +1,13 @@
-import { useParams } from "react-router-dom";
-import { accessoriesData, clothesData, footwearData } from "@Data/data";
 import { useState } from "react";
-import { Button, Select } from "@components/common";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart , selectProduct, updateQuantity } from "@redux/slices/cartSlice";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { selectUser } from "@redux/slices/userSlice";
+
+import { Button, Select } from "@components/common";
 import { ClothInfoProps } from "@components/HomeClothInfo/HomeClothInfo";
+import { accessoriesData, clothesData, footwearData } from "@Data/data";
+import { addToCart, selectProduct, updateQuantity } from "@redux/slices/cartSlice";
+import { selectUser } from "@redux/slices/userSlice";
 
 const ProductDetails = () => {
 

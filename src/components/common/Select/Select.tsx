@@ -48,9 +48,9 @@ function Select<FormValues>({
   enumType,
   ...rest
 }: SelectProps<FormValues>) {
-  const selectBaseClasses = `d-block px-[16px] text-primaryBlue-200 bg-primaryBlue-500 py-[12px]  w-full font-lexend text-base  text-black-700  outline-0  border-primaryBlue-400	rounded-0  ${styles.CustomSelect} `;
+  const selectBaseClasses = `d-block px-[16px] text-primaryBlue-200 bg-primaryBlue-500 py-[12px]  w-full font-poppins text-base  text-black-700  outline-0  border-primaryBlue-400	rounded-0  ${styles.CustomSelect} `;
   const labelBaseClass = `text-[#1F1F1F] font-normal text-base leading-6 mb-2 font-sans`;
-  const baseOptionClass = "font-Arimo font-normal text-sm bg-[#FFFFFF] ";
+  const baseOptionClass = "font-poppins font-normal text-sm bg-[#FFFFFF] ";
 
   if (formik && name) {
     /**
@@ -127,7 +127,7 @@ function Select<FormValues>({
             {placeholder && (
               <option
                 value=""
-                className="font-Arimo font-normal text-sm bg-[#FFFFFF] "
+                className="font-poppins font-normal text-sm bg-[#FFFFFF] "
               >
                 {placeholder}{" "}
               </option>

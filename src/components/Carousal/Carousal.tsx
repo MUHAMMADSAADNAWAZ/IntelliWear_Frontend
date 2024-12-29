@@ -1,8 +1,9 @@
-import clothcarousal from '@assets/clothescarousal.jpg';
-import shoescarousal from '@assets/shoesCarousal.jpg';
-import accessorycarousal from '@assets/accessorycarousal.jpg';
 import { useState } from 'react';
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
+
+import accessorycarousal from '@assets/accessorycarousal.jpg';
+import clothcarousal from '@assets/clothescarousal.jpg';
+import shoescarousal from '@assets/shoesCarousal.jpg';
 
 const images = [clothcarousal, shoescarousal, accessorycarousal];
 
@@ -27,8 +28,8 @@ const Carousal = () => {
         className="w-full h-[550px] bg-center bg-no-repeat bg-cover relative mt-6" 
         style={{ backgroundImage: `url(${images[currentIndex]})` }} 
       >
-         <BiLeftArrowAlt style={{ fontSize: 40, color: "black" }} className='absolute top-[50%] left-3 cursor-pointer bg-white rounded-full p-1' onClick={() => {handleClick(currentIndex-1)}}/>
-         <BiRightArrowAlt style={{ fontSize: 40, color: "black" }} className='absolute top-[50%] right-3 cursor-pointer bg-white rounded-full p-1' onClick={() => {handleClick(currentIndex+1)}}/>
+         <BiLeftArrowAlt style={{ color: "black" }} className='absolute top-[50%] left-3 cursor-pointer bg-white rounded-full p-1 text-2xl md:text-4xl' onClick={() => {handleClick(currentIndex-1)}}/>
+         <BiRightArrowAlt style={{ color: "black" }} className='absolute top-[50%] right-3 cursor-pointer bg-white rounded-full p-1 text-2xl md:text-4xl' onClick={() => {handleClick(currentIndex+1)}}/>
 
         <div className="flex justify-center mt-4 space-x-2 absolute bottom-4 w-full">
         {images.map((_, index) => (

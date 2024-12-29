@@ -1,43 +1,29 @@
-import { BaseDataTable } from '@components/BaseDataTable';
-import OrdersActionMenu from '@components/OrdersActionMenu/OrderActionsMenu';
-import { useState, useEffect } from 'react';
-// import { NavLink } from 'react-router-dom';
-// import { Button } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+
+import { BaseDataTable } from '@components/BaseDataTable';
+import { OrderDetailsDialog } from '@components/OrderDetails';
+import OrdersActionMenu from '@components/OrdersActionMenu/OrderActionsMenu';
+import { allOrders } from '@Data/data';
+
+export interface Order {
+  id: number;
+  customer: string;
+  status: string;
+  date: string;
+  items: { name: string; avaQuantity: number; price: number }[];
+  shippingAddress: string;
+  paymentMethod: string;
+  trackingNumber: string;
+}
 
 const OrderMenu = ({ name }: { name?: string }) => {
 
-  interface Order {
-    id: number;
-    customer: string;
-    status: string;
-    date: string;
-  }
-  
   const [orders, setOrders] = useState<Order[]>([]);
-  
-  useEffect(() => {
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
-    const allOrders = [
-      { id: 1, customer: 'John Doe', status: 'Completed', date: '2024-12-19' },
-      { id: 2, customer: 'Jane Smith', status: 'Pending', date: '2024-12-20' },
-      { id: 3, customer: 'Mike Johnson', status: 'In Progress', date: '2024-12-21' },
-      { id: 4, customer: 'Emily Davis', status: 'Completed', date: '2024-12-22' },
-      { id: 5, customer: 'Chris Brown', status: 'Canceled', date: '2024-12-23' },
-      { id: 6, customer: 'Sarah Wilson', status: 'Refund', date: '2024-12-24' },
-      { id: 7, customer: 'David Lee', status: 'Completed', date: '2024-12-25' },
-      { id: 8, customer: 'Anna White', status: 'Pending', date: '2024-12-26' },
-      { id: 9, customer: 'James Green', status: 'In Progress', date: '2024-12-27' },
-      { id: 10, customer: 'Laura Black', status: 'Completed', date: '2024-12-28' },
-      { id: 11, customer: 'Robert King', status: 'Canceled', date: '2024-12-29' },
-      { id: 12, customer: 'Linda Scott', status: 'Refund', date: '2024-12-30' },
-      { id: 13, customer: 'Michael Young', status: 'Completed', date: '2024-12-31' },
-      { id: 14, customer: 'Jessica Adams', status: 'Pending', date: '2025-01-01' },
-      { id: 15, customer: 'Daniel Baker', status: 'In Progress', date: '2025-01-02' },
-      { id: 16, customer: 'Nancy Carter', status: 'Completed', date: '2025-01-03' },
-      { id: 17, customer: 'Paul Mitchell', status: 'Canceled', date: '2025-01-04' },
-      { id: 18, customer: 'Karen Perez', status: 'Refund', date: '2025-01-05' },
-    ];
+  useEffect(() => {
 
     if (name === 'All') {
       setOrders(allOrders);
@@ -45,7 +31,6 @@ const OrderMenu = ({ name }: { name?: string }) => {
       setOrders(allOrders.filter(order => order.status === name));
     }
   }, [name]);
-
 
 const getStatusColor = (status: string) => {
   switch (status) {
@@ -73,6 +58,14 @@ const handleChangeStatus = (id: number, newStatus: string) => {
   toast.success(`Order ${id} status successfully changed to "${newStatus}"`);
 };
 
+  const handleCloseDetails = () => {
+    setIsDetailsOpen(false);
+  };
+
+    const handleViewDetails = (order: Order) => {
+    setSelectedOrder(order);
+    setIsDetailsOpen(true);
+  };
 
   return (
     <div className="p-6 bg-gray-100 rounded-t-xl">
@@ -127,9 +120,7 @@ const handleChangeStatus = (id: number, newStatus: string) => {
           style: "display:flex;justify-content:center !important",
           selector: (row: Order) => (
             <OrdersActionMenu
-              onViewDetails={() => {
-                console.log("View Details for order:", row.id);
-              }}
+            onViewDetails={() => handleViewDetails(row)}
               onChangeStatus={(newStatus: string) => {
                 handleChangeStatus(row.id, newStatus);
               }}
@@ -141,6 +132,12 @@ const handleChangeStatus = (id: number, newStatus: string) => {
       ]}
       data={orders}
       pagination
+      />
+
+      <OrderDetailsDialog
+        open={isDetailsOpen}
+        order={selectedOrder}
+        onClose={handleCloseDetails}
       />
     </div>
   );

@@ -1,36 +1,6 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 
-// const customStyles = {
-//     rows: {
-//         style: {
-//             minHeight: "50px",
-//             border:'border-none'
-//         },
-//     },
-//     headCells: {
-//         style: {
-//             paddingLeft: "8px",
-//             paddingRight: "8px",
-//         },
-//     },
-//     cells: {
-//         style: {
-//             paddingLeft: "8px",
-//             paddingRight: "8px",
-//             innerWidth: "1px",
-//         },
-//     },
-//     headRow: {
-//         style: {
-
-//             minHeight: "35px",
-//             color: "red",
-//             border: "solid 10px #000",
-//         },
-//     },
-// };
-
 interface TableDataType<T> {
   columns?: any;
   data?: any;

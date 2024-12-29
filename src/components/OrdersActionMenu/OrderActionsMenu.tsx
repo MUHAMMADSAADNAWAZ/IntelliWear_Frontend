@@ -1,8 +1,9 @@
-import { useState } from "react";
 import { Menu, MenuItem } from "@mui/material";
-import { ThreeVerticalDots } from "@svg";
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import { useState } from "react";
 import SwapHorizOutlinedIcon from '@mui/icons-material/SwapHorizOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+
+import { ThreeVerticalDots } from "@svg";
 
 interface OrderActionsMenuProps {
     onViewDetails: () => void;

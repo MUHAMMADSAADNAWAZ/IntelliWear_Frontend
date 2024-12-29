@@ -1,11 +1,18 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { removeFromCart, selectCart, updateQuantity, updateChecked  , CartItem , closeCart} from '@redux/slices/cartSlice'; 
-import { RootState } from '@redux/store';
 import CloseIcon from '@mui/icons-material/Close';
+import { BiRightArrowAlt } from 'react-icons/bi';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+import { CartItem, closeCart, removeFromCart, selectCart, updateChecked, updateQuantity } from '@redux/slices/cartSlice';
+import { RootState } from '@redux/store';
+import { ROUTE_CHECKOUT } from '@routes/constants';
 
 const CartSidebar = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.items);
+  console.log("cartItems" , cartItems);
+  
 
   const totalPrice = cartItems
     .filter((item) => item.checked) 
@@ -14,8 +21,20 @@ const CartSidebar = () => {
   const cart = useSelector(selectCart);
   const isOpen = cart.cartVisibility;
 
+  const navigate = useNavigate()
+
+  const handleNavigateCheckout = () =>{
+    if(cartItems.length === 0){
+      toast.error("You need to add items to cart before going to checkout")
+    }
+    else{
+      navigate(ROUTE_CHECKOUT)
+      dispatch(closeCart())
+    }
+  }
+
   return (
-    <div className={`fixed top-0 right-0 h-full overflow-y-auto bg-white shadow-lg transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 w-80 z-50`}>
+    <div className={`fixed top-0 right-0 h-full overflow-y-auto bg-white shadow-lg transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 w-full md:w-80 z-50`}>
       <div className="p-4 border-b flex justify-between">
         <h2 className="text-xl font-semibold">Your Cart</h2>
         <CloseIcon onClick={() => { dispatch(closeCart()) }} className='cursor-pointer' />
@@ -66,7 +85,7 @@ const CartSidebar = () => {
           <span>Total</span>
           <span>Rs {totalPrice.toFixed(2)}</span>
         </div>
-        <button className="w-full mt-4 bg-yellow-500 text-white py-2 rounded">Proceed to Checkout</button>
+        <button className="w-full mt-4 bg-blue-500 text-white p-3 rounded flex items-center justify-center gap-5" onClick={handleNavigateCheckout}> <p>Proceed to Checkout</p> <BiRightArrowAlt style={{ fontSize: 25}} /></button>
       </div>
     </div>
   );

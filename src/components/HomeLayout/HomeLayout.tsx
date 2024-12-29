@@ -1,9 +1,10 @@
-import { ReactNode } from "react";
-import { HomeHeader } from "@components/common";
-import Footer from "../Footer/Footer";
 import ChatIcon from '@mui/icons-material/Chat';
+import { ReactNode } from "react";
 import { useSelector } from "react-redux";
+
 import { selectCart } from "@redux/slices/cartSlice";
+import { HomeHeader } from "@components/common";
+import {Footer} from "@components/Footer";
 
 interface HomeLayoutProps {
     children?: ReactNode;
@@ -32,7 +33,7 @@ const HomeLayout = ({children} : HomeLayoutProps) => {
       <button
         className={` ${cartVisibility ? "right-96" : "right-6"} fixed bottom-6  bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600`}
       >
-        <ChatIcon style={{ fontSize: 30 }} />
+        <ChatIcon className="text-lg md:text-2xl"/>
       </button>
 
     </div>

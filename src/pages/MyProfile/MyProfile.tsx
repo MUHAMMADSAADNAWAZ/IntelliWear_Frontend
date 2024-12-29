@@ -1,8 +1,9 @@
 import { useFormik } from "formik";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+
 import { Button, Input } from "@components/common";
 import { MyProfileDto } from "@dto/myprofile.dto";
-import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
 import { selectUser } from "@redux/slices/userSlice";
 
 const MyProfile = () => {
@@ -22,7 +23,7 @@ const MyProfile = () => {
   return (
     <div className="profile w-full min-h-screen bg-gray-100 text-gray-800 flex flex-col items-center p-8">
      
-      <h1 className="text-center py-4 text-4xl font-bold text-blue-500 border-b-2 border-blue-500 mb-6">
+      <h1 className="text-center py-4 text-2xl md:text-4xl font-bold text-blue-500 border-b-2 border-blue-500 mb-6">
         My Profile
       </h1>
 
@@ -33,8 +34,8 @@ const MyProfile = () => {
     
         <div className="flex flex-col gap-6">
          
-          <div className="flex gap-6">
-            <div className="w-1/2">
+          <div className="flex md:flex-row flex-col gap-6">
+            <div className="w-full md:w-1/2">
               <Input
                 placeholder="First Name"
                 labelClass="text-blue-500"
@@ -44,7 +45,7 @@ const MyProfile = () => {
                 className="bg-gray-50 text-gray-800"
               />
             </div>
-            <div className="w-1/2">
+            <div className="w-full md:w-1/2">
               <Input
                 placeholder="Last Name"
                 labelClass="text-blue-500"
@@ -56,8 +57,8 @@ const MyProfile = () => {
             </div>
           </div>
 
-          <div className="flex gap-6">
-            <div className="w-1/2">
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="w-full md:w-1/2">
               <Input
                 placeholder="Email"
                 labelClass="text-blue-500"
@@ -69,7 +70,7 @@ const MyProfile = () => {
                 // className="bg-gray-50 text-gray-800"
               />
             </div>
-            <div className="w-1/2">
+            <div className="w-full md:w-1/2">
               <Input
                 placeholder="Phone"
                 labelClass="text-blue-500"
@@ -96,7 +97,7 @@ const MyProfile = () => {
         <div className="mt-8 flex justify-center">
           <Button
             type="submit"
-            className="bg-yellow-500 hover:bg-ywllow-600 text-white font-semibold px-6 py-3 rounded-lg transition-all"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg transition-all"
           >
             Save
           </Button>

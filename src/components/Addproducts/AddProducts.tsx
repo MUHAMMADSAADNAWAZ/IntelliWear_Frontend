@@ -1,13 +1,28 @@
 import { useFormik } from "formik";
-import { ProductDto } from "@dto/product.dto";
-import { Button, Input, Select, TextArea } from "@components/common";
 import { useEffect, useState } from "react";
-import FileUpload from "@public/FileUpload.svg"
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import { Button, Input, Select, TextArea } from "@components/common";
+import { ProductDto } from "@dto/product.dto";
+import FileUpload from "@public/FileUpload.svg";
 import { ROUTE_ADMIN_PRODUCTS } from "@routes/constants";
 
-const AddProducts = () => {
+interface Product {
+  id?: number;
+  img?: string;
+  name?: string;
+  size?: string;
+  avaQuantity?: number;
+  price?: number;
+  description?: string;
+}
+
+interface products {
+  product?: Product
+}
+
+const AddProducts = ({product}: products) => {
 
     const [uploadedImages, setUploadedImages] = useState<any>();
 
@@ -15,11 +30,11 @@ const AddProducts = () => {
     const navigate = useNavigate();
 
   const form = useFormik({
-    initialValues: ProductDto.initialValues(),
+    initialValues: product ? product : ProductDto.initialValues(),
     validationSchema: ProductDto.yupSchema(),
-    onSubmit: async (values) => {
+    onSubmit: (values) => {
       console.log("Product Values are", values);
-      toast.success("Product added Successfully!")
+      toast.success(product ? "Changes made successfully" : "Product added successfully!");
       navigate(ROUTE_ADMIN_PRODUCTS)
     },
   });
@@ -33,14 +48,15 @@ const AddProducts = () => {
     setUploadedImages(null); 
   };
 
-  useEffect(()=>{
-    console.log("form.values" , form?.values)
-  },[form?.values])
-
+  useEffect(() => {
+    if (product?.img) {
+      setUploadedImages(product.img);
+    }
+  }, [product]);
 
   return (
     <div className="p-6 bg-gray-100">
-      <h2 className="text-3xl font-bold mb-6  text-blue-600">Add Product</h2>
+      <h2 className="text-3xl font-bold mb-6  text-blue-600">{product ? "Edit Product Details" : "Add Product"}</h2>
 
       <form className="bg-white rounded-xl p-6" onSubmit={form.handleSubmit}>
         <div className="flex gap-4 pb-5">
@@ -67,7 +83,7 @@ const AddProducts = () => {
             labelText="Product Quantity"
             placeholder="Enter Product Quantity"
             labelClass=" text-blue-500"
-            name="quantity"
+            name="avaQuantity"
             formik={form}
             type="number"
             className="border-none outline-none bg-gray-50 text-gray-800 placeholder-gray-500 h-10 px-0"
@@ -104,13 +120,23 @@ const AddProducts = () => {
           className={`border border-gray-300 p-6 w-full h-[131px] flex items-center mb-6 justify-center rounded-lg shadow-lg hover:shadow-xl transition-shadow `}
         >
           {uploadedImages && (
-            <div className="w-full ">
+            <div className="w-full flex items-center justify-between ">
               <img
-                src={URL.createObjectURL(uploadedImages as Blob)}
+                src={typeof uploadedImages === "string" ? uploadedImages : URL.createObjectURL(uploadedImages as Blob)}
                 alt="Selected"
                 className=" max-w-52 max-h-20 "
               />
+               {form.touched.img && form.errors.img &&
+                    <p className="text-red-500 text-sm text-center pt-4">{form.errors.img}</p>}
+              <button
+              type="button"
+              onClick={handleDeleteImage}
+              className="px-6 py-3 font-medium text-white bg-red-500 hover:bg-red-600 rounded-xl cursor-pointer font-PlusJakartaSans text-[14px]  "
+            >
+              Delete
+            </button>
             </div>
+            
           )}
 
           {!uploadedImages && (
@@ -131,29 +157,19 @@ const AddProducts = () => {
                     onChange={(e) => {
                       if (e?.target?.files && e?.target?.files.length > 0) {
                         setUploadedImages(e?.target?.files[0]);
-                        form.setFieldValue("image", e?.target?.files[0])
+                        form.setFieldValue("img", e?.target?.files[0])
                       }
                     }}
                   />
                 </div>
-                {form.touched.image && form.errors.image ? (
-                    <p className="text-red-500 text-sm text-center pt-4">{form.errors.image}</p>
+                {form.touched.img && form.errors.img ? (
+                    <p className="text-red-500 text-sm text-center pt-4">{form.errors.img}</p>
                 ) :
                 <p className="text-gray-700 text-center pt-4">
                   Upload Product Picture
                 </p>}
               </div>
             </div>
-          )}
-          {/* Delete button */}
-          {uploadedImages && (
-            <button
-              type="button"
-              onClick={handleDeleteImage}
-              className="px-6 py-3 font-medium text-white bg-[#1B2559] rounded-xl cursor-pointer font-PlusJakartaSans text-[14px]  "
-            >
-              Delete
-            </button>
           )}
          
         </div>
@@ -162,7 +178,7 @@ const AddProducts = () => {
             type="submit"
             className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-300 focus:ring-2 focus:ring-blue-300"
           >
-            Add Product
+            {product ? "Apply Changes"  : "Add Product"}
           </Button>
         </div>
       </form>

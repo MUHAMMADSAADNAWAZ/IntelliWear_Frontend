@@ -1,9 +1,8 @@
 
 import { Tooltip } from "@mui/material";
-import accessory1 from "@assets/ac1.jpeg"
-import accessory2 from "@assets/ac2.jpeg"
-import accessory3 from "@assets/ac3.jpeg"
+
 import { BaseDataTable } from "@components/BaseDataTable";
+import { dummyReviews } from "@Data/data";
 
 interface Review {
   id: number;
@@ -15,39 +14,6 @@ interface Review {
   status: "Pending" | "Approved" | "Rejected";
   date: string;
 }
-
-const dummyReviews: Review[] = [
-  {
-    id: 1,
-    productName: "Stylish Bracelet",
-    productImg: accessory1,
-    userName: "Aqdas Ikram",
-    rating: 4,
-    reviewText: "Loved the quality and design!",
-    status: "Pending",
-    date: "15-12-2024",
-  },
-  {
-    id: 2,
-    productName: "Beautiful Necklace",
-    productImg: accessory3,
-    userName: "Jane Smith",
-    rating: 5,
-    reviewText: "Perfect for everyday use.",
-    status: "Approved",
-    date: "28-12-2024",
-  },
-  {
-    id: 3,
-    productName: "Gold Earrings",
-    productImg: accessory2,
-    userName: "Parveen Shakir",
-    rating: 3,
-    reviewText: "Good, but expected better packaging.",
-    status: "Rejected",
-    date: "01-10-2020",
-  },
-];
 
 const AdminReviews = () => {
 
@@ -61,6 +27,13 @@ const AdminReviews = () => {
           style: {
             background: "linear-gradient(to bottom right, #f8fafc, #f8fafc)",
             color: "#1b2559",
+          },
+        },
+        table: {
+          style: {
+            width: "100%",           
+            tableLayout: "auto",     
+            overflow: "hidden",    
           },
         },
         pagination: {

@@ -9,6 +9,7 @@ export interface textAreaProps<FormValues>
   labelClass?: string;
   formik?: FormikProps<FormValues>;
   name?: string;
+  value?: any;
   hideErrors?: boolean | (() => boolean);
   required?: boolean;
   touched?: boolean;
@@ -24,6 +25,7 @@ function TextArea<FormValues>({
   error,
   onChange,
   name,
+  value,
   hideErrors,
   labelClass,
   ...rest
@@ -40,7 +42,10 @@ function TextArea<FormValues>({
     /* The code block `if (!!meta) { touched = meta.touched; error = meta.error; }` is checking if the
 		`meta` object exists and then assigning the values of `meta.touched` and `meta.error` to the
 		variables `touched` and `error` respectively. */
+   
     if (meta) {
+      value =
+        value !== undefined ? value : formik.values[name as keyof FormValues];
       touched = meta.touched;
       error = meta.error;
     }
@@ -48,7 +53,7 @@ function TextArea<FormValues>({
     // handleBlur = handleBlur || formik.handleBlur;
   }
   const textAreaBaseClasses = `border-[1px] w-full border-[#302E60]`;
-  const labelBaseClass = `text-[#1F1F1F] font-normal text-base leading-6 mb-2 font-sans`;
+  const labelBaseClass = `text-[#1F1F1F] font-normal text-base leading-6 mb-2 font-poppins`;
   // console.log("the error iis", error);
 
   const shouldDisplayError =
@@ -68,6 +73,7 @@ function TextArea<FormValues>({
             className={cn(textAreaBaseClasses, className)}
             onChange={onChange}
             name={name}
+            value={value}
             {...rest}
           />
         </div>
