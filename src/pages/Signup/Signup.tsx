@@ -14,12 +14,12 @@ import { ROUTE_HOME, ROUTE_LOGIN } from "@routes/constants";
 const Signup = () => {
 
     const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     
     const handlePassword = () => {
         setShowPassword(!showPassword);
     } ;
 
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const handleConfirmPassword = () => {
         setShowConfirmPassword(!showConfirmPassword);

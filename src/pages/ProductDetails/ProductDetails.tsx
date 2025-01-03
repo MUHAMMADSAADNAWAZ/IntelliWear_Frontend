@@ -81,7 +81,7 @@ const ProductDetails = () => {
           <Select
             id="size"
             placeholder="Select Size"
-            labelText={`Select Size : ${size}`}
+            labelText={`Selected Size : ${size}`}
             labelClass="text-[#FF6900] font-medium"
             value={size}
             onChange={(e) => setSelectedSize(e.target.value)}
@@ -128,8 +128,7 @@ const ProductDetails = () => {
             <Button onClick={() =>{addQuantity(-1)}} className="bg-white text-black h-8 hover:bg-gray-100 rounded-none w-1/3 mr-2">-</Button>
           </div>
           
-          <Button className="w-[40%] bg-yellow-500 px-3 py-2 hover:bg-yellow-600 " onClick={handleAddToCart}>Add to Cart</Button>
-          <Button className="w-[40%] py-2 bg-green-600 text-white rounded hover:bg-green-700">Buy Now</Button>
+          <Button className="w-[80%] bg-blue-500 px-3 py-2 hover:bg-blue-600 " onClick={handleAddToCart}>Add to Cart</Button>
         </div>
       </div>
     </div>

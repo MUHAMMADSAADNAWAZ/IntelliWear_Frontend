@@ -1,5 +1,5 @@
-import { HomeClothInfo } from "@components/HomeClothInfo";
 import { accessoriesData, clothesData, footwearData } from "@Data/data"
+import { Clothes } from "@pages/Clothes";
 
 interface Clothing {
   heading: string;
@@ -17,26 +17,14 @@ const MenClothing = ({heading , category} : Clothing) => {
 
     <h1 className="text-4xl text-center font-bold text-yellow-500 mb-6">{heading}</h1>    
       
-      <h2 className="text-2xl font-semibold text-blue-500 pl-4">Clothes</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4 mb-4 p-4">
-        {clothes.length > 0 ? (clothes.map((element, index) => (
-          <HomeClothInfo key={index} img={element.img} name={element.name} price={element.price} id={element.id} product={element} description={element.description} />
-        ))) : (<p className="text-center text-lg font-semibold col-span-full">No items available right now</p>)}
-      </div>
-
-      <h2 className="text-2xl font-semibold text-blue-500 pl-4">Footwear</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4 mb-4 p-4">
-        {footwear.length > 0 ?( footwear.map((element, index) => (
-          <HomeClothInfo key={index} img={element.img} name={element.name} price={element.price} id={element.id} product={element} description={element.description} />
-        ))) : (<p className="text-center text-lg font-semibold col-span-full">No items available right now</p>)}
-      </div>
-
-      <h2 className="text-2xl font-semibold text-blue-500 pl-4">Accessories</h2>
-    <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
-      {accessories.length > 0 ? (accessories.map((element, index) => (
-        <HomeClothInfo key={index} img={element.img} name={element.name} price={element.price} id={element.id} product={element} description={element.description} />
-      ))) : (<p className="text-center text-lg font-semibold col-span-full">No items available right now</p>)}
-    </div>
+        {clothes.length > 0 &&
+      <Clothes heading="Clothes" data={clothes} /> }
+    
+      {footwear.length > 0 &&
+      <Clothes heading="Footwear" data={footwear} />}
+    
+     {accessories.length > 0 &&
+      <Clothes heading="Accessories" data={accessories} /> }
 
     </div>
   )

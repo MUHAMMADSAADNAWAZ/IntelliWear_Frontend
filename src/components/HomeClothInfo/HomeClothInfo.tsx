@@ -37,7 +37,7 @@ const ClothInfo = ({ img, name, price, id, product , description }: ClothInfoPro
   };
 
   return (
-    <div className="group bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden border border-gray-100">
+    <div className="group bg-gray-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden border border-gray-100 flex flex-col">
     
 
       <Link to={`/product/${id}`} className="block">
@@ -51,9 +51,9 @@ const ClothInfo = ({ img, name, price, id, product , description }: ClothInfoPro
         </div>
       </Link>
 
-      <div className="p-4 space-y-3 h-full flex flex-col">
+      <div className="p-4 space-y-3 h-full flex flex-col justify-between">
         <div className="flex justify-between items-center">
-          <h2 className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-200">
+          <h2 className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-200 w-2/3">
             {name}
           </h2>
           <span className="text-blue-600 font-semibold text-lg">

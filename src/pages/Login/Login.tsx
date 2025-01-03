@@ -14,10 +14,13 @@ import { Button, Input } from "@components/common";
 import { LoginDto } from "@dto/Login.dto";
 import { login } from "@redux/slices/userSlice";
 import { ROUTE_ADMIN_HOME, ROUTE_HOME, ROUTE_SIGNUP } from "@routes/constants";
+import { ForgotPassword } from "@components/ForgotPassword";
 
 const Login = () => {
 
     const [showPassword, setShowPassword] = useState(false);
+    const [forgotOpen , setForgotOpen] = useState(false);
+
     const handlePassword = () => {
         setShowPassword(!showPassword);
     } ;
@@ -95,6 +98,10 @@ const Login = () => {
                     />
                     </div>
 
+                    <div className="my-3 flex justify-end">
+                    <p className="text-blue-500 hover:underline cursor-pointer" onClick={() => setForgotOpen(true)}>Forgot Password ?</p>
+                    </div>
+
                     <Button type="submit" className="w-full bg-blue-500 text-white hover:bg-blue-600 mb-4">Login</Button>
 
                     <div className="text-center">
@@ -102,6 +109,8 @@ const Login = () => {
                     </div>
                 </form>
             </div>
+
+            {forgotOpen && <ForgotPassword setForgotOpen={setForgotOpen} />}
         </div>
     );
 };

@@ -29,7 +29,8 @@ import {
   ROUTE_MYORDERS,
   ROUTE_ADMIN_EDIT_PRODUCTS,
   ROUTE_CHECKOUT,
-  ROUTE_ADMIN_PRODUCTS
+  ROUTE_ADMIN_PRODUCTS,
+  ROUTE_RESET_PASSWORD
  } from "@routes/constants" 
 import { clothesData , footwearData , accessoriesData  } from "@Data/data"
 import { useSelector } from "react-redux"
@@ -55,6 +56,7 @@ import { AdminReviews } from "@components/AdminReviews"
 import { NotFound } from "@pages/NotFound"
 import { EditProducts } from "@components/EditProducts"
 import { Checkout } from "@pages/Checkout"
+import { ResetPassword } from "@pages/ResetPassword"
 
 const AppRoutes = () => {
 
@@ -130,6 +132,8 @@ const AppRoutes = () => {
             <Checkout />
           </HomeLayout>
         } />
+
+        <Route path={ROUTE_RESET_PASSWORD} element={<ResetPassword />} />
 
         <Route path={ROUTE_LOGIN} element={<Login />} />
 

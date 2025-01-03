@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
 
-import accessorycarousal from '@assets/accessorycarousal.jpg';
-import clothcarousal from '@assets/clothescarousal.jpg';
-import shoescarousal from '@assets/shoesCarousal.jpg';
+import accessorycarousal from '@assets/accessoriesCarousal2.jpg';
+import clothcarousal from '@assets/clothesCarousal2.jpg';
+import shoescarousal from '@assets/shoesCarousal2.jpg';
+// import accessorycarousal from '@assets/accessorycarousal.jpg';
+// import clothcarousal from '@assets/clothescarousal.jpg';
+// import shoescarousal from '@assets/shoesCarousal.jpg';
 
 const images = [clothcarousal, shoescarousal, accessorycarousal];
 
@@ -25,7 +28,7 @@ const Carousal = () => {
   return (
     
       <div 
-        className="w-full h-[550px] bg-center bg-no-repeat bg-cover relative mt-6" 
+        className="h-[550px] bg-center bg-no-repeat bg-cover relative mt-6 mx-3 rounded-3xl" 
         style={{ backgroundImage: `url(${images[currentIndex]})` }} 
       >
          <BiLeftArrowAlt style={{ color: "black" }} className='absolute top-[50%] left-3 cursor-pointer bg-white rounded-full p-1 text-2xl md:text-4xl' onClick={() => {handleClick(currentIndex-1)}}/>

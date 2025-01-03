@@ -173,7 +173,14 @@ const AddProducts = ({product}: products) => {
           )}
          
         </div>
-        <div className="flex justify-end">
+        <div className="flex gap-4 justify-end">
+          <Button
+            type="button"
+            onClick={() => form.resetForm()}
+            className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300 focus:ring-2 focus:ring-red-300"
+          >
+            Reset
+          </Button>
           <Button
             type="submit"
             className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-300 focus:ring-2 focus:ring-blue-300"

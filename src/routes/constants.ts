@@ -11,6 +11,7 @@ export const ROUTE_PRODUCT_DETAILS = "/product/:productId";
 export const ROUTE_MYPROFILE = "/myprofile";
 export const ROUTE_MYORDERS = "/myorders";
 export const ROUTE_CHECKOUT = "/checkout";
+export const ROUTE_RESET_PASSWORD = "/reset-password/:userId";
 export const ROUTE_ADMIN_HOME = "/";
 export const ROUTE_ADMIN_PRODUCTS = "/admin-products";
 export const ROUTE_ADMIN_EDIT_PRODUCTS = "/admin-editproducts/:productId";

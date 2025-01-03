@@ -96,9 +96,9 @@ const HomeHeader = () => {
 
   return (
     <>
-       <div className="navbar flex items-center justify-around gap-2 bg-white border-b border-gray-200 shadow-sm py-2">
-          {/* Logo */}
-          <div className="logo w-28 md:w-1/12 flex items-center gap-4">
+       <div className="navbar flex items-center justify-around bg-white border-b border-gray-200 shadow-sm py-2">
+
+          <div className="logo w-28 md:w-40 flex items-center ">
             <img
               src={logo}
               alt="website logo"
@@ -110,7 +110,7 @@ const HomeHeader = () => {
           </div>
 
           {/* Search Bar */}
-          <div className="search w-1/2 flex items-center justify-center gap-1 md:gap-2 border border-green-500 p-1.5 md:p-2 rounded-lg bg-gray-50">
+          <div className="search w-1/2 flex items-center justify-center gap-1 md:gap-2 shadow-inner p-1.5 md:p-2 rounded-xl bg-gray-50">
           <div className="w-full">
 
             <Input
@@ -236,7 +236,7 @@ const HomeHeader = () => {
         <CartSidebar />
 
         <div className="flex items-center justify-center p-1 text-base md:text-lg text-gray-800 bg-gray-200 sticky z-20 w-full top-0">
-          <div className="flex gap-3">
+          <div className="flex gap-10">
             <NavLink
               to={ROUTE_MEN_CLOTHING}
               className={({ isActive }) =>
