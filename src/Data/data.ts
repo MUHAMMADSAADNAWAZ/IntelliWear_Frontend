@@ -1814,6 +1814,7 @@ export const dummyReviews = [
   },
 ];
 
+// Pakistni Cities
 export const pakistaniCities = [
   {
     "country": "PK",

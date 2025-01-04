@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { Button, Select } from "@components/common";
@@ -8,26 +8,27 @@ import { ClothInfoProps } from "@components/HomeClothInfo/HomeClothInfo";
 import { accessoriesData, clothesData, footwearData } from "@Data/data";
 import { addToCart, selectProduct, updateQuantity } from "@redux/slices/cartSlice";
 import { selectUser } from "@redux/slices/userSlice";
+import { ROUTE_CHECKOUT, ROUTE_LOGIN } from "@routes/constants";
 
 const ProductDetails = () => {
 
+  const [quantity, setQuantity] = useState(1);
+  const [size, setSelectedSize] = useState("X-Small");
+
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const email = user?.email;
+
+  const { productId } = useParams();
 
   const options = {
     sizes : ["X-Small" , "Small" , "Medium" , "Large" , "X-Large"],
    } 
 
-  const { productId } = useParams();
-
   const product = clothesData.find(item => item.id === Number(productId)) ||
                   footwearData.find(item => item.id === Number(productId)) ||
                   accessoriesData.find(item => item.id === Number(productId));
-
-  const [quantity, setQuantity] = useState(1);
-  const [size, setSelectedSize] = useState("X-Small");
-
-  const dispatch = useDispatch();
 
   const cartItems = useSelector(selectProduct);
 
@@ -38,6 +39,7 @@ const ProductDetails = () => {
   const handleAddToCart = () =>{
     if(email === undefined){
       toast.info("You need to login first before adding products to cart.");
+      navigate(ROUTE_LOGIN)
     }
     else if(existingItem){
       toast.success("Product quantity updated successfully");
@@ -47,6 +49,12 @@ const ProductDetails = () => {
       toast.success("Product added to cart successfully");
       dispatch(addToCart({...product , quantity , size}))
     }
+  }
+
+  const handleBuyNow = () =>{
+    handleAddToCart()
+    if(email)
+    navigate(ROUTE_CHECKOUT)
   }
 
   const addQuantity = (quan: number) =>{
@@ -128,7 +136,8 @@ const ProductDetails = () => {
             <Button onClick={() =>{addQuantity(-1)}} className="bg-white text-black h-8 hover:bg-gray-100 rounded-none w-1/3 mr-2">-</Button>
           </div>
           
-          <Button className="w-[80%] bg-blue-500 px-3 py-2 hover:bg-blue-600 " onClick={handleAddToCart}>Add to Cart</Button>
+          <Button className="w-[40%] bg-blue-500 px-3 py-2 hover:bg-blue-600 " onClick={handleAddToCart}>Add to Cart</Button>
+          <Button className="w-[40%] bg-yellow-500 px-3 py-2 hover:bg-yellow-600 " onClick={handleBuyNow}>Buy Now</Button>
         </div>
       </div>
     </div>
