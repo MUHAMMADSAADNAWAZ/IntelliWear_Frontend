@@ -86,6 +86,11 @@ const cartSlice = createSlice({
             const item = state.items.find((item) => item.id === id && item.size === size);
             if (item) {
               item.checked = checked;
+              if (checked) {
+                state.totalPrice += item.price * item.quantity;
+              } else {
+                state.totalPrice -= item.price * item.quantity;
+              }
             }
           },
     }

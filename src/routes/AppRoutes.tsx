@@ -148,8 +148,8 @@ const AppRoutes = () => {
             <AdminHome />
           </ProtectedRoute>
           } >
-            <Route index element={<AdminProducts name="Products"/>} /> 
-            <Route path={ROUTE_ADMIN_PRODUCTS} element={<AdminProducts name="Products"/>} /> 
+            <Route index element={<AdminProducts name="All Products"/>} /> 
+            <Route path={ROUTE_ADMIN_PRODUCTS} element={<AdminProducts name="All Products"/>} /> 
             <Route path={ROUTE_ADMIN_CLOTHPRODUCTS} element={<AdminProducts name="Clothes"/>} /> 
             <Route path={ROUTE_ADMIN_FOOTWEARPRODUCTS} element={<AdminProducts name="Footwear"/>} /> 
             <Route path={ROUTE_ADMIN_ACCESSORIEPRODUCTS} element={<AdminProducts name="Accessories"/>} /> 

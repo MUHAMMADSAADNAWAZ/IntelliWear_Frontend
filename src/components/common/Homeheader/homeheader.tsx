@@ -96,7 +96,7 @@ const HomeHeader = () => {
 
   return (
     <>
-       <div className="w-full flex items-center justify-around bg-white border-b border-gray-200 shadow-sm py-2">
+       <div className="w-full flex items-center justify-around bg-white border-b border-gray-200 py-2">
 
           <div className="logo w-28 md:w-40 flex items-center ">
             <img
@@ -110,13 +110,14 @@ const HomeHeader = () => {
           </div>
 
           {/* Search Bar */}
-          <div className="search w-3/5 flex items-center justify-center gap-1 md:gap-2 shadow-inner p-1.5 md:p-2 rounded-xl bg-gray-50">
+          <div className="search w-3/5 flex items-center justify-center shadow-inner bg-gray-50 gap-1 md:gap-2 p-1.5 md:p-2 rounded-xl ">
           <div className="w-full">
 
             <Input
               placeholder="Search"
               className="border-none outline-none bg-gray-50 text-gray-800 placeholder-gray-500 h-0 md:h-10 px-0"
               iconBackground={true}
+              wrapperClass="rounded-3xl"
               icon={
                 <SearchIcon
                   style={{ color: "#4A5568" }}
@@ -235,7 +236,7 @@ const HomeHeader = () => {
 
         <CartSidebar />
 
-        <div className="flex items-center justify-center p-1 text-base md:text-lg text-gray-800 bg-gray-200 sticky z-20 w-full top-0 font-semibold">
+        <div className="flex items-center justify-center p-1 text-base md:text-lg text-gray-800 bg-white shadow-lg sticky z-20 w-full top-0 font-semibold">
           <div className="flex gap-10">
             <NavLink
               to={ROUTE_MEN_CLOTHING}

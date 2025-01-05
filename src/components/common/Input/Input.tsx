@@ -191,7 +191,7 @@ function Input<FormValues>({
             </label>
           </div>
         )} */}
-        <div className="space-y-2">
+        <div className={`space-y-2 ${wrapperClass}`}>
           {radioOptions.map((option) => (
             <label
               key={option.value}

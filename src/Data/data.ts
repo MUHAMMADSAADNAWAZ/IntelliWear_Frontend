@@ -1,27 +1,27 @@
-import clothe1 from "@assets/clothes1.jpg";
-import clothe2 from "@assets/clothes2.jpg";
-import clothe3 from "@assets/clothes3.jpg";
-import clothe4 from "@assets/clothes4.jpg";
-import clothe5 from "@assets/clothes5.jpg";
-import clothe6 from "@assets/clothes6.jpg";
-import clothe7 from "@assets/clothes7.jpg";
-import clothe8 from "@assets/clothes8.jpg";
-import shoess1 from "@assets/shoes1.jpg";
-import shoess2 from "@assets/shoes2.jpg";
-import shoess3 from "@assets/shoes3.jpg";
-import shoess4 from "@assets/shoes4.jpg";
-import shoess5 from "@assets/shoes5.jpg";
-import shoess6 from "@assets/shoes6.jpg";
-import shoess7 from "@assets/shoes7.jpg";
-import shoess8 from "@assets/shoes8.jpg";
-import accessorry1 from "@assets/accessory1.jpg";
-import accessorry2 from "@assets/accessory2.jpg";
-import accessorry3 from "@assets/accessory3.jpg";
-import accessorry4 from "@assets/accessory4.jpg";
-import accessorry5 from "@assets/accessory5.jpg";
-import accessorry6 from "@assets/accessory6.jpg";
-import accessorry7 from "@assets/accessory7.jpg";
-import accessorry8 from "@assets/accessory8.jpg";
+// import clothe1 from "@assets/clothes1.jpg";
+// import clothe2 from "@assets/clothes2.jpg";
+// import clothe3 from "@assets/clothes3.jpg";
+// import clothe4 from "@assets/clothes4.jpg";
+// import clothe5 from "@assets/clothes5.jpg";
+// import clothe6 from "@assets/clothes6.jpg";
+// import clothe7 from "@assets/clothes7.jpg";
+// import clothe8 from "@assets/clothes8.jpg";
+// import shoess1 from "@assets/shoes1.jpg";
+// import shoess2 from "@assets/shoes2.jpg";
+// import shoess3 from "@assets/shoes3.jpg";
+// import shoess4 from "@assets/shoes4.jpg";
+// import shoess5 from "@assets/shoes5.jpg";
+// import shoess6 from "@assets/shoes6.jpg";
+// import shoess7 from "@assets/shoes7.jpg";
+// import shoess8 from "@assets/shoes8.jpg";
+// import accessorry1 from "@assets/accessory1.jpg";
+// import accessorry2 from "@assets/accessory2.jpg";
+// import accessorry3 from "@assets/accessory3.jpg";
+// import accessorry4 from "@assets/accessory4.jpg";
+// import accessorry5 from "@assets/accessory5.jpg";
+// import accessorry6 from "@assets/accessory6.jpg";
+// import accessorry7 from "@assets/accessory7.jpg";
+// import accessorry8 from "@assets/accessory8.jpg";
 
 // Import clothing images
 import cloth1 from "@assets/c1.jpeg";
@@ -418,78 +418,78 @@ export const clothesData = [
     description: "Best Simple Design Dress For Women (Made in USA)",
     avaQuantity: 15,
   },
-  {
-    id: 91,
-    img: clothe1,
-    name: "Casual T-Shirt",
-    price: 100,
-    category: "all",
-    description: "Comfortable casual t-shirt",
-    avaQuantity: 10,
-  },
-  {
-    id: 92,
-    img: clothe2,
-    name: "Men's Formal Shirt",
-    price: 200,
-    category: "men",
-    description: "Elegant formal shirt for men",
-    avaQuantity: 12,
-  },
-  {
-    id: 93,
-    img: clothe3,
-    name: "Women's Summer Dress",
-    price: 300,
-    category: "women",
-    description: "Light and breezy summer dress",
-    avaQuantity: 8,
-  },
-  {
-    id: 94,
-    img: clothe4,
-    name: "Kids' Hoodie",
-    price: 400,
-    category: "children",
-    description: "Warm and cozy hoodie for kids",
-    avaQuantity: 7,
-  },
-  {
-    id: 95,
-    img: clothe5,
-    name: "Men's Jeans",
-    price: 500,
-    category: "men",
-    description: "Stylish and durable jeans",
-    avaQuantity: 9,
-  },
-  {
-    id: 96,
-    img: clothe6,
-    name: "Women's Blouse",
-    price: 600,
-    category: "women",
-    description: "Elegant blouse for women",
-    avaQuantity: 12,
-  },
-  {
-    id: 97,
-    img: clothe7,
-    name: "Kids' Sweatshirt",
-    price: 700,
-    category: "children",
-    description: "Cozy sweatshirt for kids",
-    avaQuantity: 8,
-  },
-  {
-    id: 98,
-    img: clothe8,
-    name: "Unisex Jacket",
-    price: 800,
-    category: "all",
-    description: "Stylish jacket for all",
-    avaQuantity: 10,
-  },
+  // {
+  //   id: 91,
+  //   img: clothe1,
+  //   name: "Casual T-Shirt",
+  //   price: 100,
+  //   category: "all",
+  //   description: "Comfortable casual t-shirt",
+  //   avaQuantity: 10,
+  // },
+  // {
+  //   id: 92,
+  //   img: clothe2,
+  //   name: "Men's Formal Shirt",
+  //   price: 200,
+  //   category: "men",
+  //   description: "Elegant formal shirt for men",
+  //   avaQuantity: 12,
+  // },
+  // {
+  //   id: 93,
+  //   img: clothe3,
+  //   name: "Women's Summer Dress",
+  //   price: 300,
+  //   category: "women",
+  //   description: "Light and breezy summer dress",
+  //   avaQuantity: 8,
+  // },
+  // {
+  //   id: 94,
+  //   img: clothe4,
+  //   name: "Kids' Hoodie",
+  //   price: 400,
+  //   category: "children",
+  //   description: "Warm and cozy hoodie for kids",
+  //   avaQuantity: 7,
+  // },
+  // {
+  //   id: 95,
+  //   img: clothe5,
+  //   name: "Men's Jeans",
+  //   price: 500,
+  //   category: "men",
+  //   description: "Stylish and durable jeans",
+  //   avaQuantity: 9,
+  // },
+  // {
+  //   id: 96,
+  //   img: clothe6,
+  //   name: "Women's Blouse",
+  //   price: 600,
+  //   category: "women",
+  //   description: "Elegant blouse for women",
+  //   avaQuantity: 12,
+  // },
+  // {
+  //   id: 97,
+  //   img: clothe7,
+  //   name: "Kids' Sweatshirt",
+  //   price: 700,
+  //   category: "children",
+  //   description: "Cozy sweatshirt for kids",
+  //   avaQuantity: 8,
+  // },
+  // {
+  //   id: 98,
+  //   img: clothe8,
+  //   name: "Unisex Jacket",
+  //   price: 800,
+  //   category: "all",
+  //   description: "Stylish jacket for all",
+  //   avaQuantity: 10,
+  // },
 ];
 
 export const footwearData = [
@@ -765,78 +765,78 @@ export const footwearData = [
     description: "Soft Knit Sandals for mens",
     avaQuantity: 14,
   },
-  {
-    id: 99,
-    img: shoess1,
-    name: "Casual Sneakers",
-    price: 100,
-    category: "all",
-    description: "Comfortable casual sneakers",
-    avaQuantity: 10,
-  },
-  {
-    id: 100,
-    img: shoess2,
-    name: "Men's Formal Shoes",
-    price: 200,
-    category: "men",
-    description: "Elegant formal shoes for men",
-    avaQuantity: 12,
-  },
-  {
-    id: 101,
-    img: shoess3,
-    name: "Women's Running Shoes",
-    price: 300,
-    category: "women",
-    description: "Lightweight running shoes for women",
-    avaQuantity: 8,
-  },
-  {
-    id: 102,
-    img: shoess4,
-    name: "Kids' Sports Shoes",
-    price: 400,
-    category: "children",
-    description: "Durable sports shoes for kids",
-    avaQuantity: 7,
-  },
-  {
-    id: 103,
-    img: shoess5,
-    name: "Men's Hiking Boots",
-    price: 500,
-    category: "men",
-    description: "Sturdy hiking boots for men",
-    avaQuantity: 9,
-  },
-  {
-    id: 104,
-    img: shoess6,
-    name: "Women's Sandals",
-    price: 600,
-    category: "women",
-    description: "Stylish sandals for women",
-    avaQuantity: 12,
-  },
-  {
-    id: 105,
-    img: shoess7,
-    name: "Kids' Winter Boots",
-    price: 700,
-    category: "children",
-    description: "Warm winter boots for kids",
-    avaQuantity: 8,
-  },
-  {
-    id: 106,
-    img: shoess8,
-    name: "Unisex Flip Flops",
-    price: 800,
-    category: "all",
-    description: "Comfortable flip flops for all",
-    avaQuantity: 10,
-  },
+  // {
+  //   id: 99,
+  //   img: shoess1,
+  //   name: "Casual Sneakers",
+  //   price: 100,
+  //   category: "all",
+  //   description: "Comfortable casual sneakers",
+  //   avaQuantity: 10,
+  // },
+  // {
+  //   id: 100,
+  //   img: shoess2,
+  //   name: "Men's Formal Shoes",
+  //   price: 200,
+  //   category: "men",
+  //   description: "Elegant formal shoes for men",
+  //   avaQuantity: 12,
+  // },
+  // {
+  //   id: 101,
+  //   img: shoess3,
+  //   name: "Women's Running Shoes",
+  //   price: 300,
+  //   category: "women",
+  //   description: "Lightweight running shoes for women",
+  //   avaQuantity: 8,
+  // },
+  // {
+  //   id: 102,
+  //   img: shoess4,
+  //   name: "Kids' Sports Shoes",
+  //   price: 400,
+  //   category: "children",
+  //   description: "Durable sports shoes for kids",
+  //   avaQuantity: 7,
+  // },
+  // {
+  //   id: 103,
+  //   img: shoess5,
+  //   name: "Men's Hiking Boots",
+  //   price: 500,
+  //   category: "men",
+  //   description: "Sturdy hiking boots for men",
+  //   avaQuantity: 9,
+  // },
+  // {
+  //   id: 104,
+  //   img: shoess6,
+  //   name: "Women's Sandals",
+  //   price: 600,
+  //   category: "women",
+  //   description: "Stylish sandals for women",
+  //   avaQuantity: 12,
+  // },
+  // {
+  //   id: 105,
+  //   img: shoess7,
+  //   name: "Kids' Winter Boots",
+  //   price: 700,
+  //   category: "children",
+  //   description: "Warm winter boots for kids",
+  //   avaQuantity: 8,
+  // },
+  // {
+  //   id: 106,
+  //   img: shoess8,
+  //   name: "Unisex Flip Flops",
+  //   price: 800,
+  //   category: "all",
+  //   description: "Comfortable flip flops for all",
+  //   avaQuantity: 10,
+  // },
 ];
 
 export const accessoriesData = [
@@ -1113,78 +1113,78 @@ export const accessoriesData = [
     description: "Classic design with a contemporary twist",
     avaQuantity: 4,
   },
-  {
-    id: 107,
-    img: accessorry1,
-    name: "Stylish Bracelet",
-    price: 25.99,
-    category: "all",
-    description: "Stylish accessory to complement any outfit",
-    avaQuantity: 22,
-  },
-  {
-    id: 108,
-    img: accessorry2,
-    name: "Leather Wallet",
-    price: 45.99,
-    category: "men",
-    description: "Classic design for the modern man",
-    avaQuantity: 22,
-  },
-  {
-    id: 109,
-    img: accessorry3,
-    name: "Gold Earrings",
-    price: 120.0,
-    category: "women",
-    description: "Elegant accessory for a chic look",
-    avaQuantity: 22,
-  },
-  {
-    id: 110,
-    img: accessorry4,
-    name: "Kids Watch",
-    price: 19.99,
-    category: "children",
-    description: "Fun and colorful design for kids",
-    avaQuantity: 22,
-  },
-  {
-    id: 111,
-    img: accessorry5,
-    name: "Sporty Cap",
-    price: 18.5,
-    category: "men",
-    description: "Bold and striking accessory for men",
-    avaQuantity: 22,
-  },
-  {
-    id: 112,
-    img: accessorry6,
-    name: "Pearl Necklace",
-    price: 75.0,
-    category: "women",
-    description: "Delicate design with a touch of glamour",
-    avaQuantity: 22,
-  },
-  {
-    id: 113,
-    img: accessorry7,
-    name: "Animal Print Backpack",
-    price: 40.0,
-    category: "children",
-    description: "Perfect for little adventurers",
-    avaQuantity: 22,
-  },
-  {
-    id: 114,
-    img: accessorry8,
-    name: "Classic Sunglasses",
-    price: 60.0,
-    category: "all",
-    description: "Versatile accessory for everyone",
-    avaQuantity: 22,
-  },
+  // {
+  //   id: 107,
+  //   img: accessorry1,
+  //   name: "Stylish Bracelet",
+  //   price: 25.99,
+  //   category: "all",
+  //   description: "Stylish accessory to complement any outfit",
+  //   avaQuantity: 22,
+  // },
+  // {
+  //   id: 108,
+  //   img: accessorry2,
+  //   name: "Leather Wallet",
+  //   price: 45.99,
+  //   category: "men",
+  //   description: "Classic design for the modern man",
+  //   avaQuantity: 22,
+  // },
+  // {
+  //   id: 109,
+  //   img: accessorry3,
+  //   name: "Gold Earrings",
+  //   price: 120.0,
+  //   category: "women",
+  //   description: "Elegant accessory for a chic look",
+  //   avaQuantity: 22,
+  // },
+  // {
+  //   id: 110,
+  //   img: accessorry4,
+  //   name: "Kids Watch",
+  //   price: 19.99,
+  //   category: "children",
+  //   description: "Fun and colorful design for kids",
+  //   avaQuantity: 22,
+  // },
+  // {
+  //   id: 111,
+  //   img: accessorry5,
+  //   name: "Sporty Cap",
+  //   price: 18.5,
+  //   category: "men",
+  //   description: "Bold and striking accessory for men",
+  //   avaQuantity: 22,
+  // },
+  // {
+  //   id: 112,
+  //   img: accessorry6,
+  //   name: "Pearl Necklace",
+  //   price: 75.0,
+  //   category: "women",
+  //   description: "Delicate design with a touch of glamour",
+  //   avaQuantity: 22,
+  // },
+  // {
+  //   id: 113,
+  //   img: accessorry7,
+  //   name: "Animal Print Backpack",
+  //   price: 40.0,
+  //   category: "children",
+  //   description: "Perfect for little adventurers",
+  //   avaQuantity: 22,
+  // },
+  // {
+  //   id: 114,
+  //   img: accessorry8,
+  //   name: "Classic Sunglasses",
+  //   price: 60.0,
+  //   category: "all",
+  //   description: "Versatile accessory for everyone",
+  //   avaQuantity: 22,
+  // },
 ];
 
 // Analytics component data
@@ -1461,7 +1461,7 @@ export const menuItems = [
 ];
 
 export const productCategories = [
-  { name: "Products", path: ROUTE_ADMIN_PRODUCTS },
+  { name: "All Products", path: ROUTE_ADMIN_PRODUCTS },
   { name: "Clothes", path: ROUTE_ADMIN_CLOTHPRODUCTS },
   { name: "Footwear", path: ROUTE_ADMIN_FOOTWEARPRODUCTS },
   { name: "Accessories", path: ROUTE_ADMIN_ACCESSORIEPRODUCTS },
