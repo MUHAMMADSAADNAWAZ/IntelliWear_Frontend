@@ -133,7 +133,7 @@ const Checkout = () => {
           <h2 className="text-xl font-bold mb-6">Payment Methods</h2>
           <div className="">
             <Input
-              wrapperClass="flex gap-2 items-center justify-between"
+              wrapperClass="flex flex-start flex-col md:flex-row gap-2 md:items-center md:justify-between"
               type="radio"
               radioOptions={transformedPaymentMethods}
               formik={form}

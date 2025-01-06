@@ -141,7 +141,7 @@ const HomeHeader = () => {
           </div>
 
           <div
-            className="cart relative cursor-pointer"
+            className="cart relative cursor-pointer mx-4 md:mx-0 md:ml-4"
             onClick={() => {
               dispatch(toggleCart());
             }}
@@ -160,11 +160,11 @@ const HomeHeader = () => {
           </div>
 
           {/* Auth Buttons */}
-          <div className="w-1/6 flex gap-1 md:gap-2 items-end justify-end">
+          <div className="w-1/6 flex flex-col sm:flex-row gap-1 md:gap-2 items-end justify-end mr-2">
             {email === undefined ? (
               <>
                 <Button
-                  className="bg-blue-600 text-white hover:bg-blue-700 text-xs md:text-base font-normal md:font-medium p-1 md:px-3 md:py-2 rounded-md"
+                  className="bg-blue-600 text-white hover:bg-blue-700 text-xs lg:text-base font-normal lg:font-medium p-1 px-2 lg:px-3 lg:py-2 rounded-md"
                   onClick={() => {
                     navigate(ROUTE_LOGIN);
                   }}
@@ -172,7 +172,7 @@ const HomeHeader = () => {
                   Login
                 </Button>
                 <Button
-                  className="bg-blue-600 text-white hover:bg-blue-700 text-xs md:text-base font-normal md:font-medium p-1 md:px-3 md:py-2 rounded-md"
+                  className="bg-blue-600 text-white hover:bg-blue-700 text-xs lg:text-base font-normal lg:font-medium p-1 lg:px-3 lg:py-2 rounded-md"
                   onClick={() => {
                     navigate(ROUTE_SIGNUP);
                   }}
@@ -242,7 +242,7 @@ const HomeHeader = () => {
               to={ROUTE_MEN_CLOTHING}
               className={({ isActive }) =>
                 isActive
-                  ? "text-blue-600"
+                  ? "text-blue-600 font-bold"
                   : "hover:text-blue-600 cursor-pointer"
               }
             >
@@ -252,7 +252,7 @@ const HomeHeader = () => {
               to={ROUTE_WOMEN_CLOTHING}
               className={({ isActive }) =>
                 isActive
-                  ? "text-blue-600"
+                  ? "text-blue-600 font-bold"
                   : "hover:text-blue-600 cursor-pointer"
               }
             >
@@ -262,7 +262,7 @@ const HomeHeader = () => {
               to={ROUTE_CHILDREN_CLOTHING}
               className={({ isActive }) =>
                 isActive
-                  ? "text-blue-600"
+                  ? "text-blue-600 font-bold"
                   : "hover:text-blue-600 cursor-pointer"
               }
             >
