@@ -1,50 +1,35 @@
-# React + TypeScript + Vite
+# IntelliWear - E-Commerce Platform  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**IntelliWear** is a modern e-commerce platform for buying clothing, footwear, and accessories. Built with **React, TypeScript, Redux Toolkit, and Tailwind CSS**, the platform offers a seamless shopping experience with features like user authentication, a shopping cart, and checkout with multiple payment methods.  
 
-Currently, two official plugins are available:
+## Features  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+✅ User authentication (Signup/Login)  
+✅ Browse and filter products (Clothes, Footwear, Accessories)  
+✅ Product details with size and quantity selection  
+✅ Shopping cart management  
+✅ Secure checkout with multiple payment options (Easypaisa, JazzCash, Cards, Cash on Delivery)  
+✅ Admin panel for managing products, orders, and analytics  
 
-## Expanding the ESLint configuration
+## Tech Stack  
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Frontend:** React, TypeScript, Redux Toolkit, Tailwind CSS  
+- **State Management:** Redux Toolkit  
+- **Routing:** React Router  
+- **Build Tool:** Vite  
 
-- Configure the top-level `parserOptions` property like this:
+## Getting Started  
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### Installation  
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+1. Clone the repository:  
+   git clone https://github.com/MUHAMMADSAADNAWAZ/IntelliWear_Frontend.git
+   cd IntelliWear_Frontend
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+2. Install dependencies:   
+  npm install
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+3.Start the development server:
+  npm run dev
+
+The application will be available at http://localhost:5173.  

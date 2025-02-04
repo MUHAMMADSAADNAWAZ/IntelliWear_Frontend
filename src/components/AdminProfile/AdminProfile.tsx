@@ -33,7 +33,7 @@ const AdminProfile = () => {
 
   return (
     <div className="admin-profile w-full min-h-screen bg-gray-100 text-gray-800 flex flex-col items-center p-8 ">
-      <h1 className="text-center py-4 text-4xl font-bold text-blue-500 border-b-2 border-blue-500 mb-6">
+      <h1 className="py-4 text-4xl font-bold text-blue-500 border-b-2 border-blue-500 mb-6">
         Admin Profile
       </h1>
 

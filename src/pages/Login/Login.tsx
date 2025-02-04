@@ -49,7 +49,7 @@ const Login = () => {
                
             </div>
 
-            <div className="w-full md:w-1/2 flex items-center justify-center bg-gray-100">
+            <div className="w-full md:w-1/2 flex items-center justify-center bg-gray-100 py-5 md:py-0 min-h-screen">
                 <form onSubmit={form.handleSubmit} className="bg-white p-8 rounded-lg shadow-lg w-3/4 max-w-md">
 
                 <div className="text-center">

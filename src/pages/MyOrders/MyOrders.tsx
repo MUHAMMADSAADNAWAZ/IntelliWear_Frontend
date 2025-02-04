@@ -2,7 +2,7 @@ import { orders } from "@Data/data";
 
 const MyOrders = () => {
   return (
-    <div className="w-full min-h-screen bg-gray-100 text-gray-800 p-8">
+    <div className="w-full md:min-h-screen bg-gray-100 text-gray-800 p-8">
       <h1 className="text-2xl md:text-4xl font-extrabold text-blue-600 mb-6">My Orders</h1>
       <div className="bg-white rounded-lg shadow-md p-8">
         {orders.length === 0 ? (

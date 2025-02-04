@@ -30,7 +30,8 @@ import {
   ROUTE_ADMIN_EDIT_PRODUCTS,
   ROUTE_CHECKOUT,
   ROUTE_ADMIN_PRODUCTS,
-  ROUTE_RESET_PASSWORD
+  ROUTE_RESET_PASSWORD,
+  ROUTE_ADMIN_CHATBOT
  } from "@routes/constants" 
 import { clothesData , footwearData , accessoriesData  } from "@Data/data"
 import { useSelector } from "react-redux"
@@ -57,6 +58,7 @@ import { NotFound } from "@pages/NotFound"
 import { EditProducts } from "@components/EditProducts"
 import { Checkout } from "@pages/Checkout"
 import { ResetPassword } from "@pages/ResetPassword"
+import { AdminChatbot } from "@components/AdminChatbot"
 
 const AppRoutes = () => {
 
@@ -157,6 +159,7 @@ const AppRoutes = () => {
             <Route path={ROUTE_ADMIN_EDIT_PRODUCTS} element={<EditProducts />} /> 
             <Route path={ROUTE_ADMIN_CUSTOMERS} element={<Customers />} /> 
             <Route path={ROUTE_ADMIN_PROFILE} element={<AdminProfile />} />
+            <Route path={ROUTE_ADMIN_CHATBOT} element={<AdminChatbot />} />
             <Route path={ROUTE_ADMIN_ORDERS} element={<OrderMenu name="All" />} /> 
             <Route path={ROUTE_ADMIN_PENDING_ORDERS} element={<OrderMenu name="Pending" />} /> 
             <Route path={ROUTE_ADMIN_INPROGRESS_ORDERS} element={<OrderMenu name="In Progress" />} /> 
