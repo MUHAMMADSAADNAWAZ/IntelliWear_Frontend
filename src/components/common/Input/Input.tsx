@@ -137,6 +137,7 @@ export interface inputProps<FormValues>
   disabled?: boolean;
   iconBackground?: boolean;
   radioOptions?: { label: string; value: string }[];
+  ref?: React.RefObject<HTMLInputElement>;
 }
 
 function Input<FormValues>({
@@ -158,6 +159,7 @@ function Input<FormValues>({
   radioOptions,
   onChange,
   disabled,
+  ref,
   ...rest
 }: inputProps<FormValues>) {
   if (formik && name) {
@@ -239,6 +241,7 @@ function Input<FormValues>({
             value={value}
             onChange={onChange}
             disabled={disabled}
+            ref={ref}
             {...rest}
           />
           {icon && (

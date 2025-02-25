@@ -63,7 +63,7 @@ const Login = () => {
                     <Input
                         placeholder="Enter Your Email"
                         labelText="Email"
-                        labelClass="text-blue-500 font-semibold"
+                        labelClass="text-blue-500 font-semibold font-poppins"
                         required
                         name="email"
                         type="email"
@@ -75,7 +75,7 @@ const Login = () => {
                     <Input
                         placeholder="Enter Your Password"
                         labelText="Password"
-                        labelClass="text-blue-500 font-semibold"
+                        labelClass="text-blue-500 font-semibold font-poppins"
                         required
                         name="password"
                         type={showPassword ? "" : "password"}

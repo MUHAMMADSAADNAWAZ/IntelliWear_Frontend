@@ -1,10 +1,13 @@
 import { CitySelect } from "@components/CitySelect";
 import { Button, Input } from "@components/common";
+import PaymentPopup from "@components/PaymentPopup/PaymentPopup";
 import { pakistaniCities } from "@Data/data";
 import { CheckoutDto } from "@dto/checkout.dto";
+import { PaymentDto } from "@dto/payment.dto";
 import { RootState } from "@redux/store";
 import { ROUTE_MYORDERS } from "@routes/constants";
 import { useFormik } from "formik";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -16,13 +19,14 @@ interface CityOption {
 
 const Checkout = () => {
 
+  const [open , setOpen] = useState(false)
+
   const navigate = useNavigate()
 
   const paymentMethods = [
     "Easypaisa",
     "JazzCash",
-    "Credit Card",
-    "Debit Card",
+    "Credit Card/Debit Card",
     "Cash on Delivery",
   ];
 
@@ -31,7 +35,6 @@ const Checkout = () => {
     value: method.toLowerCase().replace(" ", "-"),
   }));
 
-  // Transform the data for react-select
   const cityOptions: CityOption[] = pakistaniCities.map((city) => ({
     value: city.name,
     label: city.name,
@@ -49,10 +52,20 @@ const Checkout = () => {
     validationSchema: CheckoutDto.yupSchema(),
     onSubmit: (values) => {
       console.log("Checkout dto values are", values);
-      toast.success("Your Order is placed Successfully!")
-      navigate(ROUTE_MYORDERS);
+      paymentForm.setFieldValue("payment" , form?.values?.payment)
+      setOpen(true)
     },
   });
+  
+  const paymentForm = useFormik({
+    initialValues: PaymentDto.initialValues(),
+    validationSchema: PaymentDto.yupSchema(),
+    onSubmit: (values) => {
+      console.log("Payment dto values are", values);
+      toast.success("Your Order is placed Successfully!")
+      navigate(ROUTE_MYORDERS);
+    }
+  })
 
   return (
     <div className="p-4 w-full mx-auto">
@@ -143,56 +156,6 @@ const Checkout = () => {
           </div>
         </div>
 
-        {form.values.payment && (
-          <div className="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 className="text-xl font-bold mb-4">Payment Details</h2>
-            {form.values.payment === "easypaisa" || form.values.payment === "jazzcash" ? (
-              <>
-                <Input
-                  type="text"
-                  labelText="Phone Number"
-                  name="easypaisaPhone"
-                  formik={form}
-                  placeholder={`Enter your ${form.values.payment} number`}
-                />
-              
-              </>
-            ) : form.values.payment === "credit-card" || form.values.payment === "debit-card" ? (
-              <>
-                <Input
-                  type="text"
-                  labelText="Card Number"
-                  placeholder="Enter your Card Number"
-                  name="cardNumber"
-                  formik={form}
-                />
-                <Input
-                  type="month"
-                  labelText="Expiry Date"
-                  placeholder="Select Expiry Date"
-                  min={new Date().toISOString().slice(0, 7)}
-                  name="expiryDate"
-                  formik={form}
-                />
-                <Input
-                  type="text"
-                  labelText="CVV"
-                  placeholder="Enter CVV"
-                  name="cvv"
-                  formik={form}
-                />
-              </>
-            ) : (
-              <>
-              <p className="text-sm text-gray-600">
-                Your order is being processed and will be delivered in 3-5 days.
-              </p>
-              <p className="text-sm text-gray-600 font-bold"> You will be charged 50 more rupees for home delivery.</p>
-              </>
-            )}
-          </div>
-        )}
-
         <div className="flex items-center justify-center">
           <Button
             type="submit"
@@ -202,6 +165,8 @@ const Checkout = () => {
           </Button>
         </div>
       </form>
+
+      {open && <PaymentPopup form={paymentForm} setOpen={setOpen}/>}
 
     </div>
   );

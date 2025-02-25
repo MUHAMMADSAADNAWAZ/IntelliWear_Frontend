@@ -1,5 +1,6 @@
 
 import { useRef, useState } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -20,6 +21,7 @@ import {
   selectCart,
   toggleCart,
 } from "@redux/slices/cartSlice";
+import { clearMessages } from "@redux/slices/botSlice";
 import { logout, selectUser } from "@redux/slices/userSlice";
 import {
   ROUTE_CHILDREN_CLOTHING,
@@ -46,6 +48,7 @@ const HomeHeader = () => {
   const handleLogout = () => {
     dispatch(logout());
     dispatch(clearCart());
+    dispatch(clearMessages());
     navigate(ROUTE_HOME);
     toast.success("Logged out Successfully");
   };

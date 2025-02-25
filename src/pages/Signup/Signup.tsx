@@ -59,7 +59,7 @@ const Signup = () => {
                     <Input
                         placeholder="Enter Your Name"
                         labelText="Name"
-                        labelClass="text-blue-500 font-semibold"
+                        labelClass="text-blue-500 font-semibold font-poppins"
                         required
                         name="name"
                         formik={form}
@@ -70,7 +70,7 @@ const Signup = () => {
                     <Input
                         placeholder="Enter Your Email"
                         labelText="Email"
-                        labelClass="text-blue-500 font-semibold"
+                        labelClass="text-blue-500 font-semibold font-poppins"
                         required
                         name="email"
                         type="email"
@@ -82,7 +82,7 @@ const Signup = () => {
                     <Input
                         placeholder="Enter Your Phone Number"
                         labelText="Phone Number"
-                        labelClass="text-blue-500 font-semibold"
+                        labelClass="text-blue-500 font-semibold font-poppins"
                         required
                         name="phone"
                         formik={form}
@@ -93,7 +93,7 @@ const Signup = () => {
                     <Input
                         placeholder="Enter Your Password"
                         labelText="Password"
-                        labelClass="text-blue-500 font-semibold"
+                        labelClass="text-blue-500 font-semibold font-poppins"
                         required
                         name="password"
                         type={showPassword ? "" : "password"}
@@ -121,7 +121,7 @@ const Signup = () => {
                     <Input
                         placeholder="Confirm Your Password"
                         labelText="Confirm Password"
-                        labelClass="text-blue-500 font-semibold"
+                        labelClass="text-blue-500 font-semibold font-poppins"
                         required
                         name="confirm_password"
                         type={showConfirmPassword ? "" : "password"}

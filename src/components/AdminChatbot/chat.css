@@ -1,0 +1,43 @@
+.cs-message{
+    padding: 0px !important;
+}
+
+.cs-main-container{
+border: none;
+}
+.cs-message__content{
+    background-color: transparent !important ;
+    font-family: DMsans;
+    text-align: justify;
+}
+.cs-message-input{
+    /* border: none !important; */
+    border:1px solid #CBD5E1 !important;
+    display: flex !important;
+    justify-content: center !important; 
+    padding: 0% 2% !important;
+    align-items: center !important;
+
+    margin-top: 2% !important;
+    box-shadow: 0px 2px 4px -2px #1717170F;
+    border-radius: 9999px;
+
+    /* height: 12% !important; */
+    /* padding: 2% 0% !important; */
+}
+/* .cs-message-input__content-editor-wrapper{ */
+    /* background-color: white; */
+/* } */
+/* .cs-message-input__content-editor{ */
+    /* border: none !important; */
+    /* border:2px solid green !important; */
+   /* background-color: white !important; */
+   /* padding: 1% 0% !important; */
+    /* height: 12% !important; */
+    /* padding: 2% 0% !important; */
+/* } */
+.cs-typing-indicator{
+    padding-left: 12% !important;
+    border: 2px solid red !important;
+    min-height: 2% !important;
+}

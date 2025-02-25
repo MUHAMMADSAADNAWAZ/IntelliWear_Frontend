@@ -1,6 +1,7 @@
-import { ShoppingBag } from 'lucide-react';
 import { useEffect, useState } from 'react';
+
 import { useDispatch } from 'react-redux';
+import { ShoppingBag } from 'lucide-react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ChevronUpIcon from '@mui/icons-material/ExpandLess';
@@ -10,6 +11,7 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import { menuItems, orderCategories, productCategories } from '@Data/data';
 import { logout } from '@redux/slices/userSlice';
 import { ROUTE_ADMIN_PRODUCTS } from '@routes/constants';
+import {clearMessages} from "@redux/slices/botSlice"
 
 const AdminSidebar = () => {
   const [open, setOpen] = useState<string>("");
@@ -122,6 +124,7 @@ const AdminSidebar = () => {
             onClick={() => {
               if (item.name === 'Logout') {
                 dispatch(logout());
+                dispatch(clearMessages())
                 toast.success('Logged out Successfully');
               }
               setOpen("")
