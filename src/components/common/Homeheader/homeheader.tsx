@@ -39,7 +39,7 @@ const HomeHeader = () => {
   const navigate = useNavigate();
 
   const user = useSelector(selectUser);
-  const email = user?.email;
+  const email = user?.user_info?.user?.email;
   // console.log("user" , user);
   // console.log("email" , email);
 
@@ -95,6 +95,16 @@ const HomeHeader = () => {
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(anchorElUser ? null : event.currentTarget);
+  };
+
+  const getInitials = (name?: string) => {
+    if (!name) return '';
+    return name
+      .split(' ')
+      .slice(0, 2)
+      .map(word => word.charAt(0))
+      .join('')
+      .toUpperCase();
   };
 
   return (
@@ -190,11 +200,11 @@ const HomeHeader = () => {
                   ref={avatarRef}
                   sx={{ p: 0  }}
                 >
-                  <Avatar>SN</Avatar>
+                  <Avatar>{getInitials(user?.user_info?.user?.name)}</Avatar>
                 </IconButton>
              
 
-                <p className="text-gray-800 text-sm md:text-lg hidden md:block">Saad Nawaz</p>
+                <p className="text-gray-800 text-sm md:text-lg hidden md:block">{user?.user_info?.user?.name}</p>
                 <Menu
                   ref={menuRef}
                   sx={{ mt: "45px" , position: "absolute" }}

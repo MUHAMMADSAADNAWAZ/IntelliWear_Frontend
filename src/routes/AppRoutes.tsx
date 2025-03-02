@@ -63,7 +63,7 @@ import { AdminChatbot } from "@components/AdminChatbot";
 
 const AppRoutes = () => {
   const user = useSelector(selectUser);
-  const role = user ? user.role : undefined;
+  const role = user ? user?.user_info?.user_type : undefined;
 
   return (
     <div>
@@ -149,7 +149,7 @@ const AppRoutes = () => {
             <ProtectedRoute
               isAuthenticated={true}
               role={role}
-              allowedRoles={["buyer"]}
+              allowedRoles={["customer"]}
             >
               <HomeLayout />
             </ProtectedRoute>

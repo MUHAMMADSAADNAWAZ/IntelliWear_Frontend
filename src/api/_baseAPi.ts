@@ -1,16 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
-// interface KeycloakUser {
-//   access_token: string;
-// }
-
-// interface User {
-//   keycloak_user: KeycloakUser;
-// }
-
 export default class BaseApi {
   private static isInterceptorSet = false;
-//   private static isHandlingError = false;
+  // private static isHandlingError = false;
 
   private static setInterceptor() {
     if (!BaseApi.isInterceptorSet) {
