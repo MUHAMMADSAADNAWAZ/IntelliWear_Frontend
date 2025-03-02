@@ -4,18 +4,20 @@ import {persistReducer , persistStore} from "redux-persist"
 import userReducer from "@redux/slices/userSlice"
 import cartReducer from "@redux/slices/cartSlice"
 import botReducer from "@redux/slices/botSlice"
+import loaderSlice from "@redux/slices/loaderSlice"
 
 const rootReducer = combineReducers({
-    user: userReducer,
+    user_store: userReducer,
     cart: cartReducer,
-    bot: botReducer
+    bot: botReducer,
+    loader: loaderSlice
 })
 
 const persistConfig = {
     key: 'root',
     storage,
     // whitelist: ['user'], // Only persist user slice
-    // blacklist: ['cart'], // Do not persist cart slice
+    blacklist: ['loader'],
 }
 
 const persistedReducer = persistReducer(persistConfig , rootReducer)

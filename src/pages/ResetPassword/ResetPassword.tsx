@@ -1,16 +1,28 @@
+import {  useState } from "react";
+
 import { useFormik } from "formik";
-import { Button, Input } from "@components/common";
-import { PasswordDto } from "@dto/password.dto";
-import { useNavigate } from "react-router-dom";
-import { ROUTE_LOGIN } from "@routes/constants";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { IoEyeOutline } from "react-icons/io5";
-import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+
+import { ROUTE_LOGIN } from "@routes/constants";
+import { Button, Input } from "@components/common";
+import UserApi from "@api/user.api";
+import { ResetPasswordDto } from "@dto/resetPassword.dto";
+import { useDispatch, useSelector } from "react-redux";
+import { isLoader, updateLoader } from "@redux/slices/loaderSlice";
+import { Loader } from "@components/Loader";
 
 const ResetPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const {uid , token} = useParams()
+  const loader = useSelector(isLoader);
+  const dispatch = useDispatch()
+  const userapi = new UserApi()
 
   const handlePassword = () => {
     setShowPassword(!showPassword);
@@ -23,14 +35,31 @@ const ResetPassword = () => {
   const navigate = useNavigate();
 
   const form = useFormik({
-    initialValues: PasswordDto.initialValues(),
-    validationSchema: PasswordDto.yupSchema(),
+    initialValues: ResetPasswordDto.initialValues(),
+    validationSchema: ResetPasswordDto.yupSchema(),
     onSubmit: (values) => {
-      console.log("Reset Password Values are", values);
-      toast.success("Password Reset Successfully!");
-      navigate(ROUTE_LOGIN);
+      mutateAsync(values)
+      
     },
   });
+
+  const resetPassword = async (payload : ResetPasswordDto) =>{
+    dispatch(updateLoader(true))
+    return await userapi.resetPassword(payload , uid || "" , token || "")
+  }
+
+  const {mutateAsync} = useMutation({
+    mutationFn: resetPassword,
+    onSuccess: () =>{
+      toast.success("Password Reset Successfully!");
+      navigate(ROUTE_LOGIN);
+      dispatch(updateLoader(false))
+    },
+    onError: () =>{
+      toast.error("Unable to update Password")
+      dispatch(updateLoader(false))
+    }
+  })
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-indigo-50 flex items-center justify-center">
@@ -49,10 +78,10 @@ const ResetPassword = () => {
         <div className="space-y-4">
           <Input
             placeholder="Enter Your Password"
-            labelText="Password"
+            labelText="New Password"
             labelClass="text-blue-500 font-semibold"
             required
-            name="password"
+            name="new_password"
             type={showPassword ? "" : "password"}
             formik={form}
             icon={
@@ -107,6 +136,8 @@ const ResetPassword = () => {
           Reset Password
         </Button>
       </form>
+
+      {loader && <Loader />}
     </div>
   );
 };

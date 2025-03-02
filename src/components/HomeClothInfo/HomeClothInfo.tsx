@@ -21,7 +21,7 @@ const ClothInfo = ({ img, name, price, id, product , description }: ClothInfoPro
   const dispatch = useDispatch();
 
   const user = useSelector(selectUser);
-  const email = user?.email;
+  const email = user?.user_info?.user?.email;
 
   const navigate = useNavigate();
 

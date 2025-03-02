@@ -4,38 +4,74 @@ import { FaRegEyeSlash } from "react-icons/fa6";
 import { IoEyeOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { useMutation } from "@tanstack/react-query";
 
 import clothImage from "@assets/clothes10.jpg";
 import logo from "@assets/logo3_bg_removed.png.png";
 import { Button, Input } from "@components/common";
-import { SignUpDto } from "@dto/Signup.dto";
+import { SignUpDto, SignupPayload } from "@dto/Signup.dto";
 import { ROUTE_HOME, ROUTE_LOGIN } from "@routes/constants";
+import UserApi from "@api/user.api";
+import { isLoader, updateLoader } from "@redux/slices/loaderSlice";
+import { Loader } from "@components/Loader";
 
 const Signup = () => {
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    
-    const handlePassword = () => {
-        setShowPassword(!showPassword);
-    } ;
-
-
-    const handleConfirmPassword = () => {
-        setShowConfirmPassword(!showConfirmPassword);
-    } ;
 
     const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const loader = useSelector(isLoader)
+    const userapi = new UserApi()
 
     const form = useFormik({
         initialValues: SignUpDto.initialValues(),
         validationSchema: SignUpDto.yupSchema(),
         onSubmit: async (values) => {
-            console.log("signup Dto Values are", values);
-            toast.success("Account created Successfully!");
-            navigate(ROUTE_LOGIN);
-        },
-    });
+
+          const signupData: SignupPayload = {
+            user: {
+              email: values?.email,  
+              name: values?.name,    
+              password: values?.password, 
+              confirm_password: values?.confirm_password
+            },
+            phone: values?.phone 
+          };
+          
+            await mutateAsync(signupData)
+          },
+        });
+
+    const userSignup = async (payload : SignupPayload) =>{
+      dispatch(updateLoader(true))
+      return await userapi.signup(payload)
+    }
+
+    const { mutateAsync } = useMutation({
+      mutationFn: userSignup,
+      onSuccess: ()=>{
+        toast.success("User Registered Successfully!")
+        navigate(ROUTE_LOGIN);
+        dispatch(updateLoader(false))
+      },
+      onError: () =>{
+        toast.error("Unable to create user")
+        dispatch(updateLoader(false))
+      }
+    })
+
+    const handlePassword = () => {
+      setShowPassword(!showPassword);
+    } ;
+
+
+    const handleConfirmPassword = () => {
+      setShowConfirmPassword(!showConfirmPassword);
+    } ;
+
 
     return (
         <div className="flex flex-col-reverse md:flex-row min-h-screen ">
@@ -151,6 +187,8 @@ const Signup = () => {
                     </div>
                 </form>
             </div>
+
+            {loader && <Loader />}
         </div>
     );
 };

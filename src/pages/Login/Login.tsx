@@ -4,9 +4,10 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { IoEyeOutline } from "react-icons/io5";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useMutation } from "@tanstack/react-query";
 
 import clothImage from "@assets/clothes9.jpg";
 import logo from "@assets/logo3_bg_removed.png.png";
@@ -15,32 +16,78 @@ import { LoginDto } from "@dto/Login.dto";
 import { login } from "@redux/slices/userSlice";
 import { ROUTE_ADMIN_HOME, ROUTE_HOME, ROUTE_SIGNUP } from "@routes/constants";
 import { ForgotPassword } from "@components/ForgotPassword";
+import UserApi from "@api/user.api";
+import { isLoader, updateLoader } from "@redux/slices/loaderSlice";
+import { Loader } from "@components/Loader";
+import { ForgotPasswordDto } from "@dto/forgetPassword.dto";
 
 const Login = () => {
 
     const [showPassword, setShowPassword] = useState(false);
     const [forgotOpen , setForgotOpen] = useState(false);
 
-    const handlePassword = () => {
-        setShowPassword(!showPassword);
-    } ;
-
     const navigate = useNavigate();
-
     const dispatch = useDispatch();
+    const loader = useSelector(isLoader)
+    const userapi = new UserApi()
 
     const form = useFormik({
         initialValues: LoginDto.initialValues(),
         validationSchema: LoginDto.yupSchema(),
         onSubmit: async (values) => {
-            console.log("login Dto Values are", values);
-            const role = values.email === "admin@gmail.com" ? "admin" : "buyer"
-            const userData = {email: values.email , role: role};
-            dispatch(login(userData));
-            toast.success("Login Successfully!");
-            values.email === "admin@gmail.com" ? navigate(ROUTE_ADMIN_HOME) : navigate(ROUTE_HOME)
+            await mutateAsync(values);
         },
     });
+    
+    const loginUser = async (payload: LoginDto) =>{
+        dispatch(updateLoader(true))
+        return await userapi.login(payload)
+    }
+
+    const {mutateAsync} = useMutation({
+        mutationFn: loginUser,
+        onSuccess: (res: any) => {
+            toast.success("Login Successfully!");
+            dispatch(login(res?.data));
+            res?.data?.user_info?.user_type === "admin" ? navigate(ROUTE_ADMIN_HOME) : navigate(ROUTE_HOME)
+            dispatch(updateLoader(false))    
+        },
+        onError: () =>{
+            toast.error("Unable to Login!");
+            dispatch(updateLoader(false))
+        }
+    })
+
+    const forgotPasswordForm = useFormik({
+        initialValues: ForgotPasswordDto.initialValues(),
+        validationSchema: ForgotPasswordDto.yupSchema(),
+        onSubmit: async (values) => {
+          await mutateForgotPassword(values)
+          forgotPasswordForm.resetForm()
+        },
+    });
+
+    const forgotPassword = async (payload : ForgotPasswordDto) =>{
+        dispatch(updateLoader(true))
+        return await userapi.forgotPassword(payload)
+    }
+
+    const {mutateAsync: mutateForgotPassword} = useMutation({
+        mutationFn: forgotPassword,
+        onSuccess: () =>{
+          toast.success("Email Sent Successfully!");
+          setForgotOpen(false);
+          dispatch(updateLoader(false))
+        },
+        onError: () =>{
+            toast.error("Unable to send Email!")
+            dispatch(updateLoader(false))
+        }
+    })
+
+    const handlePassword = () => {
+        setShowPassword(!showPassword);
+    } ;
 
     return (
         <div className="flex flex-col md:flex-row min-h-screen">
@@ -110,7 +157,9 @@ const Login = () => {
                 </form>
             </div>
 
-            {forgotOpen && <ForgotPassword setForgotOpen={setForgotOpen} />}
+            {forgotOpen && <ForgotPassword setForgotOpen={setForgotOpen} form={forgotPasswordForm} />}
+
+            {loader && <Loader />}
         </div>
     );
 };
