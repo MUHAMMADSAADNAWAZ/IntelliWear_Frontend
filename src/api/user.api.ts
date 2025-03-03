@@ -32,4 +32,14 @@ export default class UserApi extends BaseApi {
     return data
   }
 
+  async refreshToken(refresh: string){
+    const data = await UserApi.post(`${this.baseUrl}refreshtoken/` , refresh)
+    return data
+  }
+
+  async updatePassword(payload : ResetPasswordDto){
+    const data = await UserApi.post(`${this.baseUrl}/change-password/` , payload)
+    return data
+  }
+
 }
