@@ -1,16 +1,14 @@
 import * as yup from "yup"
 
 export class MyProfileDto{
-    first_name?: string;
-    last_name?: string;
+    name?: string;
     // email?: string;
     phone?: string;
     address?: string;
 
     static yupSchema(){
         return yup.object({
-            first_name: yup.string().nullable(),
-            last_name: yup.string().nullable(),
+            name: yup.string().nullable(),
             // email: yup.string().nullable(),
             phone: yup.string().nullable(),
             address: yup.string().nullable(),
@@ -19,11 +17,46 @@ export class MyProfileDto{
 
     static initialValues() {
         return {
-            first_name: '',
-            last_name: '',
+            name: '',
             // email: '',
             phone: '',
             address: '',
         };
     }
 }
+
+export interface AdminProfilePayload {
+    user?: {
+        name: string;
+    };
+    phone: string;
+}
+
+// redux toolkit interface
+
+interface AuthToken {
+    token: string;
+    expires_at: string;
+}
+  
+  interface User {
+    name: string;
+    email: string;
+  }
+  
+  interface UserInfo {
+    user: User;
+    address: string;
+    phone: string;
+    profile_picture: string | null;
+    user_type: string;
+  }
+  
+export  interface AuthResponse {
+    token: {
+      access_token: AuthToken;
+      refresh_token: AuthToken;
+    };
+    user_info: UserInfo;
+  }
+  
