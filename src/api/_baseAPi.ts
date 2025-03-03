@@ -1,3 +1,4 @@
+import { store } from "@redux/store";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 export default class BaseApi {
@@ -44,12 +45,13 @@ export default class BaseApi {
       headers: {},
     };
 
-    // const user = store.getState().user?.user as User | null;
-    // const auth_token = user?.keycloak_user?.access_token;
+    const user = store.getState().user_store?.userInfo as any;
 
-    // if (auth_token) {
-    //   baseConfig.headers!["Authorization"] = `Bearer ${auth_token}`;
-    // }
+    const auth_token = user?.token?.access_token?.token;
+    
+    if (auth_token) {
+      baseConfig.headers!["Authorization"] = `Bearer ${auth_token}`;
+    }
 
     return { ...baseConfig, ...config };
   }
