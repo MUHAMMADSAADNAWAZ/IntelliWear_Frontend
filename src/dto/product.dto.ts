@@ -3,28 +3,33 @@ import * as yup from "yup";
 export class ProductDto {
   name?: string;
   price?: number;
-  avaQuantity?: number;
-  category?: string;
+  stock?: number;
+  product_type?: string;
+  gender?: string;
   description?: string;
-  img?: File;
+  image?: File;
 
   static yupSchema() {
     return yup.object({
       name: yup.string().required("Please enter product name ").nullable(),
       price: yup.string().required("Please enter product price").nullable(),
-      avaQuantity: yup
+      stock: yup
         .string()
-        .required("Please enter product quantity")
+        .required("Please enter product stock")
         .nullable(),
-      category: yup
+      product_type: yup
         .string()
-        .required("Please choose products category")
+        .required("Please choose product category")
+        .nullable(),
+      gender: yup
+        .string()
+        .required("Please choose product gender")
         .nullable(),
       description: yup
         .string()
         .required("Please enter product quantity")
         .nullable(),
-      img: yup
+      image: yup
         .mixed()
         .required("Please upload a product image")
         .test("fileType", "Only image files are allowed", (value) => {
@@ -47,10 +52,11 @@ export class ProductDto {
     return {
       name: "",
       price: "",
-      avaQuantity: "",
-      category: "",
+      stock: "",
+      product_type: "",
+      gender: "",
       description: "",
-      img: null,
+      image: null,
     };
   }
 }

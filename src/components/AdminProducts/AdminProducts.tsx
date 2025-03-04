@@ -1,34 +1,90 @@
+import { useEffect, useState } from "react";
+
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+import AdminProductsApi from "@api/adminproducts.api";
 import { ActionsMenu } from "@components/ActionMenu";
 import { BaseDataTable } from "@components/BaseDataTable";
-import { accessoriesData, clothesData, footwearData } from "@Data/data";
+import { updateLoader } from "@redux/slices/loaderSlice";
 
 import './AdminProducts.css';
-
-
 interface Product {
-  id: number;
-  img: string;
+  id: string;
+  image: string;
   name: string;
   price: number;
-  avaQuantity: number;
-  category: string;
+  stock: number;
+  product_type: string;
   description: string;
+  gender: string;
 }
 
 const AdminProducts = ({name} : {name?: string}) => {
 
-  const allProducts: Product[] = (() => {
-    switch (name) {
-      case 'Clothes':
-        return [...clothesData];
-      case 'Footwear':
-        return [...footwearData];
-      case 'Accessories':
-        return [...accessoriesData];
-      default:
-        return [...clothesData, ...footwearData, ...accessoriesData];
+  const [page , setPage] = useState<number>(1);
+  const [rowsPerPage , setRowsPerPage] = useState<number>(10)
+  const [deleteId , setDeleteID] = useState<string>("")
+
+  const dispatch = useDispatch()
+  const queryclient = useQueryClient()
+  const adminproductsapi = new AdminProductsApi()
+
+  const getAdminProducts = async () =>{
+    dispatch(updateLoader(true))
+    const res =  await adminproductsapi.getAllProducts(name === "All Products" ? "" : name , rowsPerPage , (page-1)*rowsPerPage);
+    dispatch(updateLoader(false))
+    return res;
+  }
+
+  const {data} = useQuery({
+    queryKey: ["allproducts" , name , rowsPerPage , page],
+    queryFn:getAdminProducts,
+  })
+
+  const deleteProduct = async () =>{
+    dispatch(updateLoader(true))
+    return await adminproductsapi.deleteProduct(deleteId)
+  }
+
+  const {mutateAsync} = useMutation({
+    mutationFn: deleteProduct,
+    onSuccess: () =>{
+      toast.success("Product Deleted Successfully!")
+      queryclient.invalidateQueries({ queryKey: ["allproducts"] })
+      dispatch(updateLoader(false))
+    },
+    onError: () =>{
+      toast.error("Unable to delete the product")
+      dispatch(updateLoader(false))
     }
-  })();
+  })
+
+  const genderForm = (gender: string) =>{
+    switch (gender) {
+      case 'A':
+        return "All"
+      case 'M':
+        return "Men"
+      case 'W':
+        return "Women"
+      case 'C':
+        return "Children"
+    
+      default:
+        return "None"
+    }
+  }
+
+  useEffect(() => {
+    const deleteProductAsync = async () => {
+      if(deleteId)
+      await mutateAsync();
+    };
+    deleteProductAsync();
+    setDeleteID("");
+  }, [deleteId]);
 
   return (
     <div className="p-6 bg-gray-100 rounded-t-xl">
@@ -57,39 +113,39 @@ const AdminProducts = ({name} : {name?: string}) => {
       }}
       columns={[
         {
-          name: "Product ID",
-          style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
-          selector: (row: Product) => (row.id),
-          sortable: true,
-        },
-        {
           name: "Image",
           style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
-          selector: (row: Product) => ( <img src={row.img} alt={row.name} className="h-16 w-16 object-cover rounded py-2" />),
+          selector: (row: Product) => ( <img src={row?.image} alt={row?.name} className="h-16 w-16 object-cover rounded py-2" />),
           sortable: false,
         },
         {
           name: "Name",
           style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
-          selector: (row: Product) => (row.name),
+          selector: (row: Product) => (row?.name),
           sortable: true,
         },
         {
           name: "Category",
           style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
-          selector: (row: Product) => (row.category),
+          selector: (row: Product) => (row?.product_type),
+          sortable: true,
+        },
+        {
+          name: "Gender",
+          style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
+          selector: (row: Product) => (genderForm(row?.gender) ),
           sortable: true,
         },
         {
           name: "Quantity",
           style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
-          selector: (row: Product) => (row.avaQuantity),
+          selector: (row: Product) => (row?.stock),
           sortable: true,
         },
         {
           name: "Price (PKR)",
           style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
-          selector: (row: Product) => (row.price),
+          selector: (row: Product) => (row?.price),
           sortable: true,
         },
         {
@@ -98,17 +154,19 @@ const AdminProducts = ({name} : {name?: string}) => {
           selector: (row: Product) => (
             <ActionsMenu
               id = {row?.id}
-              onDelete={() => {
-                console.log("Delete clicked for product:", row.name);
-              }}
+              setDeleteID={setDeleteID}
             />
           ),
           sortable: false,
         }, 
 
       ]}
-      data={allProducts}
-      pagination
+      data={data?.data?.results}
+      pagination={true}
+      paginationServer={true} 
+      paginationTotalRows={data?.data?.count}
+      onRowsPerPageChange={setRowsPerPage}
+      onPageChange={setPage}
       />
     </div>
   );

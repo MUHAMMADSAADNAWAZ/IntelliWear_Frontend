@@ -1,16 +1,17 @@
+import { useState } from "react";
+
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import { Menu, MenuItem } from "@mui/material";
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { Deleteicon, ThreeVerticalDots } from "@svg";
 
 interface ActionsMenuProps {
-  id?: number
-  onDelete: () => void;
+  id: string
+  setDeleteID: (deleteId: string) => void;
 }
 
-const ActionsMenu = ({ onDelete , id  }: ActionsMenuProps) => {
+const ActionsMenu = ({ id  , setDeleteID }: ActionsMenuProps) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -79,7 +80,7 @@ const ActionsMenu = ({ onDelete , id  }: ActionsMenuProps) => {
           }}
           onClick={() => {
             handleClose();
-            onDelete();
+            setDeleteID(id);
           }}
         >
           <Deleteicon />
