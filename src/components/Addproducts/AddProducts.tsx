@@ -1,21 +1,28 @@
-import { useFormik } from "formik";
 import { useEffect, useState } from "react";
+
+import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { useMutation } from "@tanstack/react-query";
 
 import { Button, Input, Select, TextArea } from "@components/common";
 import { ProductDto } from "@dto/product.dto";
 import FileUpload from "@public/FileUpload.svg";
 import { ROUTE_ADMIN_PRODUCTS } from "@routes/constants";
+import AdminProductsApi from "@api/adminproducts.api";
+import { updateLoader } from "@redux/slices/loaderSlice";
 
 interface Product {
-  id?: number;
-  img?: string;
+  id?: string;
+  image?: string;
   name?: string;
   size?: string;
-  avaQuantity?: number;
+  stock?: number;
   price?: number;
   description?: string;
+  product_type?: string;
+  gender?: string;
 }
 
 interface products {
@@ -24,18 +31,85 @@ interface products {
 
 const AddProducts = ({product}: products) => {
 
-    const [uploadedImages, setUploadedImages] = useState<any>();
+  const [uploadedImages, setUploadedImages] = useState<any>();
+  
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const adminproductapi = new AdminProductsApi();
 
-    const productCategories = ["men", "women", "children", "all"];
-    const navigate = useNavigate();
+  const PRODUCT_TYPES = [
+      { label: "Clothes", value: "CLOTHES" },
+      { label: "Shoes", value: "SHOES" },
+      { label: "Accessories", value: "ACCESSORIES" },
+    ];
+    
+    const GENDER_CHOICES = [
+      { label: "All", value: "A" },
+      { label: "Men", value: "M" },
+      { label: "Women", value: "W" },
+      { label: "Children", value: "C" },
+    ];
+
+    const addProduct = async (payload: FormData) =>{
+      dispatch(updateLoader(true));
+      return await adminproductapi.createProduct(payload)
+    }
+
+    const {mutateAsync} = useMutation({
+      mutationFn: addProduct,
+      onSuccess: () =>{
+        toast.success("Product added successfully!");
+        navigate(ROUTE_ADMIN_PRODUCTS)
+        dispatch(updateLoader(false))
+      },
+      onError: () =>{
+        toast.error("Unable to add new product")
+        dispatch(updateLoader(false))
+      }
+    })
+      
+  const updateProduct = async (payload: FormData) =>{
+    dispatch(updateLoader(true));
+    return await adminproductapi.updatePartialProduct(payload , product?.id || "")
+  }  
+
+  const {mutateAsync: mutateUpdateProduct} = useMutation({
+    mutationFn: updateProduct,
+    onSuccess: () =>{
+      toast.success("Product updated successfully!");
+      navigate(ROUTE_ADMIN_PRODUCTS)
+      dispatch(updateLoader(false))
+    },
+    onError: () =>{
+      toast.error("Unable to update product")
+      dispatch(updateLoader(false))
+    }
+  })
 
   const form = useFormik({
     initialValues: product ? product : ProductDto.initialValues(),
     validationSchema: ProductDto.yupSchema(),
-    onSubmit: (values) => {
-      console.log("Product Values are", values);
-      toast.success(product ? "Changes made successfully" : "Product added successfully!");
-      navigate(ROUTE_ADMIN_PRODUCTS)
+    onSubmit: async (values) => {
+      const formData = new FormData();
+      if (values.name) formData.append("name", values.name);
+      if (values.price) formData.append("price", values.price.toString());
+      if (values.stock) formData.append("stock", values.stock.toString());
+      if (values.product_type) formData.append("product_type", values.product_type);
+      if (values.gender) formData.append("gender", values.gender);
+      if (values.description) formData.append("description", values.description);
+    
+      const isFile = (file: any): file is File => {
+        return file instanceof File;
+      };
+      
+      // Usage:
+      if (isFile(values.image)) {
+        formData.append("image", values.image);
+      } else if (typeof values.image === "string" && values.image.trim() !== "") {
+        formData.append("image_url", values.image); 
+      }
+      
+    product?.id ? await mutateUpdateProduct(formData) : await mutateAsync(formData);
     },
   });
 
@@ -49,8 +123,12 @@ const AddProducts = ({product}: products) => {
   };
 
   useEffect(() => {
-    if (product?.img) {
-      setUploadedImages(product.img);
+    if(product){
+      form.setValues(product)
+    }
+    if (product?.image) {
+      setUploadedImages(product?.image);
+      form?.setFieldValue("image" , product?.image)
     }
   }, [product]);
 
@@ -83,13 +161,32 @@ const AddProducts = ({product}: products) => {
             labelText="Product Quantity"
             placeholder="Enter Product Quantity"
             labelClass=" text-blue-500"
-            name="avaQuantity"
+            name="stock"
             formik={form}
             type="number"
             className="border-none outline-none bg-gray-50 text-gray-800 placeholder-gray-500 h-10 px-0"
           />
           <Select
-            name="category"
+            name="gender"
+            formik={form}
+            placeholder="Select Gender"
+            labelText="Gender"
+            labelClass=" text-blue-500  "
+            className={
+              "border outline-none rounded-xl focus:border-[#1B2559]  text-[#8b8b8b] "
+            }
+            options={GENDER_CHOICES?.map((item) => {
+              return {
+                label: item.label,
+                value: item.value,
+              };
+            })}
+          />
+          
+        </div>
+        <div className="flex gap-4">
+          <Select
+            name="product_type"
             formik={form}
             placeholder="Select Product Category"
             labelText="Product Category"
@@ -97,10 +194,10 @@ const AddProducts = ({product}: products) => {
             className={
               "border outline-none rounded-xl focus:border-[#1B2559]  text-[#8b8b8b] "
             }
-            options={productCategories?.map((item: string) => {
+            options={PRODUCT_TYPES?.map((item) => {
               return {
-                label: item,
-                value: item,
+                label: item.label,
+                value: item.value,
               };
             })}
           />
@@ -126,8 +223,8 @@ const AddProducts = ({product}: products) => {
                 alt="Selected"
                 className=" max-w-52 max-h-20 "
               />
-               {form.touched.img && form.errors.img &&
-                    <p className="text-red-500 text-sm text-center pt-4">{form.errors.img}</p>}
+               {form.touched.image && form.errors.image &&
+                    <p className="text-red-500 text-sm text-center pt-4">{form.errors.image}</p>}
               <button
               type="button"
               onClick={handleDeleteImage}
@@ -157,13 +254,13 @@ const AddProducts = ({product}: products) => {
                     onChange={(e) => {
                       if (e?.target?.files && e?.target?.files.length > 0) {
                         setUploadedImages(e?.target?.files[0]);
-                        form.setFieldValue("img", e?.target?.files[0])
+                        form.setFieldValue("image", e?.target?.files[0])
                       }
                     }}
                   />
                 </div>
-                {form.touched.img && form.errors.img ? (
-                    <p className="text-red-500 text-sm text-center pt-4">{form.errors.img}</p>
+                {form.touched.image && form.errors.image ? (
+                    <p className="text-red-500 text-sm text-center pt-4">{form.errors.image}</p>
                 ) :
                 <p className="text-gray-700 text-center pt-4">
                   Upload Product Picture
@@ -174,18 +271,18 @@ const AddProducts = ({product}: products) => {
          
         </div>
         <div className="flex gap-4 justify-end">
-          <Button
+         {!product && <Button
             type="button"
             onClick={() => form.resetForm()}
             className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300 focus:ring-2 focus:ring-red-300"
           >
             Reset
-          </Button>
+          </Button>}
           <Button
             type="submit"
             className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-300 focus:ring-2 focus:ring-blue-300"
           >
-            {product ? "Apply Changes"  : "Add Product"}
+            {product ? "Update Product"  : "Add Product"}
           </Button>
         </div>
       </form>
