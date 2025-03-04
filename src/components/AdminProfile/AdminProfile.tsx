@@ -22,7 +22,7 @@ const AdminProfile = () => {
 
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  const email = user?.user_info?.user?.email;
+  const email = user?.user_info?.email;
   const api = new UserApi();
 
   const adminprofileapi = new AdminProfileApi()
@@ -98,7 +98,7 @@ const AdminProfile = () => {
   };
 
   useEffect(()=>{
-    form.setFieldValue("name" , user?.user_info?.user?.name)
+    form.setFieldValue("name" , user?.user_info?.name)
     form.setFieldValue("phone" , user?.user_info?.phone)
   },[user])
 

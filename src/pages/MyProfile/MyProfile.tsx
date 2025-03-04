@@ -9,7 +9,7 @@ import { selectUser } from "@redux/slices/userSlice";
 const MyProfile = () => {
 
   const user = useSelector(selectUser)
-  const email = user?.user_info?.user?.email;
+  const email = user?.user_info?.email;
 
   const form = useFormik({
     initialValues: MyProfileDto.initialValues(),

@@ -10,7 +10,7 @@ import { useMutation } from "@tanstack/react-query";
 import clothImage from "@assets/clothes10.jpg";
 import logo from "@assets/logo3_bg_removed.png.png";
 import { Button, Input } from "@components/common";
-import { SignUpDto, SignupPayload } from "@dto/Signup.dto";
+import { SignUpDto } from "@dto/Signup.dto";
 import { ROUTE_HOME, ROUTE_LOGIN } from "@routes/constants";
 import UserApi from "@api/user.api";
 import { isLoader, updateLoader } from "@redux/slices/loaderSlice";
@@ -30,22 +30,11 @@ const Signup = () => {
         initialValues: SignUpDto.initialValues(),
         validationSchema: SignUpDto.yupSchema(),
         onSubmit: async (values) => {
-
-          const signupData: SignupPayload = {
-            user: {
-              email: values?.email,  
-              name: values?.name,    
-              password: values?.password, 
-              confirm_password: values?.confirm_password
-            },
-            phone: values?.phone 
-          };
-          
-            await mutateAsync(signupData)
+            await mutateAsync(values)
           },
         });
 
-    const userSignup = async (payload : SignupPayload) =>{
+    const userSignup = async (payload : SignUpDto) =>{
       dispatch(updateLoader(true))
       return await userapi.signup(payload)
     }

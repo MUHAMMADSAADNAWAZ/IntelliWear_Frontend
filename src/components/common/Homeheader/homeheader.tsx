@@ -39,7 +39,7 @@ const HomeHeader = () => {
   const navigate = useNavigate();
 
   const user = useSelector(selectUser);
-  const email = user?.user_info?.user?.email;
+  const email = user?.user_info?.email;
   // console.log("user" , user);
   // console.log("email" , email);
 
@@ -200,11 +200,11 @@ const HomeHeader = () => {
                   ref={avatarRef}
                   sx={{ p: 0  }}
                 >
-                  <Avatar>{getInitials(user?.user_info?.user?.name)}</Avatar>
+                  <Avatar>{getInitials(user?.user_info?.name)}</Avatar>
                 </IconButton>
              
 
-                <p className="text-gray-800 text-sm md:text-lg hidden md:block">{user?.user_info?.user?.name}</p>
+                <p className="text-gray-800 text-sm md:text-lg hidden md:block">{user?.user_info?.name}</p>
                 <Menu
                   ref={menuRef}
                   sx={{ mt: "45px" , position: "absolute" }}

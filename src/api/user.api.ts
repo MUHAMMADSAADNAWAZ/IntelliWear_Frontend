@@ -1,5 +1,5 @@
 import { LoginDto } from "@dto/Login.dto";
-import { SignupPayload } from "@dto/Signup.dto";
+import { SignUpDto } from "@dto/Signup.dto";
 import { ForgotPasswordDto } from "@dto/forgetPassword.dto";
 import { ResetPasswordDto } from "@dto/resetPassword.dto";
 
@@ -12,7 +12,7 @@ export default class UserApi extends BaseApi {
     super();
   }
 
-  async signup(payload: SignupPayload) {
+  async signup(payload: SignUpDto) {
     const data = await UserApi.post(`${this.baseUrl}signup/`, payload);
     return data;
   }

@@ -18,7 +18,7 @@ const ProductDetails = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const email = user?.user_info?.user?.email;
+  const email = user?.user_info?.email;
 
   const { productId } = useParams();
 
