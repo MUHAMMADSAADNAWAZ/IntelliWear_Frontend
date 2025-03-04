@@ -48,7 +48,7 @@ const HomeLayout = ({children} : HomeLayoutProps) => {
 
       {location?.pathname === "/chatbot" ? "" :<button
         className={` ${cartVisibility ? "right-96" : "right-6"} fixed bottom-6  bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600`}
-        onClick={() => user?.user_info?.user?.email ? navigate(ROUTE_CHATBOT) : toast.info("You need to login first to chat with us")}
+        onClick={() => user?.user_info?.email ? navigate(ROUTE_CHATBOT) : toast.info("You need to login first to chat with us")}
       >
         <ChatIcon className="text-lg md:text-2xl"/>
       </button>}

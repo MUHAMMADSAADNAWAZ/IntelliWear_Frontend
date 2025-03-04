@@ -38,14 +38,9 @@ interface AuthToken {
     token: string;
     expires_at: string;
 }
-  
-  interface User {
+  interface UserInfo {
     name: string;
     email: string;
-  }
-  
-  interface UserInfo {
-    user: User;
     address: string;
     phone: string;
     profile_picture: string | null;
