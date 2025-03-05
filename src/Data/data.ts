@@ -123,7 +123,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import { MessageSquare } from 'lucide-react';
+import { ImageIcon, MessageSquare } from 'lucide-react';
 import SupervisorAccountOutlinedIcon from "@mui/icons-material/SupervisorAccountOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 
@@ -145,6 +145,7 @@ import {
   ROUTE_ADMIN_REFUND_ORDERS,
   ROUTE_ADMIN_REVIEWS,
   ROUTE_LOGIN,
+  ROUTE_ADMIN_CAROUSAL,
 } from "@routes/constants";
 
 export const clothesData = [
@@ -1446,6 +1447,11 @@ export const menuItems = [
     name: "Add Products",
     icon: AddBoxIcon,
     elementNav: ROUTE_ADMIN_ADD_PRODUCTS,
+  },
+  {
+    name: "Carousal Manager",
+    icon: ImageIcon,
+    elementNav: ROUTE_ADMIN_CAROUSAL,
   },
   {
     name: "Customers",

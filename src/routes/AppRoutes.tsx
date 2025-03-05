@@ -33,6 +33,7 @@ import {
   ROUTE_RESET_PASSWORD,
   ROUTE_ADMIN_CHATBOT,
   ROUTE_CHATBOT,
+  ROUTE_ADMIN_CAROUSAL,
 } from "@routes/constants";
 import { clothesData, footwearData, accessoriesData } from "@Data/data";
 import { useSelector } from "react-redux";
@@ -60,6 +61,7 @@ import { EditProducts } from "@components/EditProducts";
 import { Checkout } from "@pages/Checkout";
 import { ResetPassword } from "@pages/ResetPassword";
 import { AdminChatbot } from "@components/AdminChatbot";
+import { CarousalManager } from "@components/CarousalManager";
 
 const AppRoutes = () => {
   const user = useSelector(selectUser);
@@ -198,6 +200,7 @@ const AppRoutes = () => {
           />
           <Route path={ROUTE_ADMIN_ADD_PRODUCTS} element={<AddProducts />} />
           <Route path={ROUTE_ADMIN_EDIT_PRODUCTS} element={<EditProducts />} />
+          <Route path={ROUTE_ADMIN_CAROUSAL} element={<CarousalManager />} />
           <Route path={ROUTE_ADMIN_CUSTOMERS} element={<Customers />} />
           <Route path={ROUTE_ADMIN_PROFILE} element={<AdminProfile />} />
           <Route path={ROUTE_ADMIN_CHATBOT} element={<AdminChatbot />} />
