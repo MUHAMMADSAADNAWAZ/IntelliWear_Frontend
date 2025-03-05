@@ -21,6 +21,7 @@ export const ROUTE_ADMIN_FOOTWEARPRODUCTS = "/admin-footwearproducts";
 export const ROUTE_ADMIN_ACCESSORIEPRODUCTS = "/admin-accessorieproducts";
 export const ROUTE_ADMIN_ADD_PRODUCTS = "/admin-addproducts";
 export const ROUTE_ADMIN_CUSTOMERS = "/customers";
+export const ROUTE_ADMIN_CAROUSAL = "/carousal";
 export const ROUTE_ADMIN_PROFILE = "/admin-profile";
 export const ROUTE_ADMIN_CHATBOT = "/admin-chatbot";
 export const ROUTE_ADMIN_ORDERS = "/orders";
