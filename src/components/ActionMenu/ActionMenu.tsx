@@ -1,17 +1,24 @@
 import { useState } from "react";
 
-import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import { Menu, MenuItem } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
 import { Deleteicon, ThreeVerticalDots } from "@svg";
 
 interface ActionsMenuProps {
-  id: string
+  id: string;
+  name?: string;
   setDeleteID: (deleteId: string) => void;
+  setEditID?: (deleteId: string) => void;
 }
 
-const ActionsMenu = ({ id  , setDeleteID }: ActionsMenuProps) => {
+const ActionsMenu = ({
+  id,
+  setDeleteID,
+  name,
+  setEditID,
+}: ActionsMenuProps) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -51,24 +58,43 @@ const ActionsMenu = ({ id  , setDeleteID }: ActionsMenuProps) => {
           },
         }}
       >
-        <NavLink to={`/admin-editproducts/${id}`}>
-
-        <MenuItem
-          sx={{
-            color: "#1F1F1F",
-            fontWeight: "400",
-            fontSize: "12px",
-            display: "flex",
-            gap: "5px",
-          }}
-          onClick={() => {
-            handleClose();
-          }}
-          >
-          <ModeEditOutlineOutlinedIcon  style={{ fontSize: 15 }} />
-          Edit
-        </MenuItem>
+        {!name ? (
+          <NavLink to={`/admin-editproducts/${id}`}>
+            <MenuItem
+              sx={{
+                color: "#1F1F1F",
+                fontWeight: "400",
+                fontSize: "12px",
+                display: "flex",
+                gap: "5px",
+              }}
+              onClick={() => {
+                handleClose();
+                setEditID && name === "carousel" && setEditID(id);
+              }}
+            >
+              <ModeEditOutlineOutlinedIcon style={{ fontSize: 15 }} />
+              Edit
+            </MenuItem>
           </NavLink>
+        ) : (
+          <MenuItem
+            sx={{
+              color: "#1F1F1F",
+              fontWeight: "400",
+              fontSize: "12px",
+              display: "flex",
+              gap: "5px",
+            }}
+            onClick={() => {
+              handleClose();
+              setEditID && name === "carousel" && setEditID(id);
+            }}
+          >
+            <ModeEditOutlineOutlinedIcon style={{ fontSize: 15 }} />
+            Edit
+          </MenuItem>
+        )}
 
         <MenuItem
           sx={{

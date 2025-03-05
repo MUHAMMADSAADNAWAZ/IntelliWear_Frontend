@@ -52,7 +52,7 @@ const AdminProfile = () => {
     },
     validationSchema: MyProfileDto.yupSchema(),
     onSubmit: (values) => {
-      updateAdminProfile({user: {name: values?.name} , phone: values?.phone})
+      updateAdminProfile({name: values?.name , phone: values?.phone})
     },
   });
 

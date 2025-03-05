@@ -26,9 +26,7 @@ export class MyProfileDto{
 }
 
 export interface AdminProfilePayload {
-    user?: {
-        name: string;
-    };
+    name: string;
     phone: string;
 }
 
