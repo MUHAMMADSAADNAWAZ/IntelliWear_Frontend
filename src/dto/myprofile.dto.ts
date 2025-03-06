@@ -2,14 +2,14 @@ import * as yup from "yup"
 
 export class MyProfileDto{
     name?: string;
-    // email?: string;
+    email?: string;
     phone?: string;
     address?: string;
 
     static yupSchema(){
         return yup.object({
             name: yup.string().nullable(),
-            // email: yup.string().nullable(),
+            email: yup.string().nullable(),
             phone: yup.string().nullable(),
             address: yup.string().nullable(),
         })
@@ -18,11 +18,18 @@ export class MyProfileDto{
     static initialValues() {
         return {
             name: '',
-            // email: '',
+            email: '',
             phone: '',
             address: '',
         };
     }
+}
+
+export interface CustomerPayloadProps{
+    name?: string;
+    address?: string;
+    email?: string;
+    phone?: string;
 }
 
 export interface AdminProfilePayload {
@@ -37,6 +44,7 @@ interface AuthToken {
     expires_at: string;
 }
   interface UserInfo {
+    user_id: string;
     name: string;
     email: string;
     address: string;
