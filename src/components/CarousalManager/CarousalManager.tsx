@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
@@ -8,18 +8,125 @@ import { Button, Input } from "@components/common";
 import { BaseDataTable } from "@components/BaseDataTable";
 import { CarousalDto, CarousalProps } from "@dto/carousal.dto";
 import FileUpload from "@public/FileUpload.svg";
+import { ActionsMenu } from "@components/ActionMenu";
+import AdminCarouselApi from "@api/admincarousal.api";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useDispatch } from "react-redux";
+import { updateLoader } from "@redux/slices/loaderSlice";
 
 const CarousalManager = () => {
 
+    const [deleteId , setDeleteID] = useState<string>("")
+    const [editID , setEditID] = useState<string>("")
     const [uploadedImages, setUploadedImages] = useState<any>();
+
+    const dispatch = useDispatch()
+    const queryclient = useQueryClient()
+    const admincarouselapi = new AdminCarouselApi()
+
+    const createCarousal = async (payload: FormData) =>{
+      dispatch(updateLoader(true))
+      return await admincarouselapi.createCarousal(payload)
+    }
+
+    const {mutateAsync} = useMutation({
+      mutationFn: createCarousal,
+      onSuccess: () =>{
+        toast.success("New Carousal is added Successfully")
+        form?.resetForm({})
+        dispatch(updateLoader(false))
+        setUploadedImages(null); 
+        queryclient.invalidateQueries({queryKey: ["allcarousel"]})
+      },
+      onError: () =>{
+        toast.error("Unable to add new Carousel")
+        dispatch(updateLoader(false))
+      }
+    })
 
     const form = useFormik({
         initialValues: CarousalDto.initialValues(),
         validationSchema: CarousalDto.yupSchema(),
-        onSubmit: (values) =>{
-            console.log("New carousal sto values are" , values)
-            toast.success("New Carousal Image is added Successfully")
+        onSubmit: async (values) =>{
+          const formData = new FormData();
+          if (values.title) formData.append("title", values.title);
+
+          const isFile = (file: any): file is File => {
+            return file instanceof File;
+          };
+          
+          if (isFile(values.image)) {
+            formData.append("image", values.image);
+          } else if (typeof values.image === "string" && (values.image as string).trim() !== "") {
+            formData.append("image_url", values.image); 
+          }
+
+          editID ? await mutateUpdateCarousel(formData) : await mutateAsync(formData)
+          setEditID("")
         }
+    })
+
+    const getAllCarousels = async () =>{
+      dispatch(updateLoader(true));
+      const data = await admincarouselapi.getAllCarousalImages();
+      dispatch(updateLoader(false));
+      return data;
+    }
+
+    const {data} = useQuery({
+      queryKey: ["allcarousel"],
+      queryFn: getAllCarousels
+    })
+
+    const getSpecificCarouselDetails = async () =>{
+      dispatch(updateLoader(true));
+      const data = await admincarouselapi.getSpecificCarousalImage(editID);
+      dispatch(updateLoader(false));
+      return data;
+    }
+
+    const {data: specificCarouselData} = useQuery({
+      queryKey: ["specificcarousel" , editID],
+      queryFn: getSpecificCarouselDetails,
+      enabled: !!editID
+    })
+
+    const updateCarouselDetails = async (payload: FormData) =>{
+      dispatch(updateLoader(true));
+      return await admincarouselapi.updatePartialSpecificCarousalImage(editID , payload)
+    }
+
+    const {mutateAsync: mutateUpdateCarousel} = useMutation({
+      mutationFn: updateCarouselDetails,
+      onSuccess: () =>{
+        toast.success("Carousal is updated Successfully")
+        form?.resetForm({})
+        dispatch(updateLoader(false))
+        setUploadedImages(null); 
+        queryclient.invalidateQueries({queryKey: ["allcarousel"]})
+      },
+      onError: () =>{
+        toast.error("Unable to update Carousel")
+        dispatch(updateLoader(false))
+      }
+    })
+
+    const deleteCarousel = async () =>{
+      dispatch(updateLoader(true))
+      return await admincarouselapi.deleteSpecificCarousalImage(deleteId)
+    }
+
+    const {mutateAsync: mutateDeleteCarousel} = useMutation({
+      mutationFn: deleteCarousel,
+      onSuccess: () =>{
+        toast.success("Carousal is deleted Successfully")
+        dispatch(updateLoader(false)) 
+        queryclient.invalidateQueries({queryKey: ["allcarousel"]})
+      },
+      onError: () =>{
+        toast.error("Unable to delete Carousel")
+        dispatch(updateLoader(false))
+      }
     })
 
     const handleImageClick = () => {
@@ -31,11 +138,30 @@ const CarousalManager = () => {
         setUploadedImages(null); 
     };
 
+    useEffect(()=>{
+      if(specificCarouselData?.data){
+        form.setValues(specificCarouselData?.data)
+      }
+      if (specificCarouselData?.data?.image) {
+        setUploadedImages(specificCarouselData?.data?.image);
+        form?.setFieldValue("image" , specificCarouselData?.data?.image)
+      }
+    },[specificCarouselData])
+
+    useEffect(()=>{
+      const deleteCarouselAsync = async () => {
+        if(deleteId)
+        await mutateDeleteCarousel();
+      };
+      deleteCarouselAsync()
+      setDeleteID("")
+    },[deleteId])
+
   return (
     <div className="p-6 bg-gray-100 rounded-t-xl flex flex-col gap-6">
     <h2 className="text-3xl font-bold mb-6 text-blue-600">Carousal Manager</h2>
 
-    <Carousal />
+    <Carousal data={data?.data}/>
 
     <form className="bg-white rounded-xl p-6 mt-10" onSubmit={form.handleSubmit}>
         <div className="flex gap-4 pb-5">
@@ -110,7 +236,7 @@ const CarousalManager = () => {
             type="submit"
             className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-300 focus:ring-2 focus:ring-blue-300"
           >
-            Add Carousal Image
+            {editID ? "Update Carousel Info" : "Add Carousal Image"}
           </Button>
         </div>
       </form>
@@ -138,34 +264,33 @@ const CarousalManager = () => {
       }}
       columns={[
         {
-          name: "Product ID",
-          style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
+          name: "Carousel Title",
+          style: "display:flex;border-right: 1px solid #e0e0e0 !important",
           selector: (row: CarousalProps) => (row.title),
           sortable: true,
         },
         {
-          name: "Image",
-          style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
+          name: "Carousel Image",
+          style: "display:flex;;border-right: 1px solid #e0e0e0 !important",
           selector: (row: CarousalProps) => ( <img src={row.image} alt={row.title} className="h-16 w-16 object-cover rounded py-2" />),
           sortable: false,
         },
         {
           name: "Actions",
-          style: "display:flex;justify-content:center !important",
-          selector: () => (
-            // <ActionsMenu
-            //   id = {row?.id}
-            //   onDelete={() => {
-            //     console.log("Delete clicked for product:", row.name);
-            //   }}
-            // />
-            <p>hi</p>
+          style: "display:flex; !important",
+          selector: (row: CarousalProps) => (
+            <ActionsMenu
+              id = {row?.id}
+              setDeleteID={setDeleteID}
+              name = "carousel"
+              setEditID={setEditID}
+            />
           ),
           sortable: false,
         }, 
 
       ]}
-      data={[]}
+      data={data?.data}
       />
 
 

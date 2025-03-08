@@ -7,9 +7,11 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { selectCart } from "@redux/slices/cartSlice";
 import { HomeHeader } from "@components/common";
+import {Loader} from "@components/Loader"
 import {Footer} from "@components/Footer";
 import { selectUser } from '@redux/slices/userSlice';
 import { ROUTE_CHATBOT } from '@routes/constants';
+import { isLoader } from "@redux/slices/loaderSlice";
 
 interface HomeLayoutProps {
     children?: ReactNode;
@@ -18,9 +20,10 @@ interface HomeLayoutProps {
 const HomeLayout = ({children} : HomeLayoutProps) => {
 
   const navigate = useNavigate();
+  const location = useLocation()
   const cart = useSelector(selectCart);
   const user = useSelector(selectUser)
-  const location = useLocation()
+  const loader = useSelector(isLoader)
 
   const cartVisibility = cart.cartVisibility;
 
@@ -32,8 +35,11 @@ const HomeLayout = ({children} : HomeLayoutProps) => {
       {/* </div> */}
 
         <div className="w-full flex flex-grow justify-center">
+          <>
+          {loader && <Loader />}
           {children}
           <Outlet />
+          </>
         </div>
 
       <div className="w-full">
@@ -42,7 +48,7 @@ const HomeLayout = ({children} : HomeLayoutProps) => {
 
       {location?.pathname === "/chatbot" ? "" :<button
         className={` ${cartVisibility ? "right-96" : "right-6"} fixed bottom-6  bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600`}
-        onClick={() => user?.email ? navigate(ROUTE_CHATBOT) : toast.info("You need to login first to chat with us")}
+        onClick={() => user?.user_info?.email ? navigate(ROUTE_CHATBOT) : toast.info("You need to login first to chat with us")}
       >
         <ChatIcon className="text-lg md:text-2xl"/>
       </button>}

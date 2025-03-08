@@ -1,4 +1,5 @@
 import BaseApi from "@api/_baseAPi";
+import { store } from "@redux/store";
 
 export default class GeminiApi extends BaseApi {
   constructor() {
@@ -6,15 +7,29 @@ export default class GeminiApi extends BaseApi {
   }
 
   async getResponse(userQuery: string): Promise<string | undefined> {
+
+    const user = store.getState().user_store as any;
+
     try {
       const response = await GeminiApi.post(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${import.meta.env.VITE_GEMINI_KEY}`,
         {
-          contents: [{ parts: [{ text: userQuery }] }],
+          contents: [
+            {
+              parts: [{ text: userQuery }],
+            },
+          ],
           generationConfig: {
             topP: 0.88,
             temperature: 0.7,
-            maxOutputTokens: 1000,
+            maxOutputTokens: 10000,
+          },
+          system_instruction: {
+            parts: [
+              {
+                text: user?.user_info?.user_type === "customer" ? "You are an expert in IntelliWear’s company policies, including return policy, payment security, and delivery process. You will only answer user queries related to these policies based on the provided company guidelines. If you do not have relevant information, ask the user to check the official policy page. Do not answer unrelated questions." : "You are an expert in e-commerce product naming and description generation. You will assist the admin in creating compelling product names and detailed descriptions that highlight key features, materials, and benefits. Ensure that the descriptions are engaging, SEO-friendly, and aligned with current fashion trends. You will only respond to product-related queries and will not provide any other information." ,
+              },
+            ],
           },
         },
         {
@@ -23,8 +38,7 @@ export default class GeminiApi extends BaseApi {
           },
         }
       );
-
-      // Extract the response text
+      
       const aiResponse = response?.data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
       if (!aiResponse) {

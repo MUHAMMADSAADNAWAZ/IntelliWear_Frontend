@@ -30,3 +30,15 @@ export class SignUpDto{
         };
     }
 }
+
+interface User {
+    email: string,
+    name: string,
+    password: string,
+    confirm_password: string,
+}
+
+export interface SignupPayload{
+    user: User,
+    phone: string
+}

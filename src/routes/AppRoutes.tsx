@@ -65,7 +65,7 @@ import { CarousalManager } from "@components/CarousalManager";
 
 const AppRoutes = () => {
   const user = useSelector(selectUser);
-  const role = user ? user.role : undefined;
+  const role = user ? user?.user_info?.user_type : undefined;
 
   return (
     <div>
@@ -151,7 +151,7 @@ const AppRoutes = () => {
             <ProtectedRoute
               isAuthenticated={true}
               role={role}
-              allowedRoles={["buyer"]}
+              allowedRoles={["customer"]}
             >
               <HomeLayout />
             </ProtectedRoute>
@@ -188,15 +188,15 @@ const AppRoutes = () => {
           />
           <Route
             path={ROUTE_ADMIN_CLOTHPRODUCTS}
-            element={<AdminProducts name="Clothes" />}
+            element={<AdminProducts name="CLOTHES" />}
           />
           <Route
             path={ROUTE_ADMIN_FOOTWEARPRODUCTS}
-            element={<AdminProducts name="Footwear" />}
+            element={<AdminProducts name="SHOES" />}
           />
           <Route
             path={ROUTE_ADMIN_ACCESSORIEPRODUCTS}
-            element={<AdminProducts name="Accessories" />}
+            element={<AdminProducts name="ACCESSORIES" />}
           />
           <Route path={ROUTE_ADMIN_ADD_PRODUCTS} element={<AddProducts />} />
           <Route path={ROUTE_ADMIN_EDIT_PRODUCTS} element={<EditProducts />} />

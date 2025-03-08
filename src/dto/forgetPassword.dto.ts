@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 export class ForgotPasswordDto {
-  email?: string;
+  email: string = '';
 
   static yupSchema() {
     return yup.object({

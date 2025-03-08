@@ -1,15 +1,50 @@
-import { useFormik } from "formik";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
 
+import { useFormik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { IoEyeOutline } from "react-icons/io5";
+import { FaRegEyeSlash } from "react-icons/fa6";
+import { useMutation } from "@tanstack/react-query";
+
+import AdminProfileApi from "@api/adminProfile.api";
+import UserApi from "@api/user.api";
 import { Button, Input } from "@components/common";
-import { MyProfileDto } from "@dto/myprofile.dto";
+import { AdminProfilePayload, MyProfileDto } from "@dto/myprofile.dto";
 import { PasswordDto } from "@dto/password.dto";
-import { selectUser } from "@redux/slices/userSlice";
+import { selectUser, update } from "@redux/slices/userSlice";
+import { updateLoader } from "@redux/slices/loaderSlice";
 
 const AdminProfile = () => {
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const user = useSelector(selectUser);
-  const email = user?.email;
+  const dispatch = useDispatch();
+  const email = user?.user_info?.email;
+  const api = new UserApi();
+
+  const adminprofileapi = new AdminProfileApi()
+
+  const updateProfile = async (payload: AdminProfilePayload) =>{
+    dispatch(updateLoader(true));
+    return await adminprofileapi.updateAdminProfile(payload)
+  }
+
+  const {mutateAsync: updateAdminProfile} = useMutation({
+    mutationFn: updateProfile,
+    onSuccess: (res) => {
+      toast.success("Profile Updated Successfully");
+      console.log("update user response is " , res)
+      dispatch(update(res?.data))
+      dispatch(updateLoader(false));
+    },
+    onError: () => {
+      toast.error("Unable to update profile");
+      dispatch(updateLoader(false));
+    },
+  })
 
   const form = useFormik({
     initialValues: {
@@ -17,19 +52,55 @@ const AdminProfile = () => {
     },
     validationSchema: MyProfileDto.yupSchema(),
     onSubmit: (values) => {
-      console.log("Admin profile values are", values);
-      toast.success("Profile Updated Successfully");
+      updateAdminProfile({name: values?.name , phone: values?.phone})
+    },
+  });
+
+  const updatePassword = async (payload: PasswordDto) => {
+    dispatch(updateLoader(true));
+    return await api.updatePassword(payload);
+  };
+
+  const { mutateAsync } = useMutation({
+    mutationFn: updatePassword,
+    onSuccess: () => {
+      toast.success("Password Updated Successfully");
+      passwordForm?.resetForm();
+      dispatch(updateLoader(false));
+      setShowOldPassword(false)
+      setShowNewPassword(false)
+      setShowConfirmPassword(false)
+    },
+    onError: () => {
+      toast.error("Unable to update password");
+      dispatch(updateLoader(false));
     },
   });
 
   const passwordForm = useFormik({
     initialValues: PasswordDto.initialValues(),
     validationSchema: PasswordDto.yupSchema(),
-    onSubmit: (values) => {
-      console.log("Password values are", values);
-      toast.success("Password Updated Successfully");
-    }
-})
+    onSubmit: async (values) => {
+      await mutateAsync(values);
+    },
+  });
+
+  const handlePassword = () => {
+    setShowOldPassword(!showOldPassword);
+  };
+
+  const handleNewPassword = () => {
+    setShowNewPassword(!showNewPassword);
+  };
+
+  const handleConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
+  useEffect(()=>{
+    form.setFieldValue("name" , user?.user_info?.name)
+    form.setFieldValue("phone" , user?.user_info?.phone)
+  },[user])
 
   return (
     <div className="admin-profile w-full min-h-screen bg-gray-100 text-gray-800 flex flex-col items-center p-8 ">
@@ -41,27 +112,15 @@ const AdminProfile = () => {
         onSubmit={form.handleSubmit}
         className="bg-white p-8 shadow-lg w-full max-w-4xl rounded-t-lg"
       >
-
         <div className="flex flex-col gap-6">
-
           <div className="flex gap-6">
-            <div className="w-1/2">
+            <div className="w-full">
               <Input
-                placeholder="First Name"
+                placeholder="Name"
                 labelClass="text-blue-500"
-                name="first_name"
+                name="name"
                 formik={form}
-                labelText="First Name"
-                className="bg-gray-50 text-gray-800"
-              />
-            </div>
-            <div className="w-1/2">
-              <Input
-                placeholder="Last Name"
-                labelClass="text-blue-500"
-                name="last_name"
-                formik={form}
-                labelText="Last Name"
+                labelText="Name"
                 className="bg-gray-50 text-gray-800"
               />
             </div>
@@ -89,7 +148,6 @@ const AdminProfile = () => {
               />
             </div>
           </div>
-
         </div>
 
         <div className="mt-8 flex justify-center">
@@ -106,18 +164,62 @@ const AdminProfile = () => {
         onSubmit={passwordForm.handleSubmit}
         className="bg-white p-8 shadow-lg w-full max-w-4xl rounded-b-lg"
       >
-
         <div className="flex flex-col gap-6">
+          <div className="flex gap-6">
+            <div className="w-1/2">
+              <Input
+                placeholder="Old Password"
+                labelClass="text-blue-500"
+                name="old_password"
+                formik={passwordForm}
+                labelText="Old Password"
+                className="bg-gray-50 text-gray-800"
+                type={showOldPassword ? "" : "password"}
+                icon={
+                  showOldPassword ? (
+                    <FaRegEyeSlash
+                      color=""
+                      className=" w-8 h-8  font-Arimo cursor-pointer "
+                      onClick={handlePassword}
+                    />
+                  ) : (
+                    <IoEyeOutline
+                      color=""
+                      className=" w-8 h-8  font-Arimo cursor-pointer"
+                      onClick={handlePassword}
+                    />
+                  )
+                }
+              />
+            </div>
+            <div className="w-1/2"></div>
+          </div>
 
           <div className="flex gap-6">
             <div className="w-1/2">
               <Input
-                placeholder="Password"
+                placeholder="New Password"
                 labelClass="text-blue-500"
-                name="password"
+                name="new_password"
                 formik={passwordForm}
-                labelText="Password"
+                labelText="New Password"
                 className="bg-gray-50 text-gray-800"
+                type={showNewPassword ? "" : "password"}
+                icon={
+                  showNewPassword ? (
+                    <FaRegEyeSlash
+                      color=""
+                      className=" w-8 h-8  font-Arimo cursor-pointer "
+                      onClick={handleNewPassword}
+                    />
+                  ) : (
+                    <IoEyeOutline
+                      color=""
+                      className=" w-8 h-8  font-Arimo cursor-pointer"
+                      onClick={handleNewPassword}
+                    />
+                  )
+                }
               />
             </div>
             <div className="w-1/2">
@@ -128,10 +230,25 @@ const AdminProfile = () => {
                 formik={passwordForm}
                 labelText="Confirm Password"
                 className="bg-gray-50 text-gray-800"
+                type={showConfirmPassword ? "" : "password"}
+                icon={
+                  showConfirmPassword ? (
+                    <FaRegEyeSlash
+                      color=""
+                      className=" w-8 h-8  font-Arimo cursor-pointer "
+                      onClick={handleConfirmPassword}
+                    />
+                  ) : (
+                    <IoEyeOutline
+                      color=""
+                      className=" w-8 h-8  font-Arimo cursor-pointer"
+                      onClick={handleConfirmPassword}
+                    />
+                  )
+                }
               />
             </div>
           </div>
-
         </div>
 
         <div className="mt-8 flex justify-center">

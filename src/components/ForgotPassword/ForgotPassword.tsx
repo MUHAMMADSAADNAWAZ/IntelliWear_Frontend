@@ -1,5 +1,4 @@
-import { useFormik } from "formik";
-import { toast } from "react-toastify";
+import { FormikProps } from "formik";
 
 import { Button, Input } from "@components/common";
 import { ForgotPasswordDto } from "@dto/forgetPassword.dto";
@@ -7,18 +6,11 @@ import { CancelIcon } from "@svg";
 
 interface ForgotPasswordProps {
   setForgotOpen: (open: boolean) => void;
+  form: FormikProps<ForgotPasswordDto>
 }
 
-const ForgotPassword = ({ setForgotOpen }: ForgotPasswordProps) => {
-  const form = useFormik({
-    initialValues: ForgotPasswordDto.initialValues(),
-    validationSchema: ForgotPasswordDto.yupSchema(),
-    onSubmit: (values) => {
-      console.log("Forgot Password Dto Values are", values);
-      toast.success("Email Sent Successfully!");
-      setForgotOpen(false);
-    },
-  });
+const ForgotPassword = ({ setForgotOpen , form}: ForgotPasswordProps) => {
+ 
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ">
@@ -49,6 +41,7 @@ const ForgotPassword = ({ setForgotOpen }: ForgotPasswordProps) => {
             labelClass="font-Arimo text-indigo-500"
             placeholder="Enter Your Email"
             labelText="Email"
+            type="email"
             name="email"
             formik={form}
           />
