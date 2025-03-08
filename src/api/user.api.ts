@@ -33,7 +33,7 @@ export default class UserApi extends BaseApi {
   }
 
   async refreshToken(refresh: string){
-    const data = await UserApi.post(`${this.baseUrl}refreshtoken/` , refresh)
+    const data = await UserApi.post(`${this.baseUrl}refreshtoken/` , {refresh})
     return data
   }
 

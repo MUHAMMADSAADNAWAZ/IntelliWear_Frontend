@@ -1,5 +1,5 @@
 import { AuthResponse } from "@dto/myprofile.dto";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const userSlice = createSlice({
     name: "user_slice",
@@ -17,10 +17,20 @@ const userSlice = createSlice({
             if (state.userInfo) {
                 state.userInfo.user_info = action.payload;
             }
-        }
+        },
+        refreshTokenSuccess: (
+            state,
+            action: PayloadAction<{ access_token: AuthResponse["token"]["access_token"] }>
+        ) => {
+            if (state.userInfo) {
+                state.userInfo.token.access_token = action.payload.access_token;
+                state.userInfo.token.access_token.expires_at = action.payload.access_token.expires_at;
+            }
+        },
+        
     }
 })
 
-export const {login , logout , update} = userSlice.actions;
+export const {login , logout , update , refreshTokenSuccess} = userSlice.actions;
 export const selectUser = (state: any) => state.user_store?.userInfo;
 export default userSlice.reducer;
