@@ -39,11 +39,11 @@ export interface AdminProfilePayload {
 
 // redux toolkit interface
 
-interface AuthToken {
+export interface AuthToken {
     token: string;
     expires_at: string;
 }
-  interface UserInfo {
+export interface UserInfo {
     user_id: string;
     name: string;
     email: string;
@@ -59,5 +59,5 @@ export  interface AuthResponse {
       refresh_token: AuthToken;
     };
     user_info: UserInfo;
-  }
+}
   

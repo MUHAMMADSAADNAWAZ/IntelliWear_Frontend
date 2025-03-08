@@ -12,6 +12,7 @@ import { menuItems, orderCategories, productCategories } from '@Data/data';
 import { logout } from '@redux/slices/userSlice';
 import { ROUTE_ADMIN_PRODUCTS } from '@routes/constants';
 import {clearMessages} from "@redux/slices/botSlice"
+import { clearCart } from '@redux/slices/cartSlice';
 
 const AdminSidebar = () => {
   const [open, setOpen] = useState<string>("");
@@ -125,6 +126,7 @@ const AdminSidebar = () => {
               if (item.name === 'Logout') {
                 dispatch(logout());
                 dispatch(clearMessages())
+                dispatch(clearCart());
                 toast.success('Logged out Successfully');
               }
               setOpen("")
