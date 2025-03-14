@@ -4470,3 +4470,7 @@ export const pakistaniCities = [
     "lng": "67.72562"
   }
 ]
+
+export const shoeSizes = ["28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46"];
+export const clothesSizes = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
+export const accessoriesUnits = ["in", "cm", "mm", "m", "ft", "Standard Sizes"];

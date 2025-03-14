@@ -15,10 +15,10 @@ interface Product {
   image: string;
   name: string;
   price: number;
-  stock: number;
   product_type: string;
   description: string;
   gender: string;
+  sizes?: { size: string; quantity: number }[];
 }
 
 const AdminProducts = ({name} : {name?: string}) => {
@@ -98,6 +98,14 @@ const AdminProducts = ({name} : {name?: string}) => {
             color: "#1b2559",
           },
         },
+        headCells: {
+          style: {
+            display: "flex",
+            justifyContent: "center",
+            paddingLeft: "8px",
+            paddingRight: "8px",
+          },
+        },
         pagination: {
           style: {
             display: "flex",
@@ -137,10 +145,24 @@ const AdminProducts = ({name} : {name?: string}) => {
           sortable: true,
         },
         {
-          name: "Quantity",
-          style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
-          selector: (row: Product) => (row?.stock),
-          sortable: true,
+          name: "Size - Quantity",
+          style: "display:flex;border-right: 1px solid #e0e0e0 !important",
+        selector: (row: Product) => (
+          <div className="grid grid-cols-2 gap-2">
+          
+            {row?.sizes?.map((item, index) => (
+              <div
+                key={index}
+                className=" w-full items-center bg-blue-100 px-3 py-1 m-2"
+              >
+                <span className="text-blue-800">
+                  {item.size} - {item.quantity}
+                </span>
+              </div>
+            ))}
+          </div>
+        ),
+          sortable: false,
         },
         {
           name: "Price (PKR)",

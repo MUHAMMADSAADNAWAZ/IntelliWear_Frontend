@@ -22,6 +22,11 @@ export default class UserApi extends BaseApi {
     return data;
   }
 
+  async logout(refresh_token: string) {
+    const data = await UserApi.post(`${this.baseUrl}logout/` , {refresh_token});
+    return data;
+  }
+
   async forgotPassword(payload : ForgotPasswordDto){
     const data = await UserApi.post(`${this.baseUrl}password-reset/` , payload)
     return data

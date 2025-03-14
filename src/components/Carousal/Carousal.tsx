@@ -4,7 +4,7 @@ import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
 interface CarouselDetail{
   id: number,
   title: string,
-  image: string
+  image_url: string
   created_at: string
 }
 interface CarouselProps {
@@ -30,7 +30,7 @@ const Carousal = ({data = []}: CarouselProps) => {
     
       <div 
         className="h-[550px] bg-center bg-no-repeat bg-cover relative mt-6 mx-3 rounded-3xl" 
-        style={{ backgroundImage: `url(${data[currentIndex]?.image})` }} 
+        style={{ backgroundImage: `url(${data[currentIndex]?.image_url})` }} 
       >
          <BiLeftArrowAlt style={{ color: "black" }} className='absolute top-[50%] left-3 cursor-pointer bg-white rounded-full p-1 text-2xl md:text-4xl' onClick={() => {handleClick(currentIndex-1)}}/>
          <BiRightArrowAlt style={{ color: "black" }} className='absolute top-[50%] right-3 cursor-pointer bg-white rounded-full p-1 text-2xl md:text-4xl' onClick={() => {handleClick(currentIndex+1)}}/>
