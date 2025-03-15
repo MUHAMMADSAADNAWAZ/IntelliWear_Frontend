@@ -57,6 +57,14 @@ const Customers = () => {
               color: "#1b2559",
             },
           },
+          headCells: {
+            style: {
+              display: "flex",
+              justifyContent: "center",
+              paddingLeft: "8px",
+              paddingRight: "8px",
+            },
+          },
           pagination: {
             style: {
               display: "flex",

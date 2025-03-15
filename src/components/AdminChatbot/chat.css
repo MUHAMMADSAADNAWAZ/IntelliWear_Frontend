@@ -7,7 +7,7 @@ border: none;
 }
 .cs-message__content{
     background-color: transparent !important ;
-    font-family: DMsans;
+    font-family: poppins;
     text-align: justify;
 }
 .cs-message-input{

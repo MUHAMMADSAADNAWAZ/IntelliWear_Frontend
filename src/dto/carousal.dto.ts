@@ -37,5 +37,5 @@ export class CarousalDto {
 export interface CarousalProps{
   id: string;
   title: string;
-  image: string;
+  image_url: string;
 }

@@ -6,16 +6,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { addToCart } from "@redux/slices/cartSlice";
 import { selectUser } from "@redux/slices/userSlice";
 import { ROUTE_LOGIN } from "@routes/constants";
+import { getImageUrl } from '@utils/getImageUrl';
 
 export interface ClothInfoProps {
-  id: number;
+  id: string;
   img: string;
   name: string;
   size?: string;
   description?: string;
-  price: number;
+  price: string;
   product?: any;
 }
+
 
 const ClothInfo = ({ img, name, price, id, product , description }: ClothInfoProps) => {
   const dispatch = useDispatch();
@@ -24,6 +26,8 @@ const ClothInfo = ({ img, name, price, id, product , description }: ClothInfoPro
   const email = user?.user_info?.email;
 
   const navigate = useNavigate();
+
+  const imageUrl = getImageUrl(img)
 
   const handleAddToCart = () => {
     if (email === undefined) {
@@ -43,9 +47,9 @@ const ClothInfo = ({ img, name, price, id, product , description }: ClothInfoPro
       <Link to={`/product/${id}`} className="block">
         <div className="overflow-hidden">
           <img
-            src={img}
+            src={imageUrl}
             alt={name}
-            className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
+            className="w-full h-64 object-fill group-hover:scale-110 transition-transform duration-300"
           />
           <div className=" inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
         </div>

@@ -1,10 +1,14 @@
 import { BrowserRouter } from "react-router-dom"
-import AppRoutes from "./routes/AppRoutes"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css";
-import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+
+import AppRoutes from "@routes/AppRoutes"
+import ScrollToTop from "@components/ScrollToTop/ScrollToTop";
+import useAuthManager from "@utils/useAuthManager";
 
 function App() {
+
+  useAuthManager()
 
   return (
     <>

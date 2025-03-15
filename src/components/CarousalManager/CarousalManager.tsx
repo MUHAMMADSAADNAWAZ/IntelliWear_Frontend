@@ -142,9 +142,9 @@ const CarousalManager = () => {
       if(specificCarouselData?.data){
         form.setValues(specificCarouselData?.data)
       }
-      if (specificCarouselData?.data?.image) {
-        setUploadedImages(specificCarouselData?.data?.image);
-        form?.setFieldValue("image" , specificCarouselData?.data?.image)
+      if (specificCarouselData?.data?.image_url) {
+        setUploadedImages(specificCarouselData?.data?.image_url);
+        form?.setFieldValue("image" , specificCarouselData?.data?.image_url)
       }
     },[specificCarouselData])
 
@@ -272,7 +272,7 @@ const CarousalManager = () => {
         {
           name: "Carousel Image",
           style: "display:flex;;border-right: 1px solid #e0e0e0 !important",
-          selector: (row: CarousalProps) => ( <img src={row.image} alt={row.title} className="h-16 w-16 object-cover rounded py-2" />),
+          selector: (row: CarousalProps) => ( <img src={row.image_url} alt={row.title} className="h-16 w-16 object-cover rounded py-2" />),
           sortable: false,
         },
         {
