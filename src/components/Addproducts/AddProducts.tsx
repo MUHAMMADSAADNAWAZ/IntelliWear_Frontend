@@ -112,7 +112,6 @@ const AddProducts = ({ product }: products) => {
         return file instanceof File;
       };
 
-      // Usage:
       if (isFile(values.image)) {
         formData.append("image", values.image);
       } else if (
@@ -122,7 +121,6 @@ const AddProducts = ({ product }: products) => {
         formData.append("image_url", values.image);
       }
 
-//       // Convert sizes to JSON string before appending
 if (values.sizes) formData.append("sizes", JSON.stringify(values.sizes));
 
       console.log("Submitting Product:", values);
@@ -159,7 +157,7 @@ if (values.sizes) formData.append("sizes", JSON.stringify(values.sizes));
   
     if (form.values.product_type === "ACCESSORIES" && tempAccessoryUnit !== "Standard Sizes") {
       newSize = {
-        size: `${tempAccessorySize}${tempAccessoryUnit}`, // Store as a single string
+        size: `${tempAccessorySize}${tempAccessoryUnit}`, 
         quantity: Number(tempQuantity),
       };
     } else if(form.values.product_type === "ACCESSORIES" && tempAccessoryUnit === "Standard Sizes") {
@@ -172,7 +170,6 @@ if (values.sizes) formData.append("sizes", JSON.stringify(values.sizes));
       newSize = { size: tempSize, quantity: Number(tempQuantity) };
     }
   
-    // Check for duplicate size
     const existingSize = form.values.sizes?.find((s) => s.size === newSize.size);
   
     if (existingSize) {
@@ -180,19 +177,14 @@ if (values.sizes) formData.append("sizes", JSON.stringify(values.sizes));
       return;
     }
   
-    // Add size to form
     form.setFieldValue("sizes", [...(form.values.sizes || []), newSize]);
   
-    // Reset state variables
     setTempSize("");
     setTempQuantity("");
     setTempAccessorySize("");
     setTempAccessoryUnit("");
   };
   
-
-  console.log('form.values.size' , form.values.sizes)
-
   useEffect(() => {
     if (product) {
       form.setValues(product);
@@ -276,7 +268,6 @@ if (values.sizes) formData.append("sizes", JSON.stringify(values.sizes));
                 placeholder="Enter Product Quantity"
                 labelClass=" text-blue-500"
                 name="stock"
-                // formik={form}
                 type="number"
                 value={tempQuantity}
                 onChange={(e) => setTempQuantity(e.target.value)}
@@ -286,7 +277,6 @@ if (values.sizes) formData.append("sizes", JSON.stringify(values.sizes));
               {form?.values?.product_type === "CLOTHES" && (
                 <Select
                   name="size"
-                  // formik={form}
                   placeholder="Select Clothe Size"
                   labelText="Clothes Size"
                   labelClass=" text-blue-500  "
@@ -306,7 +296,6 @@ if (values.sizes) formData.append("sizes", JSON.stringify(values.sizes));
               {form?.values?.product_type === "SHOES" && (
                 <Select
                   name="size"
-                  // formik={form}
                   placeholder="Select Shoe Size"
                   labelText="Shoe Size"
                   labelClass=" text-blue-500  "
@@ -325,8 +314,7 @@ if (values.sizes) formData.append("sizes", JSON.stringify(values.sizes));
               )}
               {form?.values?.product_type === "ACCESSORIES" && (
                 <Select
-                  name="size"
-                  // formik={form}
+                  name="size"   
                   placeholder="Select Accessory Unit"
                   labelText="Accessory Unit"
                   labelClass=" text-blue-500  "
@@ -351,7 +339,6 @@ if (values.sizes) formData.append("sizes", JSON.stringify(values.sizes));
                   placeholder="Enter Accessory Size"
                   labelClass=" text-blue-500"
                   name="stock"
-                  // formik={form}
                   type="number"
                   value={tempAccessorySize}
                   onChange={(e) => setTempAccessorySize(e.target.value)}
@@ -362,7 +349,6 @@ if (values.sizes) formData.append("sizes", JSON.stringify(values.sizes));
               {form?.values?.product_type === "ACCESSORIES" && tempAccessoryUnit === "Standard Sizes" && (
                 <Select
                 name="size"
-                // formik={form}
                 placeholder="Select Accessory Size"
                 labelText="Accessory Size"
                 labelClass=" text-blue-500  "
@@ -388,7 +374,6 @@ if (values.sizes) formData.append("sizes", JSON.stringify(values.sizes));
               Add Size
             </Button>
 
-            {/* Display Selected Sizes */}
             <div className="flex flex-wrap gap-2">
               {form?.values?.sizes?.map((item, index) => (
                 <div

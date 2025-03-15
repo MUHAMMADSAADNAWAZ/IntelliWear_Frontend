@@ -1,40 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
 
+import CustomerProductsApi from "@api/customerproducts.api";
 import { Button, Select } from "@components/common";
 import { ClothInfoProps } from "@components/HomeClothInfo/HomeClothInfo";
-import { accessoriesData, clothesData, footwearData } from "@Data/data";
 import { addToCart, selectProduct, updateQuantity } from "@redux/slices/cartSlice";
 import { selectUser } from "@redux/slices/userSlice";
 import { ROUTE_CHECKOUT, ROUTE_LOGIN } from "@routes/constants";
+import { updateLoader } from "@redux/slices/loaderSlice";
+import { getImageUrl } from "@utils/getImageUrl";
 
 const ProductDetails = () => {
 
   const [quantity, setQuantity] = useState(1);
-  const [size, setSelectedSize] = useState("X-Small");
-
+  const [size, setSelectedSize] = useState("");
+  
   const user = useSelector(selectUser);
+  const cartItems = useSelector(selectProduct);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const email = user?.user_info?.email;
+  const customerproductapi = new CustomerProductsApi()
 
   const { productId } = useParams();
 
-  const options = {
-    sizes : ["X-Small" , "Small" , "Medium" , "Large" , "X-Large"],
-   } 
+  const productDetails = async () =>{
+    dispatch(updateLoader(true));
+    const res = await customerproductapi.getProductDetails(productId);
+    dispatch(updateLoader(false));
+    return res;
+  }
 
-  const product = clothesData.find(item => item.id === Number(productId)) ||
-                  footwearData.find(item => item.id === Number(productId)) ||
-                  accessoriesData.find(item => item.id === Number(productId));
+  const {data} = useQuery({
+    queryKey: ["productdetails" , productId],
+    queryFn: productDetails,
+    enabled: !!productId
+  })
 
-  const cartItems = useSelector(selectProduct);
-
-  if (!product) return <p className="font-bold text-center text-3xl">Product Not Found</p>;
-
-  const existingItem = cartItems.find((item : ClothInfoProps) => item.id === product.id && item.size === size)
+  const existingItem = cartItems.find((item : ClothInfoProps) => item.id === data?.data?.results.id && item.size === size)
 
   const handleAddToCart = () =>{
     if(email === undefined){
@@ -43,11 +49,11 @@ const ProductDetails = () => {
     }
     else if(existingItem){
       toast.success("Product quantity updated successfully");
-      dispatch(updateQuantity({id: product.id , quantity , size}))
+      dispatch(updateQuantity({id: data?.data?.results.id , quantity , size}))
     }
     else{
       toast.success("Product added to cart successfully");
-      dispatch(addToCart({...product , quantity , size}))
+      dispatch(addToCart({...data?.data?.results , quantity , size}))
     }
   }
 
@@ -69,18 +75,26 @@ const ProductDetails = () => {
     }
   }
 
+  const imageUrl = getImageUrl(data?.data?.results?.image)
+
+  useEffect(()=>{
+    setSelectedSize(data?.data?.results?.sizes[0]?.size)
+  },[data?.data?.results?.sizes[0]?.size])
+
+  console.log("data?.data?.results" , data?.data?.results)
+
   return (
     <div className="flex flex-row gap-6 p-6 bg-gray-100 w-full">
 
       <div className="w-1/2">
-        <img src={product.img} alt={product.name} className="w-full max-h-screen rounded-md shadow-lg" />
+        <img src={imageUrl} alt={data?.data?.results?.name} className="w-full max-h-screen rounded-md shadow-lg" />
       </div>
       
       <div className="w-1/2 flex flex-col space-y-4">
       
-        <h2 className="text-2xl font-bold text-gray-800">{product.name}</h2>
-        <p className="text-xl text-gray-600 font-semibold">Price : {product.price} Rs</p>
-        <p className="text-gray-700 text-lg font-medium">Description : {product.description}</p>
+        <h2 className="text-2xl font-bold text-gray-800">{data?.data?.results?.name}</h2>
+        <p className="text-xl text-gray-600 font-semibold">Price : {data?.data?.results?.price} Rs</p>
+        <p className="text-gray-700 text-lg font-medium">Description : {data?.data?.results?.description}</p>
 
         <hr />
 
@@ -93,10 +107,10 @@ const ProductDetails = () => {
             labelClass="text-[#FF6900] font-medium"
             value={size}
             onChange={(e) => setSelectedSize(e.target.value)}
-            options={options.sizes.map((element : string) =>{
+            options={data?.data?.results?.sizes?.map((element : {size: string , quantity: number}) =>{
                 return {
-                    label: element,
-                    value: element
+                    label: element?.size,
+                    value: element?.size
                 }
             })}
             

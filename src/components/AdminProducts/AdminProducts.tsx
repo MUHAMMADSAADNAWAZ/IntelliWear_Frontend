@@ -153,7 +153,7 @@ const AdminProducts = ({name} : {name?: string}) => {
             {row?.sizes?.map((item, index) => (
               <div
                 key={index}
-                className=" w-full items-center bg-blue-100 px-3 py-1 m-2"
+                className=" w-full items-center bg-blue-100 p-1 m-2"
               >
                 <span className="text-blue-800">
                   {item.size} - {item.quantity}

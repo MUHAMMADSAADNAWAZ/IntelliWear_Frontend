@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 
 import {
   ChatContainer,
@@ -10,6 +10,7 @@ import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import ReactMarkdown from "react-markdown";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { Copy } from "lucide-react";
 import { toast } from "react-toastify";
 
 import { Input } from "@components/common";
@@ -17,15 +18,13 @@ import { ThingLoader } from "@components/ThingLoader";
 import GeminiApi from "@api/gemini.api";
 import { RootState } from "@redux/store";
 import { addMessage } from "@redux/slices/botSlice";
-import { PaperClip, SendArrow } from "@svg";
+import { SendArrow } from "@svg";
 
 import "./chat.css";
 
 const AdminChatbot = () => {
   const [isThinking, setIsThinking] = useState<boolean>(false);
   const [currentMessage, setCurrentMessage] = useState<string>("");
-
-  const inputref = useRef<HTMLInputElement>(null);
 
   const dispatch = useDispatch();
   const messages = useSelector((state: RootState) => state.bot.messages);
@@ -70,11 +69,11 @@ const AdminChatbot = () => {
     }
   };
 
-  useEffect(() => {
-    if (inputref.current) {
-      inputref.current.focus();
-    }
-  }, []);
+const copyToClipboard = (text: string) => {
+  navigator.clipboard.writeText(text).then(() => {
+    toast.info("Copied to clipboard!");
+  });
+};
 
   return (
     <div className="p-6 bg-gray-100 rounded-t-xl w-full flex flex-col items-center justify-center">
@@ -120,8 +119,14 @@ const AdminChatbot = () => {
                         }}
                         className="bg-indigo-50 font-normal shadow-sm rounded-2xl p-0!"
                       >
-                        <Message.CustomContent className="p-3 text-gray-800">
+                        <Message.CustomContent className="p-3 text-gray-800 relative">
                           <ReactMarkdown>{item?.text}</ReactMarkdown>
+                          <button
+                className="absolute top-2 -right-2 text-gray-500 hover:text-gray-700"
+                onClick={() => copyToClipboard(item?.text)}
+              >
+                <Copy size={18} />
+              </button>
                         </Message.CustomContent>
                       </Message>
                     </div>
@@ -137,10 +142,16 @@ const AdminChatbot = () => {
                             item.sender === "user" ? "outgoing" : "incoming",
                           position: "normal",
                         }}
-                        className=" text-white rounded-full p-2 bg-[#EEEEEE] shadow-sm font-normal text-base"
+                        className=" text-white rounded-3xl p-2 bg-[#EEEEEE] shadow-sm font-normal text-base"
                       >
-                        <Message.CustomContent className="p-3 text-[#141B34]">
+                        <Message.CustomContent className="p-3 text-[#141B34] relative">
                           <ReactMarkdown>{item?.text}</ReactMarkdown>
+                          <button
+                className="absolute top-2 -left-2 text-gray-500 hover:text-gray-700"
+                onClick={() => copyToClipboard(item?.text)}
+              >
+                <Copy size={18} />
+              </button>
                         </Message.CustomContent>
                       </Message>
                     </div>
@@ -157,13 +168,9 @@ const AdminChatbot = () => {
           </div>
 
           <div className="w-full max-w-5xl flex items-center border border-gray-300 bg-white rounded-full px-4 py-2 shadow-sm hover:shadow-md transition-shadow">
-            <button className="text-gray-400 hover:text-gray-600 transition-colors mr-2">
-              <PaperClip />
-            </button>
-
+        
             <Input
               value={currentMessage}
-              ref={inputref}
               placeholder="Ask questions from knowledge expert..."
               wrapperClass="flex-grow !border-none"
               onChange={(e) => setCurrentMessage(e.target.value)}
