@@ -26,8 +26,6 @@ const ProductDetails = () => {
   const [quantity, setQuantity] = useState<number>(1);
   const [size, setSelectedSize] = useState<sizeType | null>(null);
 
-  console.log("quantity" , quantity)
-  
   const user = useSelector(selectUser);
   const cartItems = useSelector(selectProduct);
   const dispatch = useDispatch();
@@ -161,8 +159,6 @@ const ProductDetails = () => {
   useEffect(()=>{
     setSelectedSize(data?.data?.results?.sizes[0])
   },[data?.data?.results?.sizes[0]])
-
-  console.log("data?.data?.results" , data?.data?.results)
 
   return (
     <div className="flex flex-row gap-6 p-6 bg-gray-100 w-full">

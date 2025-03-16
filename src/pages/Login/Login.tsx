@@ -60,7 +60,6 @@ const Login = () => {
             dispatch(updateLoader(false))    
             const response = await getCustomerCart()
             dispatch(setCart(response?.data?.cart_items))
-            console.log("customer cart response is" , response?.data?.cart_items)
         },
         onError: () =>{
             toast.error("Unable to Login!");

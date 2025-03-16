@@ -40,8 +40,6 @@ const HomeHeader = () => {
 
   const user = useSelector(selectUser);
   const email = user?.user_info?.email;
-  // console.log("user" , user);
-  // console.log("email" , email);
 
   const dispatch = useDispatch();
 
@@ -54,7 +52,6 @@ const HomeHeader = () => {
   };
 
   const cart = useSelector(selectCart);
-  // console.log("cart" , cart);
   const totalQuantity = cart.totalQuantity;
 
   const settings = [

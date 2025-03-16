@@ -54,7 +54,6 @@ function TextArea<FormValues>({
   }
   const textAreaBaseClasses = `border-[1px] w-full border-[#302E60]`;
   const labelBaseClass = `text-[#1F1F1F] font-normal text-base leading-6 mb-2 font-poppins`;
-  // console.log("the error iis", error);
 
   const shouldDisplayError =
     (touched || (formik && formik.submitCount > 0)) &&
