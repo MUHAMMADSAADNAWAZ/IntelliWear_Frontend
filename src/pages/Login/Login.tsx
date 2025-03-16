@@ -20,6 +20,8 @@ import UserApi from "@api/user.api";
 import { isLoader, updateLoader } from "@redux/slices/loaderSlice";
 import { Loader } from "@components/Loader";
 import { ForgotPasswordDto } from "@dto/forgetPassword.dto";
+import CustomerProductsApi from "@api/customerproducts.api";
+import { setCart } from "@redux/slices/cartSlice";
 
 const Login = () => {
 
@@ -30,6 +32,11 @@ const Login = () => {
     const dispatch = useDispatch();
     const loader = useSelector(isLoader)
     const userapi = new UserApi()
+    const customerproductapi = new CustomerProductsApi()
+
+    const getCustomerCart = async () =>{
+        return await customerproductapi.getCustomerCart();
+    }
 
     const form = useFormik({
         initialValues: LoginDto.initialValues(),
@@ -46,11 +53,14 @@ const Login = () => {
 
     const {mutateAsync} = useMutation({
         mutationFn: loginUser,
-        onSuccess: (res: any) => {
+        onSuccess: async (res: any) => {
             toast.success("Login Successfully!");
             dispatch(login(res?.data));
             res?.data?.user_info?.user_type === "admin" ? navigate(ROUTE_ADMIN_HOME) : navigate(ROUTE_HOME)
             dispatch(updateLoader(false))    
+            const response = await getCustomerCart()
+            dispatch(setCart(response?.data?.cart_items))
+            console.log("customer cart response is" , response?.data?.cart_items)
         },
         onError: () =>{
             toast.error("Unable to Login!");

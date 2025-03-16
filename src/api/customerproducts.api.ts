@@ -1,4 +1,6 @@
 
+import { AddToCartPayload } from "@dto/product.dto";
+
 import BaseApi from "./_baseAPi";
 
 export default class CustomerProductsApi extends BaseApi {
@@ -35,6 +37,26 @@ export default class CustomerProductsApi extends BaseApi {
 
   async getProductDetails(product_id?: string){
     const data = await CustomerProductsApi.get(`${this.baseUrl}product/${product_id}/`);
+    return data;
+  }
+
+  async getCustomerCart(){
+    const data = await CustomerProductsApi.get(`${this.baseUrl}cart/`);
+    return data;
+  }
+
+  async addProductToCart(payload: AddToCartPayload){
+    const data = await CustomerProductsApi.post(`${this.baseUrl}cart/` , payload);
+    return data;
+  }
+
+  async deleteProductFromCart(cart_item_id: number){
+    const data = await CustomerProductsApi.delete(`${this.baseUrl}remove-cart/` , {cart_item_id});
+    return data;
+  }
+
+  async updateCart(payload : {cart_item_id: number , quantity: number}){
+    const data = await CustomerProductsApi.patch(`${this.baseUrl}update-cart/` , payload);
     return data;
   }
 

@@ -45,7 +45,7 @@ const Checkout = () => {
 
   const totalPrice = cartItems
     .filter((item) => item.checked) 
-    .reduce((sum, item) => sum + item.price * item.quantity, 0);
+    .reduce((sum, item) => sum + Number(item.price) * Number(item.quantity), 0);
 
   const form = useFormik({
     initialValues: CheckoutDto.initialValues(),
@@ -82,9 +82,9 @@ const Checkout = () => {
                 <p className="text-sm text-gray-600">
                   Quantity: {item.quantity}
                 </p>
-                <p className="text-sm text-gray-600">Size: {item.size}</p>
+                <p className="text-sm text-gray-600">Size: {String(item.size)}</p>
               </div>
-              <p>Rs. {item.price * item.quantity}</p>
+              <p>Rs. {Number(item.price) * Number(item.quantity)}</p>
             </div>
           ))}
           <div className="border-t pt-4 mt-4">
