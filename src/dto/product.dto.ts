@@ -73,3 +73,10 @@ export interface HomeProductProps{
   price: string;
   product_type: string;
 }
+
+//Add to Cart request dto
+export interface AddToCartPayload{
+  product_id : string,
+  size_id : number,
+  quantity: number
+}
