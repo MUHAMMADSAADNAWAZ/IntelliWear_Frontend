@@ -63,3 +63,20 @@ export class ProductDto {
     };
   }
 }
+
+// Home Product prop type
+export interface HomeProductProps{
+  id: string;
+  image: string;
+  description: string;
+  name: string;
+  price: string;
+  product_type: string;
+}
+
+//Add to Cart request dto
+export interface AddToCartPayload{
+  product_id : string,
+  size_id : number,
+  quantity: number
+}

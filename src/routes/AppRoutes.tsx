@@ -1,4 +1,9 @@
-import { Route, Routes } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+import { Route, Routes, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useQuery } from "@tanstack/react-query";
+
 import {
   ROUTE_ACCESSORIES,
   ROUTE_CLOTHES,
@@ -35,19 +40,18 @@ import {
   ROUTE_CHATBOT,
   ROUTE_ADMIN_CAROUSAL,
 } from "@routes/constants";
-import { clothesData, footwearData, accessoriesData } from "@Data/data";
-import { useSelector } from "react-redux";
-import { selectUser } from "@redux/slices/userSlice";
+import CustomerProductsApi from "@api/customerproducts.api";
 import { HomeLayout } from "@components/HomeLayout";
+import { ProtectedRoute } from "@components/ProtectedRoutes";
 import { Home } from "@pages/Home";
 import { Clothes } from "@pages/Clothes";
 import { MenClothing } from "@pages/MenClothing";
+import { selectUser } from "@redux/slices/userSlice";
 import { ProductDetails } from "@pages/ProductDetails";
 import { MyProfile } from "@pages/MyProfile";
 import { MyOrders } from "@pages/MyOrders";
 import { Login } from "@pages/Login";
 import { Signup } from "@pages/Signup";
-import { ProtectedRoute } from "@components/ProtectedRoutes";
 import { AdminHome } from "@pages/AdminHome";
 import { AdminProducts } from "@components/AdminProducts";
 import { AddProducts } from "@components/Addproducts";
@@ -62,10 +66,65 @@ import { Checkout } from "@pages/Checkout";
 import { ResetPassword } from "@pages/ResetPassword";
 import { AdminChatbot } from "@components/AdminChatbot";
 import { CarousalManager } from "@components/CarousalManager";
+import { updateLoader } from "@redux/slices/loaderSlice";
 
 const AppRoutes = () => {
+  const [page, setPage] = useState<number>(1);
+
+  const location = useLocation()
+  const dispatch = useDispatch();
+ 
   const user = useSelector(selectUser);
+  const customerproductsapi = new CustomerProductsApi()
   const role = user ? user?.user_info?.user_type : undefined;
+  const gender = location.state?.gender || "";
+
+  const customerClothesProducts = async () =>{
+    dispatch(updateLoader(true));
+    const res = await customerproductsapi.getClothesProducts(gender , page);
+    dispatch(updateLoader(false))
+    return res;
+  }
+
+  const {data: clothesData} = useQuery({
+    queryKey: ["clothesproducts" , gender , page],
+    queryFn: customerClothesProducts,
+    enabled: location.pathname === ROUTE_CLOTHES,
+  })
+
+  const customerShoesProducts = async () =>{
+    dispatch(updateLoader(true));
+    const res = await customerproductsapi.getShoesProducts(gender , page);
+    dispatch(updateLoader(false))
+    return res;
+  }
+
+  const {data: footwearData} = useQuery({
+    queryKey: ["clothesproducts" , gender , page],
+    queryFn: customerShoesProducts,
+    enabled: location.pathname === ROUTE_FOOTWEAR,
+  })
+
+  const customerAccessoriesProducts = async () =>{
+    dispatch(updateLoader(true));
+    const res = await customerproductsapi.getAccessoriesProducts(gender , page);
+    dispatch(updateLoader(false))
+    return res;
+  }
+
+  const {data: accessoriesData} = useQuery({
+    queryKey: ["clothesproducts" , gender , page],
+    queryFn: customerAccessoriesProducts,
+    enabled: location.pathname === ROUTE_ACCESSORIES,
+  })
+
+  const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
+
+  useEffect(() => {
+    setPage(1);
+  }, [location.pathname]); 
 
   return (
     <div>
@@ -83,7 +142,7 @@ const AppRoutes = () => {
           path={ROUTE_CLOTHES}
           element={
             <HomeLayout>
-              <Clothes heading="Clothes" data={clothesData} />
+              <Clothes heading="Clothes" data={clothesData?.data?.results} count={clothesData?.data?.count} page={page} handlePageChange={handlePageChange}/>
             </HomeLayout>
           }
         />
@@ -92,7 +151,7 @@ const AppRoutes = () => {
           path={ROUTE_FOOTWEAR}
           element={
             <HomeLayout>
-              <Clothes heading="Footwear" data={footwearData} />
+              <Clothes heading="Footwear" data={footwearData?.data?.results} count={footwearData?.data?.count} page={page} handlePageChange={handlePageChange}/>
             </HomeLayout>
           }
         />
@@ -101,7 +160,7 @@ const AppRoutes = () => {
           path={ROUTE_ACCESSORIES}
           element={
             <HomeLayout>
-              <Clothes heading="Accessories" data={accessoriesData} />
+              <Clothes heading="Accessories" data={accessoriesData?.data?.results} count={accessoriesData?.data?.count} page={page} handlePageChange={handlePageChange}/>
             </HomeLayout>
           }
         />
