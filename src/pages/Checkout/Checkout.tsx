@@ -1,16 +1,20 @@
+import { useEffect, useState } from "react";
+
+import { useFormik } from "formik";
+import { RootState } from "@redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { useMutation } from "@tanstack/react-query";
+
+import CustomerOrdersApi from "@api/customerorder.api";
 import { CitySelect } from "@components/CitySelect";
 import { Button, Input } from "@components/common";
 import PaymentPopup from "@components/PaymentPopup/PaymentPopup";
 import { pakistaniCities } from "@Data/data";
-import { CheckoutDto } from "@dto/checkout.dto";
+import { CartItem, CheckoutDto, OrderDataPayload } from "@dto/checkout.dto";
 import { PaymentDto } from "@dto/payment.dto";
-import { RootState } from "@redux/store";
-import { ROUTE_MYORDERS } from "@routes/constants";
-import { useFormik } from "formik";
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { updateLoader } from "@redux/slices/loaderSlice";
+import { selectUser } from "@redux/slices/userSlice";
 
 interface CityOption {
   value: string;
@@ -21,14 +25,34 @@ const Checkout = () => {
 
   const [open , setOpen] = useState(false)
 
-  const navigate = useNavigate()
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch()
+  const customerorderapi = new CustomerOrdersApi()
 
   const paymentMethods = [
-    "Easypaisa",
-    "JazzCash",
+    // "Easypaisa",
+    // "JazzCash",
     "Credit Card/Debit Card",
     "Cash on Delivery",
   ];
+
+  const placeOrder = async (payload : OrderDataPayload) =>{
+    dispatch(updateLoader(true));
+    return await customerorderapi?.placeOrder(payload);
+  }
+
+  const {mutateAsync} = useMutation({
+    mutationFn: placeOrder,
+    onSuccess: (res) =>{
+      toast.success("Order is placed successfully!");
+      dispatch(updateLoader(false))
+      window.location.href = res?.data?.payment_url;
+    },
+    onError: () =>{
+      toast.error("Unable to place order");
+      dispatch(updateLoader(false))
+    }
+  })
 
   const transformedPaymentMethods = paymentMethods.map((method) => ({
     label: method,
@@ -42,18 +66,37 @@ const Checkout = () => {
 
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const checkedCartItems = cartItems.filter((item) => item.checked)
+  
+  
+  const formattedCartItems: CartItem[] = checkedCartItems.map(item => ({
+    product_id: item?.id,   // Mapping 'id' as 'product_id'
+    size: typeof item?.size === 'string' ? item?.size : item?.size?.size, // Ensuring size is a string
+    quantity: item?.quantity,
+    price: item?.price?.toString()  // Ensuring price is a string
+  }));
 
-  const totalPrice = cartItems
+  const totalPrice: number = cartItems
     .filter((item) => item.checked) 
     .reduce((sum, item) => sum + Number(item.price) * Number(item.quantity), 0);
 
   const form = useFormik({
     initialValues: CheckoutDto.initialValues(),
     validationSchema: CheckoutDto.yupSchema(),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       console.log("Checkout dto values are", values);
-      paymentForm.setFieldValue("payment" , form?.values?.payment)
-      setOpen(true)
+
+      const payload: OrderDataPayload = {
+        cart_items: formattedCartItems,
+        total_price: totalPrice.toString(),
+        name: form?.values?.name,
+        address: form?.values?.address,
+        city: form?.values?.city,
+        phone: form?.values?.phone,
+        payment_method: form?.values?.payment === "credit-card/debit card" ? "stripe" : "cod"
+    };
+    
+      await mutateAsync(payload)
+      // setOpen(true)
     },
   });
   
@@ -62,10 +105,14 @@ const Checkout = () => {
     validationSchema: PaymentDto.yupSchema(),
     onSubmit: (values) => {
       console.log("Payment dto values are", values);
-      toast.success("Your Order is placed Successfully!")
-      navigate(ROUTE_MYORDERS);
     }
   })
+
+  useEffect(()=>{
+    form?.setFieldValue("name" , user?.user_info?.name)
+    form?.setFieldValue("address" , user?.user_info?.address)
+    form?.setFieldValue("phone" , user?.user_info?.phone)
+  },[user?.user_info])
 
   return (
     <div className="p-4 w-full mx-auto">
@@ -82,7 +129,7 @@ const Checkout = () => {
                 <p className="text-sm text-gray-600">
                   Quantity: {item.quantity}
                 </p>
-                <p className="text-sm text-gray-600">Size: {String(item.size)}</p>
+                <p className="text-sm text-gray-600">Size: {typeof item?.size === 'string' ? item?.size : item?.size?.size}</p>
               </div>
               <p>Rs. {Number(item.price) * Number(item.quantity)}</p>
             </div>

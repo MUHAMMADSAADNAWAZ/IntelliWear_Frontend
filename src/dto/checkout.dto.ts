@@ -75,3 +75,21 @@ export class CheckoutDto {
     };
   }
 }
+
+// Order interface
+export interface CartItem {
+  product_id: string;
+  size: string;
+  quantity: number;
+  price: string;
+}
+
+export interface OrderDataPayload {
+  cart_items: CartItem[];
+  total_price: string;
+  name: string;
+  address: string;
+  phone: string;
+  city: string;
+  payment_method: string;
+}
