@@ -1,6 +1,29 @@
+import { useDispatch } from "react-redux";
+import { useQuery } from "@tanstack/react-query";
+
+import CustomerOrdersApi from "@api/customerorder.api";
 import { orders } from "@Data/data";
+import { updateLoader } from "@redux/slices/loaderSlice";
 
 const MyOrders = () => {
+
+  const dispatch = useDispatch()
+  const customerorderapi = new CustomerOrdersApi()
+
+  const getOrders = async () =>{
+    dispatch(updateLoader(true));
+    const res = await customerorderapi.getCustomerOrder();
+    dispatch(updateLoader(false))
+    return res;
+  }
+
+  const {data} = useQuery({
+    queryKey: ["customerorders"],
+    queryFn: getOrders
+  })
+
+  console.log("orders data is" , data)
+
   return (
     <div className="w-full md:min-h-screen bg-gray-100 text-gray-800 p-8">
       <h1 className="text-2xl md:text-4xl font-extrabold text-blue-600 mb-6">My Orders</h1>
