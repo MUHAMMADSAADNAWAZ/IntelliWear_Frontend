@@ -13,6 +13,7 @@ import { Button, Input } from "@components/common";
 import { PasswordDto } from "@dto/password.dto";
 import { CustomerPayloadProps, MyProfileDto } from "@dto/myprofile.dto";
 import { updateLoader } from "@redux/slices/loaderSlice";
+import { update } from "@redux/slices/userSlice";
 
 const MyProfile = () => {
   const [showOldPassword, setShowOldPassword] = useState(false);
@@ -26,6 +27,7 @@ const MyProfile = () => {
   const getUserDetails = async () => {
     dispatch(updateLoader(true));
     const res = await customerapi.getCustomerInfo();
+    dispatch(update(res?.data))
     dispatch(updateLoader(false));
     return res;
   };
