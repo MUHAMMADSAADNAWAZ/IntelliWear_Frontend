@@ -20,5 +20,10 @@ export default class CustomerOrdersApi extends BaseApi {
     return data;
   }
 
+  async cancelOrder(order_id: number){
+    const data = await CustomerOrdersApi.post(`${this.baseUrl}cancel-order/${order_id}/` , {});
+    return data;
+  }
+
 
 }

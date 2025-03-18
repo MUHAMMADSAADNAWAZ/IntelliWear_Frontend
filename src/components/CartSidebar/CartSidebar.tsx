@@ -86,7 +86,7 @@ const CartSidebar = () => {
         ) : (
           cartItems.map((item: CartItem) => (
             <div
-              key={`${item.id}-${item.size}`}
+              key={`${item.cart_item_id}`}
               className="flex items-center justify-between mb-4"
             >
               <input
