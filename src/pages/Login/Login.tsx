@@ -64,11 +64,14 @@ const Login = () => {
             dispatch(login(res?.data));
             res?.data?.user_info?.user_type === "admin" ? navigate(ROUTE_ADMIN_HOME) : navigate(ROUTE_HOME)
             dispatch(updateLoader(false))    
-            const cartResponse = await refetch()
-            if(cartResponse?.data?.data?.cart_items){
-                dispatch(setCart(cartResponse?.data?.data?.cart_items))
-            }
-            console.log("customer cart response is" , cartResponse?.data?.data?.cart_items)
+            if (res?.data?.user_info?.user_type !== "admin") {
+                const cartResponse = await refetch();
+                
+                if (cartResponse?.data?.data?.cart_items) {
+                    dispatch(setCart(cartResponse?.data?.data?.cart_items));
+                }
+                console.log("customer cart response is" , cartResponse?.data?.data?.cart_items)
+            }            
         },
         onError: () =>{
             toast.error("Unable to Login!");

@@ -29,6 +29,6 @@ export const ROUTE_ADMIN_PENDING_ORDERS = "/pending-orders";
 export const ROUTE_ADMIN_INPROGRESS_ORDERS = "/inprogress-orders";
 export const ROUTE_ADMIN_COMPLETED_ORDERS = "/completed-orders";
 export const ROUTE_ADMIN_CANCELED_ORDERS = "/canceled-orders";
-export const ROUTE_ADMIN_REFUND_ORDERS = "/refund-orders";
+export const ROUTE_ADMIN_SHIPPED_ORDERS = "/shiped-orders";
 export const ROUTE_ADMIN_ANALYTICS = "/admin-analytics";
 export const ROUTE_ADMIN_REVIEWS = "/admin-reviews";

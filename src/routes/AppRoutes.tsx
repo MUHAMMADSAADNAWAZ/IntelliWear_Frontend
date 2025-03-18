@@ -25,7 +25,7 @@ import {
   ROUTE_ADMIN_PENDING_ORDERS,
   ROUTE_ADMIN_INPROGRESS_ORDERS,
   ROUTE_ADMIN_COMPLETED_ORDERS,
-  ROUTE_ADMIN_REFUND_ORDERS,
+  ROUTE_ADMIN_SHIPPED_ORDERS,
   ROUTE_ADMIN_CANCELED_ORDERS,
   ROUTE_ADMIN_CLOTHPRODUCTS,
   ROUTE_ADMIN_FOOTWEARPRODUCTS,
@@ -266,23 +266,23 @@ const AppRoutes = () => {
           <Route path={ROUTE_ADMIN_ORDERS} element={<OrderMenu name="All" />} />
           <Route
             path={ROUTE_ADMIN_PENDING_ORDERS}
-            element={<OrderMenu name="Pending" />}
+            element={<OrderMenu name="pending" />}
           />
           <Route
             path={ROUTE_ADMIN_INPROGRESS_ORDERS}
-            element={<OrderMenu name="In Progress" />}
+            element={<OrderMenu name="in_process" />}
           />
           <Route
             path={ROUTE_ADMIN_COMPLETED_ORDERS}
-            element={<OrderMenu name="Completed" />}
+            element={<OrderMenu name="delivered" />}
           />
           <Route
             path={ROUTE_ADMIN_CANCELED_ORDERS}
-            element={<OrderMenu name="Canceled" />}
+            element={<OrderMenu name="cancelled" />}
           />
           <Route
-            path={ROUTE_ADMIN_REFUND_ORDERS}
-            element={<OrderMenu name="Refund" />}
+            path={ROUTE_ADMIN_SHIPPED_ORDERS}
+            element={<OrderMenu name="shipped" />}
           />
           <Route path={ROUTE_ADMIN_ANALYTICS} element={<AdminAnalytics />} />
           <Route path={ROUTE_ADMIN_REVIEWS} element={<AdminReviews />} />

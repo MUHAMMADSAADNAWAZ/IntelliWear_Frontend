@@ -142,7 +142,7 @@ import {
   ROUTE_ADMIN_PRODUCTS,
   ROUTE_ADMIN_PROFILE,
   ROUTE_ADMIN_CHATBOT,
-  ROUTE_ADMIN_REFUND_ORDERS,
+  ROUTE_ADMIN_SHIPPED_ORDERS,
   ROUTE_ADMIN_REVIEWS,
   ROUTE_LOGIN,
   ROUTE_ADMIN_CAROUSAL,
@@ -1484,9 +1484,9 @@ export const orderCategories = [
   { name: "All Orders", path: ROUTE_ADMIN_ORDERS },
   { name: "Pending Orders", path: ROUTE_ADMIN_PENDING_ORDERS },
   { name: "Processing Orders", path: ROUTE_ADMIN_INPROGRESS_ORDERS },
-  { name: "Completed Orders", path: ROUTE_ADMIN_COMPLETED_ORDERS },
+  { name: "Delivered Orders", path: ROUTE_ADMIN_COMPLETED_ORDERS },
   { name: "Cancelled Orders", path: ROUTE_ADMIN_CANCELED_ORDERS },
-  { name: "Refund Requests", path: ROUTE_ADMIN_REFUND_ORDERS },
+  { name: "Shipped Orders", path: ROUTE_ADMIN_SHIPPED_ORDERS },
 ];
 
 // Customers Data

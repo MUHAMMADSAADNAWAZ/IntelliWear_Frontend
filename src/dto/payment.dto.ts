@@ -60,3 +60,31 @@ export class PaymentDto {
     };
   }
 }
+
+
+// Order DTO
+export interface Order {
+  id: number;
+  user: number;
+  total_price: string;
+  status: string;
+  created_at: string;
+  items: {
+    product: string;
+    product_name: string;
+    size: number;
+    quantity: number;
+    price: string;
+  }[];
+  shipping_address: {
+    name: string;
+    city: string;
+    address: string;
+    phone: string;
+  };
+  payment: {
+    payment_method: string;
+    transaction_id: string;
+    payment_status: string;
+  };
+}
