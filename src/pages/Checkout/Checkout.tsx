@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import { RootState } from "@redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 
 import CustomerOrdersApi from "@api/customerorder.api";
@@ -15,7 +16,7 @@ import { CartItem, CheckoutDto, OrderDataPayload } from "@dto/checkout.dto";
 import { PaymentDto } from "@dto/payment.dto";
 import { updateLoader } from "@redux/slices/loaderSlice";
 import { selectUser } from "@redux/slices/userSlice";
-
+import { ROUTE_MYORDERS } from "@routes/constants";
 interface CityOption {
   value: string;
   label: string;
@@ -27,8 +28,9 @@ const Checkout = () => {
 
   const user = useSelector(selectUser);
   const dispatch = useDispatch()
+  const navigate = useNavigate();
   const customerorderapi = new CustomerOrdersApi()
-
+  
   const paymentMethods = [
     // "Easypaisa",
     // "JazzCash",
@@ -43,10 +45,15 @@ const Checkout = () => {
 
   const {mutateAsync} = useMutation({
     mutationFn: placeOrder,
-    onSuccess: (res) =>{
-      toast.success("Order is placed successfully!");
+    onSuccess: async (res) =>{
       dispatch(updateLoader(false))
-      window.location.href = res?.data?.payment_url;
+      if(res?.data?.payment_url){
+        window.location.href = res?.data?.payment_url;
+      }
+      else{
+        toast.success("Order is placed successfully!");
+        navigate(ROUTE_MYORDERS);
+      }
     },
     onError: () =>{
       toast.error("Unable to place order");
