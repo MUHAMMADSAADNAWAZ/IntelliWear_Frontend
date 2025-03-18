@@ -7,7 +7,7 @@ import { IoEyeOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import clothImage from "@assets/clothes9.jpg";
 import logo from "@assets/logo3_bg_removed.png.png";
@@ -38,6 +38,12 @@ const Login = () => {
         return await customerproductapi.getCustomerCart();
     }
 
+    const { refetch} = useQuery({
+        queryKey: ["getcartitems"],
+        queryFn: getCustomerCart,
+        enabled: false, 
+    })
+
     const form = useFormik({
         initialValues: LoginDto.initialValues(),
         validationSchema: LoginDto.yupSchema(),
@@ -58,8 +64,14 @@ const Login = () => {
             dispatch(login(res?.data));
             res?.data?.user_info?.user_type === "admin" ? navigate(ROUTE_ADMIN_HOME) : navigate(ROUTE_HOME)
             dispatch(updateLoader(false))    
-            const response = await getCustomerCart()
-            dispatch(setCart(response?.data?.cart_items))
+            if (res?.data?.user_info?.user_type !== "admin") {
+                const cartResponse = await refetch();
+                
+                if (cartResponse?.data?.data?.cart_items) {
+                    dispatch(setCart(cartResponse?.data?.data?.cart_items));
+                }
+                console.log("customer cart response is" , cartResponse?.data?.data?.cart_items)
+            }            
         },
         onError: () =>{
             toast.error("Unable to Login!");

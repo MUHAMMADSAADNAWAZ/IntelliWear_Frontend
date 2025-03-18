@@ -1,5 +1,6 @@
-import { Menu, MenuItem } from "@mui/material";
 import { useState } from "react";
+
+import { Menu, MenuItem } from "@mui/material";
 import SwapHorizOutlinedIcon from '@mui/icons-material/SwapHorizOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
@@ -8,9 +9,10 @@ import { ThreeVerticalDots } from "@svg";
 interface OrderActionsMenuProps {
     onViewDetails: () => void;
     onChangeStatus: (newStatus: string) => void;
+    status: string;
 }
 
-const OrdersActionMenu = ({ onViewDetails, onChangeStatus }: OrderActionsMenuProps) => {
+const OrdersActionMenu = ({ onViewDetails, onChangeStatus , status }: OrderActionsMenuProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -22,7 +24,7 @@ const OrdersActionMenu = ({ onViewDetails, onChangeStatus }: OrderActionsMenuPro
     setAnchorEl(null);
   };
 
-  const statuses = ["Pending", "In Progress", "Completed", "Canceled", "Refund"];
+  const statuses = ["pending", "in_process", "shipped", "delivered"];
 
   return (
     <div className="flex justify-center items-center p-3.5 ">
@@ -69,7 +71,7 @@ const OrdersActionMenu = ({ onViewDetails, onChangeStatus }: OrderActionsMenuPro
           View Details
         </MenuItem>
 
-        {statuses.map((status) => (
+        { status !== "cancelled" && statuses.map((status) => (
           <MenuItem
             key={status}
             sx={{
