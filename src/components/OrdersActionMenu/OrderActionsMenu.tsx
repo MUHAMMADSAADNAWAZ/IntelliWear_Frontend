@@ -24,7 +24,19 @@ const OrdersActionMenu = ({ onViewDetails, onChangeStatus , status }: OrderActio
     setAnchorEl(null);
   };
 
-  const statuses = ["pending", "in_process", "shipped", "delivered"];
+  const getNextStatus = () => {
+    switch (status) {
+      case "in_process":
+        return "shipped";
+      case "shipped":
+        return "delivered";
+      default:
+        return null;
+    }
+  };
+
+  const nextStatus = getNextStatus();
+
 
   return (
     <div className="flex justify-center items-center p-3.5 ">
@@ -71,9 +83,8 @@ const OrdersActionMenu = ({ onViewDetails, onChangeStatus , status }: OrderActio
           View Details
         </MenuItem>
 
-        { status !== "cancelled" && statuses.map((status) => (
+         {nextStatus && status !== "cancelled" && status !== "pending" && (
           <MenuItem
-            key={status}
             sx={{
               color: "#1F1F1F",
               fontWeight: "400",
@@ -83,13 +94,13 @@ const OrdersActionMenu = ({ onViewDetails, onChangeStatus , status }: OrderActio
             }}
             onClick={() => {
               handleClose();
-              onChangeStatus(status);
+              onChangeStatus(nextStatus);
             }}
           >
             <SwapHorizOutlinedIcon style={{ fontSize: 15 }} />
-            {status}
+            {nextStatus}
           </MenuItem>
-        ))}
+        )}
       </Menu>
     </div>
   );

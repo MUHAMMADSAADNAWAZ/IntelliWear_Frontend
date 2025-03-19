@@ -138,7 +138,7 @@ import {
   ROUTE_ADMIN_FOOTWEARPRODUCTS,
   ROUTE_ADMIN_INPROGRESS_ORDERS,
   ROUTE_ADMIN_ORDERS,
-  ROUTE_ADMIN_PENDING_ORDERS,
+  // ROUTE_ADMIN_PENDING_ORDERS,
   ROUTE_ADMIN_PRODUCTS,
   ROUTE_ADMIN_PROFILE,
   ROUTE_ADMIN_CHATBOT,
@@ -1192,29 +1192,6 @@ export const accessoriesData = [
 
 // Analytics component data
 
-export const Analytics = [
-  {
-    name: "Total Sales",
-    price: "890,00 Rs",
-    color: "text-blue-500",
-  },
-  {
-    name: "Today's Sales",
-    price: "150,00 Rs",
-    color: "text-red-500",
-  },
-  {
-    name: "Orders",
-    price: "15",
-    color: "text-green-500",
-  },
-  {
-    name: "Avg Order Value",
-    price: "1000 Rs",
-    color: "text-orange-500",
-  },
-];
-
 export const monthlySales = [
   { month: "Jan", revenue: 500000 },
   { month: "Feb", revenue: 750000 },
@@ -1482,7 +1459,7 @@ export const productCategories = [
 
 export const orderCategories = [
   { name: "All Orders", path: ROUTE_ADMIN_ORDERS },
-  { name: "Pending Orders", path: ROUTE_ADMIN_PENDING_ORDERS },
+  // { name: "Pending Orders", path: ROUTE_ADMIN_PENDING_ORDERS },
   { name: "Processing Orders", path: ROUTE_ADMIN_INPROGRESS_ORDERS },
   { name: "Delivered Orders", path: ROUTE_ADMIN_COMPLETED_ORDERS },
   { name: "Cancelled Orders", path: ROUTE_ADMIN_CANCELED_ORDERS },
@@ -4474,3 +4451,26 @@ export const pakistaniCities = [
 export const shoeSizes = ["28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46"];
 export const clothesSizes = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
 export const accessoriesUnits = ["in", "cm", "mm", "m", "ft", "Standard Sizes"];
+
+export const filterAnalyticsOptions = [
+  {
+    value: "last_7_days",
+    label: "Last 7 Days"
+  },
+  {
+    value: "last_14_days",
+    label: "Last 14 Days"
+  },
+  {
+    value: "last_30_days",
+    label: "Last 30 Days"
+  },
+  {
+    value: "last_90_days",
+    label: "Last 90 Days"
+  },
+  {
+    value: "all_time",
+    label: "All Time"
+  }
+];

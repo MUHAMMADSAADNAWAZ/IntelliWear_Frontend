@@ -25,7 +25,6 @@ export const ROUTE_ADMIN_CAROUSAL = "/carousal";
 export const ROUTE_ADMIN_PROFILE = "/admin-profile";
 export const ROUTE_ADMIN_CHATBOT = "/admin-chatbot";
 export const ROUTE_ADMIN_ORDERS = "/orders";
-export const ROUTE_ADMIN_PENDING_ORDERS = "/pending-orders";
 export const ROUTE_ADMIN_INPROGRESS_ORDERS = "/inprogress-orders";
 export const ROUTE_ADMIN_COMPLETED_ORDERS = "/completed-orders";
 export const ROUTE_ADMIN_CANCELED_ORDERS = "/canceled-orders";
