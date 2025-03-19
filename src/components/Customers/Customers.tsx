@@ -14,8 +14,8 @@ interface Customer {
   name: string;
   email: string;
   phone: string;
-  orders: number;
-  totalSpend: string;
+  total_delivered_orders: number;
+  total_delivered_price: number;
 }
 
 const Customers = () => {
@@ -134,14 +134,14 @@ const Customers = () => {
             name: "Orders",
             style:
               "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
-            selector: (row: Customer) => row?.orders || "-",
+            selector: (row: Customer) => row?.total_delivered_orders || "-",
             sortable: true,
           },
           {
             name: "Total Spent (PKR)",
             style:
               "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
-            selector: (row: Customer) => row?.totalSpend || "-",
+            selector: (row: Customer) => row?.total_delivered_price || "-",
             sortable: true,
           },
         ]}

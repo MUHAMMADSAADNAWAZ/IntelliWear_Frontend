@@ -22,7 +22,7 @@ import {
   ROUTE_ADMIN_PROFILE,
   ROUTE_ADMIN_ADD_PRODUCTS,
   ROUTE_ADMIN_ORDERS,
-  ROUTE_ADMIN_PENDING_ORDERS,
+  // ROUTE_ADMIN_PENDING_ORDERS,
   ROUTE_ADMIN_INPROGRESS_ORDERS,
   ROUTE_ADMIN_COMPLETED_ORDERS,
   ROUTE_ADMIN_SHIPPED_ORDERS,
@@ -264,10 +264,10 @@ const AppRoutes = () => {
           <Route path={ROUTE_ADMIN_PROFILE} element={<AdminProfile />} />
           <Route path={ROUTE_ADMIN_CHATBOT} element={<AdminChatbot />} />
           <Route path={ROUTE_ADMIN_ORDERS} element={<OrderMenu name="All" />} />
-          <Route
+          {/* <Route
             path={ROUTE_ADMIN_PENDING_ORDERS}
             element={<OrderMenu name="pending" />}
-          />
+          /> */}
           <Route
             path={ROUTE_ADMIN_INPROGRESS_ORDERS}
             element={<OrderMenu name="in_process" />}
