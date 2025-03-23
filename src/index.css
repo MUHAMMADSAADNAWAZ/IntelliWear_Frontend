@@ -17,6 +17,10 @@ body{
   animation: slideIn 0.5s ease-in-out forwards;
 }
 
+.YzrZV div:first-child {
+  white-space: normal !important;
+}
+
 
 @layer base {
   :root {

@@ -48,7 +48,7 @@ const ClothInfo = ({ img, name, price, id , description }: ClothInfoProps) => {
        )} 
 
         <button 
-          onClick={() => navigate(`/product/${id}`)}
+          onClick={() => navigate(`/product/${id}?source=card`)}
           className="w-full flex items-center justify-center gap-2 bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 "
         >
           

@@ -46,8 +46,8 @@ const CartSidebar = () => {
   });
 
   const totalPrice = cartItems
-    .filter((item: CartItem) => item.checked)
-    .reduce((sum, item) => sum + Number(item.price) * item.quantity, 0);
+    ?.filter((item: CartItem) => item.checked)
+    ?.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0);
 
   const isOpen = cart.cartVisibility;
 
@@ -81,10 +81,10 @@ const CartSidebar = () => {
         />
       </div>
       <div className="p-4 overflow-y-auto">
-        {cartItems.length === 0 ? (
+        {!cartItems || cartItems?.length === 0 ? (
           <p className="text-gray-500">Your cart is empty</p>
         ) : (
-          cartItems.map((item: CartItem) => (
+          cartItems?.map((item: CartItem) => (
             <div
               key={`${item.cart_item_id}`}
               className="flex items-center justify-between mb-4"
@@ -125,10 +125,10 @@ const CartSidebar = () => {
           ))
         )}
       </div>
-      <div className="p-4 border-t">
+     {cartItems?.length > 0 && <div className="p-4 border-t">
         <div className="flex justify-between font-medium">
           <span>Total</span>
-          <span>Rs {totalPrice.toFixed(2)}</span>
+          <span>Rs {totalPrice?.toFixed(2)}</span>
         </div>
         <button
           className="w-full mt-4 bg-blue-500 text-white p-3 rounded flex items-center justify-center gap-5"
@@ -138,7 +138,7 @@ const CartSidebar = () => {
           <p>Proceed to Checkout</p>{" "}
           <BiRightArrowAlt style={{ fontSize: 25 }} />
         </button>
-      </div>
+      </div>}
     </div>
   );
 };

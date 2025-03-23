@@ -14,7 +14,7 @@ export default class AdminOrdersApi extends BaseApi {
   }
 
  async updateOrderStatus(order_id : number , status: string) {
-    const data = await AdminOrdersApi.post(`${this.baseUrl}updateorderstatus/${order_id}`, {status});
+    const data = await AdminOrdersApi.post(`${this.baseUrl}updateorderstatus/${order_id}/`, {status});
     return data;
  }
 
