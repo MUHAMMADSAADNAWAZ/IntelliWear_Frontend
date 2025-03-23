@@ -15,6 +15,7 @@ interface Product {
   image: string;
   name: string;
   price: number;
+  sold_out: number;
   product_type: string;
   description: string;
   gender: string;
@@ -142,6 +143,12 @@ const AdminProducts = ({name} : {name?: string}) => {
           name: "Gender",
           style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
           selector: (row: Product) => (genderForm(row?.gender) ),
+          sortable: true,
+        },
+        {
+          name: "Sold out units",
+          style: "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
+          selector: (row: Product) => (row?.sold_out ),
           sortable: true,
         },
         {
