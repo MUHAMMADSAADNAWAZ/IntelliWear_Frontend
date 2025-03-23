@@ -242,7 +242,7 @@ const HomeHeader = () => {
                 <Avatar>{getInitials(user?.user_info?.name)}</Avatar>
               </IconButton>
 
-              <p className="text-gray-800 text-sm md:text-lg hidden md:block">
+              <p className="text-gray-800 text-sm md:text-lg hidden lg:block">
                 {user?.user_info?.name}
               </p>
               <Menu

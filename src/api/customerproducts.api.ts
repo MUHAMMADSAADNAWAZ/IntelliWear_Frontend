@@ -60,5 +60,10 @@ export default class CustomerProductsApi extends BaseApi {
     return data;
   }
 
+  async giveReview(product_id: string , payload : {comment: string , rating: number}){
+    const data = await CustomerProductsApi.post(`${this.baseUrl}giveReview/?product_id=${product_id}` , payload);
+    return data;
+  }
+
 
 }

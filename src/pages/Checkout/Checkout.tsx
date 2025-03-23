@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useFormik } from "formik";
 import { RootState } from "@redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 
 import CustomerOrdersApi from "@api/customerorder.api";
@@ -25,6 +25,10 @@ interface CityOption {
 const Checkout = () => {
 
   const [open , setOpen] = useState(false)
+
+  const [searchParams] = useSearchParams();
+  const source = searchParams.get("source");   
+  const toastShown = useRef(false);
 
   const user = useSelector(selectUser);
   const dispatch = useDispatch()
@@ -120,6 +124,13 @@ const Checkout = () => {
     form?.setFieldValue("address" , user?.user_info?.address)
     form?.setFieldValue("phone" , user?.user_info?.phone)
   },[user?.user_info])
+
+  useEffect(()=>{
+      if(source === "stripe" && !toastShown.current){
+        toast.error("Unable to place Order!")
+        toastShown.current = true;
+      }
+    },[source])
 
   return (
     <div className="p-4 w-full mx-auto">
