@@ -16,7 +16,7 @@ const ForgotPassword = ({ setForgotOpen , form}: ForgotPasswordProps) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ">
       <form
         onSubmit={form.handleSubmit}
-        className="rounded-lg shadow-lg w-[90%] max-w-xl p-8 bg-gradient-to-br from-white via-gray-50 to-gray-100"
+        className="rounded-lg shadow-lg w-[90%] max-w-xl p-8 bg-gradient-to-br from-white via-gray-50 to-gray-100 h-96"
       >
         <div className="flex items-center justify-between mb-6">
           <p className="font-Arimo font-bold text-xl text-indigo-500">

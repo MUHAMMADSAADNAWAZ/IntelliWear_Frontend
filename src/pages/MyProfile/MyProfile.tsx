@@ -182,7 +182,7 @@ const MyProfile = () => {
       >
         <div className="flex flex-col gap-6">
           <div className="flex gap-6">
-            <div className="w-1/2">
+            <div className=" w-full md:w-1/2">
               <Input
                 placeholder="Old Password"
                 labelClass="text-blue-500"
@@ -208,11 +208,11 @@ const MyProfile = () => {
                 }
               />
             </div>
-            <div className="w-1/2"></div>
+            <div className="w-1/2 hidden md:block"></div>
           </div>
 
-          <div className="flex gap-6">
-            <div className="w-1/2">
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="w-full md:w-1/2">
               <Input
                 placeholder="New Password"
                 labelClass="text-blue-500"
@@ -238,7 +238,7 @@ const MyProfile = () => {
                 }
               />
             </div>
-            <div className="w-1/2">
+            <div className="w-full md:w-1/2">
               <Input
                 placeholder="Confirm Password"
                 labelClass="text-blue-500"

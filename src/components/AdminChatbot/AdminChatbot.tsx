@@ -69,11 +69,11 @@ const AdminChatbot = () => {
     }
   };
 
-const copyToClipboard = (text: string) => {
-  navigator.clipboard.writeText(text).then(() => {
-    toast.info("Copied to clipboard!");
-  });
-};
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      toast.info("Copied to clipboard!");
+    });
+  };
 
   return (
     <div className="p-6 bg-gray-100 rounded-t-xl w-full flex flex-col items-center justify-center">
@@ -81,7 +81,7 @@ const copyToClipboard = (text: string) => {
 
       {messages.length === 0 && (
         <div
-          className="absolute bottom-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+          className="absolute bottom-1/3 md:left-1/2 transform -translate-x-1/2 -translate-y-1/2 
           text-2xl text-gray-600 font-bold animate-slideIn"
         >
           How can I help you?
@@ -108,7 +108,7 @@ const copyToClipboard = (text: string) => {
                   }`}
                 >
                   {item?.sender === "gemini" && item?.text && (
-                    <div className="flex flex-col w-3/5  p-3 rounded-3xl font-normal text-base text-[#141B34]">
+                    <div className="flex flex-col md:w-3/5  p-3 rounded-3xl font-normal text-base text-[#141B34]">
                       <Message
                         model={{
                           ...item,
@@ -122,18 +122,18 @@ const copyToClipboard = (text: string) => {
                         <Message.CustomContent className="p-3 text-gray-800 relative">
                           <ReactMarkdown>{item?.text}</ReactMarkdown>
                           <button
-                className="absolute top-2 -right-2 text-gray-500 hover:text-gray-700"
-                onClick={() => copyToClipboard(item?.text)}
-              >
-                <Copy size={18} />
-              </button>
+                            className="absolute top-2 -right-2 text-gray-500 hover:text-gray-700"
+                            onClick={() => copyToClipboard(item?.text)}
+                          >
+                            <Copy size={18} />
+                          </button>
                         </Message.CustomContent>
                       </Message>
                     </div>
                   )}
 
                   {item?.sender !== "gemini" && (
-                    <div className="max-w-[60%]">
+                    <div className="md:max-w-[60%]">
                       <Message
                         model={{
                           ...item,
@@ -147,11 +147,11 @@ const copyToClipboard = (text: string) => {
                         <Message.CustomContent className="p-3 text-[#141B34] relative">
                           <ReactMarkdown>{item?.text}</ReactMarkdown>
                           <button
-                className="absolute top-2 -left-2 text-gray-500 hover:text-gray-700"
-                onClick={() => copyToClipboard(item?.text)}
-              >
-                <Copy size={18} />
-              </button>
+                            className="absolute top-2 -left-2 text-gray-500 hover:text-gray-700"
+                            onClick={() => copyToClipboard(item?.text)}
+                          >
+                            <Copy size={18} />
+                          </button>
                         </Message.CustomContent>
                       </Message>
                     </div>
@@ -168,7 +168,6 @@ const copyToClipboard = (text: string) => {
           </div>
 
           <div className="w-full max-w-5xl flex items-center border border-gray-300 bg-white rounded-full px-4 py-2 shadow-sm hover:shadow-md transition-shadow">
-        
             <Input
               value={currentMessage}
               placeholder="Ask questions from knowledge expert..."

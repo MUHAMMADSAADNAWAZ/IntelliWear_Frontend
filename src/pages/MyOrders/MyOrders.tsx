@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { useSearchParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import CustomerOrdersApi from "@api/customerorder.api";
@@ -29,6 +30,10 @@ interface Order {
 }
 
 const MyOrders = () => {
+  const [searchParams] = useSearchParams();
+  const source = searchParams.get("source"); 
+  const toastShown = useRef(false);
+    
   const dispatch = useDispatch();
   const customerorderapi = new CustomerOrdersApi();
   const customerproductapi = new CustomerProductsApi();
@@ -56,10 +61,10 @@ const MyOrders = () => {
   });
 
   useEffect(() => {
-    if (cartData?.data?.cart_items) {
+    if (cartData?.data) {
       dispatch(setCart(cartData?.data?.cart_items));
     }
-  }, [cartData?.data?.cart_items]);
+  }, [cartData]);
 
   const cancelOrder = async (order_id: number) => {
     dispatch(updateLoader(true));
@@ -95,6 +100,13 @@ const MyOrders = () => {
         return "bg-gray-100 text-gray-700";
     }
   };
+
+  useEffect(()=>{
+    if(source === "stripe" && !toastShown.current){
+      toast.success("Order Placed Successfully!")
+      toastShown.current = true;
+    }
+  },[source])
 
   return (
     <div className="w-full md:min-h-screen bg-gray-100 text-gray-800 p-8">

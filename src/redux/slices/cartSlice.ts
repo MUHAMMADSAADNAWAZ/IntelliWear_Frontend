@@ -48,8 +48,8 @@ const cartSlice = createSlice({
       }));
 
       state.items = cartItems;
-      state.totalQuantity = cartItems.reduce(
-        (total: number, item: { quantity: number }) => total + item.quantity,
+      state.totalQuantity = cartItems?.reduce(
+        (total: number, item: { quantity: number }) => total + item?.quantity,
         0
       );
       state.totalPrice = parseFloat(action?.payload?.total_price);
