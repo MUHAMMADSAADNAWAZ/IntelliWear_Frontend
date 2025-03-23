@@ -27,6 +27,7 @@ export class MakeReviewDto {
 export interface ReviewProps{
     id: string;
     product: string;
+    product_name: string;
     user: number;
     user_name: string;
     rating: number;

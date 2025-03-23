@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 
+import { useFormik } from "formik";
 import { ShoppingCart } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
+import { FaStar } from "react-icons/fa6";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -19,8 +21,6 @@ import { ROUTE_LOGIN } from "@routes/constants";
 import { updateLoader } from "@redux/slices/loaderSlice";
 import { getImageUrl } from "@utils/getImageUrl";
 import { AddToCartPayload } from "@dto/product.dto";
-import { FaStar } from "react-icons/fa6";
-import { useFormik } from "formik";
 import { MakeReviewDto, ReviewProps } from "@dto/makereview.dto";
 
 interface sizeType {
