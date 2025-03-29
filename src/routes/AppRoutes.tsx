@@ -36,8 +36,8 @@ import {
   ROUTE_CHECKOUT,
   ROUTE_ADMIN_PRODUCTS,
   ROUTE_RESET_PASSWORD,
-  ROUTE_ADMIN_CHATBOT,
-  ROUTE_CHATBOT,
+  // ROUTE_ADMIN_CHATBOT,
+  // ROUTE_CHATBOT,
   ROUTE_ADMIN_CAROUSAL,
 } from "@routes/constants";
 import CustomerProductsApi from "@api/customerproducts.api";
@@ -64,7 +64,7 @@ import { NotFound } from "@pages/NotFound";
 import { EditProducts } from "@components/EditProducts";
 import { Checkout } from "@pages/Checkout";
 import { ResetPassword } from "@pages/ResetPassword";
-import { AdminChatbot } from "@components/AdminChatbot";
+// import { AdminChatbot } from "@components/AdminChatbot";
 import { CarousalManager } from "@components/CarousalManager";
 import { updateLoader } from "@redux/slices/loaderSlice";
 
@@ -216,7 +216,7 @@ const AppRoutes = () => {
             </ProtectedRoute>
           }
         >
-          <Route path={ROUTE_CHATBOT} element={<AdminChatbot />} />
+          {/* <Route path={ROUTE_CHATBOT} element={<AdminChatbot />} /> */}
           <Route path={ROUTE_MYPROFILE} element={<MyProfile />} />
           <Route path={ROUTE_MYORDERS} element={<MyOrders />} />
           <Route path={ROUTE_CHECKOUT} element={<Checkout />} />
@@ -262,7 +262,7 @@ const AppRoutes = () => {
           <Route path={ROUTE_ADMIN_CAROUSAL} element={<CarousalManager />} />
           <Route path={ROUTE_ADMIN_CUSTOMERS} element={<Customers />} />
           <Route path={ROUTE_ADMIN_PROFILE} element={<AdminProfile />} />
-          <Route path={ROUTE_ADMIN_CHATBOT} element={<AdminChatbot />} />
+          {/* <Route path={ROUTE_ADMIN_CHATBOT} element={<AdminChatbot />} /> */}
           <Route path={ROUTE_ADMIN_ORDERS} element={<OrderMenu name="All" />} />
           {/* <Route
             path={ROUTE_ADMIN_PENDING_ORDERS}

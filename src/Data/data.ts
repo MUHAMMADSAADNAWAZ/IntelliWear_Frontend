@@ -123,7 +123,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import { ImageIcon, MessageSquare } from 'lucide-react';
+import { ImageIcon } from 'lucide-react';
 import SupervisorAccountOutlinedIcon from "@mui/icons-material/SupervisorAccountOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 
@@ -141,7 +141,7 @@ import {
   // ROUTE_ADMIN_PENDING_ORDERS,
   ROUTE_ADMIN_PRODUCTS,
   ROUTE_ADMIN_PROFILE,
-  ROUTE_ADMIN_CHATBOT,
+  // ROUTE_ADMIN_CHATBOT,
   ROUTE_ADMIN_SHIPPED_ORDERS,
   ROUTE_ADMIN_REVIEWS,
   ROUTE_LOGIN,
@@ -1440,11 +1440,11 @@ export const menuItems = [
     icon: PersonOutlinedIcon,
     elementNav: ROUTE_ADMIN_PROFILE,
   },
-  {
-    name: "Chatbot",
-    icon: MessageSquare,
-    elementNav: ROUTE_ADMIN_CHATBOT,
-  },
+  // {
+  //   name: "Chatbot",
+  //   icon: MessageSquare,
+  //   elementNav: ROUTE_ADMIN_CHATBOT,
+  // },
   { name: "Analytics", icon: BarChartIcon, elementNav: ROUTE_ADMIN_ANALYTICS },
   { name: "Reviews", icon: RateReviewIcon, elementNav: ROUTE_ADMIN_REVIEWS },
   { name: "Logout", icon: LogoutIcon, elementNav: ROUTE_LOGIN },
