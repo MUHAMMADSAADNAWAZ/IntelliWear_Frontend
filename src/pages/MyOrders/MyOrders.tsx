@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
@@ -6,18 +6,21 @@ import { useSearchParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import CustomerOrdersApi from "@api/customerorder.api";
-import { updateLoader } from "@redux/slices/loaderSlice";
 import CustomerProductsApi from "@api/customerproducts.api";
+import { Button } from "@components/common";
+import { ReturnRequestPopup } from "@components/ReturnRequestPopup";
+import { updateLoader } from "@redux/slices/loaderSlice";
 import { setCart } from "@redux/slices/cartSlice";
 import { formatDate } from "@utils/convertDate";
-import { Button } from "@components/common";
 
-interface OrderItem {
+export interface OrderItem {
   product: string;
   product_name: string;
   size: number;
   quantity: number;
   price: string;
+  id: string;
+  return_status: string;
 }
 
 interface Order {
@@ -30,6 +33,8 @@ interface Order {
 }
 
 const MyOrders = () => {
+  const [showReturnProduct, setShowReturnProduct] = useState<OrderItem | null>(null);
+
   const [searchParams] = useSearchParams();
   const source = searchParams.get("source"); 
   const toastShown = useRef(false);
@@ -169,9 +174,14 @@ const MyOrders = () => {
                         <span>Size: {item?.size}</span>
                       </div>
                     </div>
+
+                    <div className="flex flex-col items-center">
                     <p className="font-bold text-sm md:text-base">
                       PKR {item?.price}
                     </p>
+                    {order?.status === "delivered" && item?.return_status === "Not Returned" && <Button  onClick={() => {setShowReturnProduct(item) }} variant="danger" className="p-2">Return Request</Button>}
+                    </div>
+
                   </div>
                 ))}
               </div>
@@ -183,6 +193,13 @@ const MyOrders = () => {
           ))
         )}
       </div>
+
+      {showReturnProduct && (
+        <ReturnRequestPopup
+          showReturnProduct={showReturnProduct}
+          onClose={() => setShowReturnProduct(null)}
+        />
+      )}
     </div>
   );
 };
