@@ -146,6 +146,7 @@ import {
   ROUTE_ADMIN_REVIEWS,
   ROUTE_LOGIN,
   ROUTE_ADMIN_CAROUSAL,
+  ROUTE_ADMIN_RETURN_REQUESTS,
 } from "@routes/constants";
 
 export const clothesData = [
@@ -1447,6 +1448,7 @@ export const menuItems = [
   // },
   { name: "Analytics", icon: BarChartIcon, elementNav: ROUTE_ADMIN_ANALYTICS },
   { name: "Reviews", icon: RateReviewIcon, elementNav: ROUTE_ADMIN_REVIEWS },
+  { name: "Return Order Requests", icon: RateReviewIcon, elementNav: ROUTE_ADMIN_RETURN_REQUESTS },
   { name: "Logout", icon: LogoutIcon, elementNav: ROUTE_LOGIN },
 ];
 

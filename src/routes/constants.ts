@@ -31,3 +31,4 @@ export const ROUTE_ADMIN_CANCELED_ORDERS = "/canceled-orders";
 export const ROUTE_ADMIN_SHIPPED_ORDERS = "/shiped-orders";
 export const ROUTE_ADMIN_ANALYTICS = "/admin-analytics";
 export const ROUTE_ADMIN_REVIEWS = "/admin-reviews";
+export const ROUTE_ADMIN_RETURN_REQUESTS = "/return-requests";
