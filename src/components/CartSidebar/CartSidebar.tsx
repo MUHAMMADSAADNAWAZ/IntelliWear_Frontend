@@ -91,13 +91,13 @@ const CartSidebar = () => {
             >
               <input
                 type="checkbox"
-                checked={item.checked}
+                checked={item?.checked}
                 onChange={(e) => {
                   dispatch(
                     updateChecked({
-                      id: item.id,
-                      size: item.size,
-                      checked: e.target.checked,
+                      id: item?.id,
+                      size: item?.size,
+                      checked: e?.target?.checked,
                     })
                   );
                 }}
