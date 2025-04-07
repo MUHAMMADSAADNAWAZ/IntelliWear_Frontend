@@ -39,6 +39,7 @@ import {
   // ROUTE_ADMIN_CHATBOT,
   // ROUTE_CHATBOT,
   ROUTE_ADMIN_CAROUSAL,
+  ROUTE_ADMIN_RETURN_REQUESTS,
 } from "@routes/constants";
 import CustomerProductsApi from "@api/customerproducts.api";
 import { HomeLayout } from "@components/HomeLayout";
@@ -67,6 +68,7 @@ import { ResetPassword } from "@pages/ResetPassword";
 // import { AdminChatbot } from "@components/AdminChatbot";
 import { CarousalManager } from "@components/CarousalManager";
 import { updateLoader } from "@redux/slices/loaderSlice";
+import { ReturnOrderRequests } from "@components/ReturnOrderRequests";
 
 const AppRoutes = () => {
   const [page, setPage] = useState<number>(1);
@@ -286,6 +288,7 @@ const AppRoutes = () => {
           />
           <Route path={ROUTE_ADMIN_ANALYTICS} element={<AdminAnalytics />} />
           <Route path={ROUTE_ADMIN_REVIEWS} element={<AdminReviews />} />
+          <Route path={ROUTE_ADMIN_RETURN_REQUESTS} element={<ReturnOrderRequests />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
