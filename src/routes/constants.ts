@@ -2,6 +2,7 @@ export const ROUTE_HOME = "/home";
 export const ROUTE_LOGIN = "/login";
 export const ROUTE_SIGNUP = "/signup";
 export const ROUTE_CLOTHES = "/clothes";
+export const ROUTE_SEARCHED_PRODUCTS = "/search-products";
 export const ROUTE_FOOTWEAR = "/footwear";
 export const ROUTE_ACCESSORIES = "/accessories";
 export const ROUTE_MEN_CLOTHING = "/men-clothing";

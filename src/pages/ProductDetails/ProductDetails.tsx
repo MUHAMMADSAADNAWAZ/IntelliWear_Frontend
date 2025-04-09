@@ -188,7 +188,7 @@ const ProductDetails = () => {
         }
       }
     } catch (error) {
-      toast.error("Failed to update cart. Please try again.");
+      console.log("Failed to update cart. Please try again.");
     }
   };
 

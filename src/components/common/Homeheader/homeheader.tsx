@@ -13,6 +13,7 @@ import { Button } from "@components/common/Button";
 import { Input } from "@components/common/Input";
 // import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import logo from "@assets/IntelliWear-logo-for-website-removebg-preview.png";
+import CustomerProductsApi from "@api/customerproducts.api";
 import { CartSidebar } from "@components/CartSidebar";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import { clearCart, selectCart, toggleCart } from "@redux/slices/cartSlice";
@@ -25,12 +26,15 @@ import {
   ROUTE_MEN_CLOTHING,
   ROUTE_MYORDERS,
   ROUTE_MYPROFILE,
+  ROUTE_SEARCHED_PRODUCTS,
   ROUTE_SIGNUP,
   ROUTE_WOMEN_CLOTHING,
 } from "@routes/constants";
 import { LogoutIcon, UserIcon } from "@svg";
+import { updateLoader } from "@redux/slices/loaderSlice";
 
 const HomeHeader = () => {
+  const [open, setOpen] = useState(false);
   const [isListening, setIsListening] = useState<boolean>(false);
   const [text, setText] = useState<string>("");
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -44,6 +48,28 @@ const HomeHeader = () => {
 
   const dispatch = useDispatch();
 
+  const cart = useSelector(selectCart);
+  const totalQuantity = cart.totalQuantity;
+  const customerproductsapi = new CustomerProductsApi();
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+  
+    const formData = new FormData();
+    formData.append("image", file);
+    setOpen(false);
+    try {
+      dispatch(updateLoader(true));
+      const res = await customerproductsapi?.serahcImageProducts(formData);
+      navigate(ROUTE_SEARCHED_PRODUCTS , { state : { data : res?.data } });  
+      dispatch(updateLoader(false));
+    } catch (err) {
+      console.log(err);
+      dispatch(updateLoader(false));
+    }
+  };
+    
   const handleLogout = () => {
     dispatch(logout());
     dispatch(clearCart());
@@ -51,9 +77,6 @@ const HomeHeader = () => {
     navigate(ROUTE_HOME);
     toast.success("Logged out Successfully");
   };
-
-  const cart = useSelector(selectCart);
-  const totalQuantity = cart.totalQuantity;
 
   const settings = [
     <div
@@ -184,13 +207,34 @@ const HomeHeader = () => {
               <span className="absolute top-0 right-0 w-2 h-2 bg-red-700 rounded-full animate-ping"></span>
             )}
           </div>
-          <div className="bg-gray-100 p-1.5 md:p-2 rounded-full w-1/6 md:w-auto flex items-center justify-center">
+          <div className="bg-gray-100 p-1.5 md:p-2 rounded-full w-1/6 md:w-auto flex items-center justify-center"
+           onClick={() => setOpen(true)}
+          >
             <ImageSearchIcon
               style={{ color: "#4A5568" }}
               className="cursor-pointer text-xs md:text-lg"
             />
           </div>
         </div>
+
+        {open && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-xl w-[90%] max-w-md space-y-4">
+              <h2 className="text-lg font-semibold text-center">
+                Upload Image
+              </h2>
+
+              <input type="file" onChange={handleImageUpload} />
+
+              <button
+                className="bg-black text-white px-4 py-2 rounded w-full"
+                onClick={() => setOpen(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
 
         <div
           className="cart relative cursor-pointer mx-4 md:mx-0 md:ml-4"
