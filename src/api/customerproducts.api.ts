@@ -65,5 +65,9 @@ export default class CustomerProductsApi extends BaseApi {
     return data;
   }
 
+  async serahcImageProducts(formData: FormData){
+    const data = await CustomerProductsApi.post(`${this.baseUrl}imageSearch/` , formData );
+    return data;
+  }
 
 }

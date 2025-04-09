@@ -1,0 +1,6 @@
+services:
+  frontend:
+    build: .
+    volumes:
+      - .:/app
+      - /app/node_modules  # prevent overwriting node_modules in container

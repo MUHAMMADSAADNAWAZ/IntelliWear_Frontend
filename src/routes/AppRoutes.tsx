@@ -40,6 +40,7 @@ import {
   // ROUTE_CHATBOT,
   ROUTE_ADMIN_CAROUSAL,
   ROUTE_ADMIN_RETURN_REQUESTS,
+  ROUTE_SEARCHED_PRODUCTS,
 } from "@routes/constants";
 import CustomerProductsApi from "@api/customerproducts.api";
 import { HomeLayout } from "@components/HomeLayout";
@@ -136,6 +137,15 @@ const AppRoutes = () => {
           element={
             <HomeLayout>
               <Home />
+            </HomeLayout>
+          }
+        />
+
+        <Route
+          path={ROUTE_SEARCHED_PRODUCTS}
+          element={
+            <HomeLayout>
+              <Home search={true}/>
             </HomeLayout>
           }
         />

@@ -9,7 +9,9 @@ const ClothBlock = ({ data }: { data: HomeProductProps[] }) => {
   return (
     <div className="text-gray-900">
       
-      <Clothes heading="Clothes" data={data?.filter(item => item?.product_type === "CLOTHES")} />
+      {data?.length === 24 ?
+      <>
+       <Clothes heading="Clothes" data={data?.filter(item => item?.product_type === "CLOTHES")} />
       <Link to={ROUTE_CLOTHES} className="block text-center text-yellow-500 hover:underline my-4">View All</Link>
 
       <Clothes heading="Footwear" data={data?.filter(item => item?.product_type === "SHOES")} />
@@ -17,6 +19,10 @@ const ClothBlock = ({ data }: { data: HomeProductProps[] }) => {
 
       <Clothes heading="Accessories" data={data?.filter(item => item?.product_type === "ACCESSORIES")} />
       <Link to={ROUTE_ACCESSORIES} className="block text-center text-yellow-500 hover:underline my-4">View All</Link>
+      </>
+      :
+      <Clothes heading="" data={data} />
+      }
 
     </div>
   );
