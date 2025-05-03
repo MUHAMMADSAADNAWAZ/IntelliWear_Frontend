@@ -1,8 +1,9 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import debounce from 'lodash.debounce';
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import MicIcon from "@mui/icons-material/Mic";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
@@ -32,6 +33,8 @@ import {
 } from "@routes/constants";
 import { LogoutIcon, UserIcon } from "@svg";
 import { updateLoader } from "@redux/slices/loaderSlice";
+import { useMutation } from "@tanstack/react-query";
+
 
 const HomeHeader = () => {
   const [open, setOpen] = useState(false);
@@ -69,6 +72,23 @@ const HomeHeader = () => {
       dispatch(updateLoader(false));
     }
   };
+
+  const nlpSearch = async (query : string) =>{
+    dispatch(updateLoader(true));
+    const res = await customerproductsapi?.nlpSearchProducts(query);
+    navigate(ROUTE_SEARCHED_PRODUCTS , { state : { data : res?.data } });  
+    return res;
+  }
+
+  const {mutateAsync} = useMutation({
+    mutationFn: nlpSearch,
+    onSuccess: () =>{
+      dispatch(updateLoader(false));
+    },
+    onError: () =>{
+      dispatch(updateLoader(false));
+    }
+  })
     
   const handleLogout = () => {
     dispatch(logout());
@@ -161,6 +181,11 @@ const HomeHeader = () => {
       .toUpperCase();
   };
 
+  
+const debouncedSearch = useMemo(() => debounce((query: string) => {
+  mutateAsync(query);
+}, 400), []);
+
   return (
     <>
       <div className="w-full flex items-center justify-around bg-white border-b border-gray-200 py-2">
@@ -177,22 +202,27 @@ const HomeHeader = () => {
 
         {/* Search Bar */}
         <div className="search w-3/5 flex items-center justify-center shadow-inner bg-gray-50 gap-1 md:gap-2 p-1.5 md:p-2 rounded-xl ">
-          <div className="w-full">
+            <div className="w-full">
             <Input
               placeholder="Search"
               className="border-none outline-none bg-gray-50 text-gray-800 placeholder-gray-500 h-0 md:h-10 px-0"
               iconBackground={true}
               wrapperClass="rounded-3xl"
               value={isListening ? "listening..." : text}
-              onChange={(e) => setText(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setText(e.target.value);
+              debouncedSearch(e.target.value);
+              }}
+              searchText={text}
+              debouncedSearch={debouncedSearch}
               icon={
-                <SearchIcon
-                  style={{ color: "#4A5568" }}
-                  className="cursor-pointer text-xs md:text-lg"
-                />
+              <SearchIcon
+                style={{ color: "#4A5568" }}
+                className="cursor-pointer text-xs md:text-lg"
+              />
               }
             />
-          </div>
+            </div>
           <div
             className={`relative bg-gray-100 p-1.5 md:p-2 rounded-full w-1/6 md:w-auto flex items-center justify-center ${
               isListening ? "bg-red-500 text-white" : "bg-gray-100"

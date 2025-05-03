@@ -22,7 +22,6 @@ import {
   ROUTE_ADMIN_PROFILE,
   ROUTE_ADMIN_ADD_PRODUCTS,
   ROUTE_ADMIN_ORDERS,
-  // ROUTE_ADMIN_PENDING_ORDERS,
   ROUTE_ADMIN_INPROGRESS_ORDERS,
   ROUTE_ADMIN_COMPLETED_ORDERS,
   ROUTE_ADMIN_SHIPPED_ORDERS,
@@ -36,8 +35,6 @@ import {
   ROUTE_CHECKOUT,
   ROUTE_ADMIN_PRODUCTS,
   ROUTE_RESET_PASSWORD,
-  // ROUTE_ADMIN_CHATBOT,
-  // ROUTE_CHATBOT,
   ROUTE_ADMIN_CAROUSAL,
   ROUTE_ADMIN_RETURN_REQUESTS,
   ROUTE_SEARCHED_PRODUCTS,
@@ -66,7 +63,6 @@ import { NotFound } from "@pages/NotFound";
 import { EditProducts } from "@components/EditProducts";
 import { Checkout } from "@pages/Checkout";
 import { ResetPassword } from "@pages/ResetPassword";
-// import { AdminChatbot } from "@components/AdminChatbot";
 import { CarousalManager } from "@components/CarousalManager";
 import { updateLoader } from "@redux/slices/loaderSlice";
 import { ReturnOrderRequests } from "@components/ReturnOrderRequests";

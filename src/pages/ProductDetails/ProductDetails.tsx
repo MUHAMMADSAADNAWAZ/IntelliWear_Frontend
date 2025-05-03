@@ -149,7 +149,6 @@ const ProductDetails = () => {
         item.id === data?.data?.results.id && item.size.id === size.id
     );
 
-    // const newQuantity = (existingItem ? existingItem.quantity : 0);
     const maxQuantity = size?.quantity;
 
     if (quantity > maxQuantity) {

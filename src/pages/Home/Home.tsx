@@ -1,11 +1,12 @@
+import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+
 import AdminCarouselApi from "@api/admincarousal.api";
 import CustomerProductsApi from "@api/customerproducts.api";
 import { Carousal } from "@components/Carousal";
 import { HomeClothBlock } from "@components/HomeClothBlock";
 import { updateLoader } from "@redux/slices/loaderSlice";
-import { useQuery } from "@tanstack/react-query";
-import { useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
 
 const Home = ({ search }: { search?: boolean }) => {
 

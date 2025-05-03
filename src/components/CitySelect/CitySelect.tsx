@@ -1,7 +1,6 @@
 import Select, { SingleValue } from "react-select";
 import { FormikProps } from "formik";
 
-// Define the type for the city option
 interface CityOption {
   value: string;
   label: string;
@@ -9,7 +8,7 @@ interface CityOption {
 
 interface CitySelectProps<FormValues> {
   labelText?: string;
-  name: keyof FormValues;  // Ensure 'name' is a valid key of FormValues
+  name: keyof FormValues;  
   formik: FormikProps<FormValues>;
   options: CityOption[];
   placeholder?: string;
