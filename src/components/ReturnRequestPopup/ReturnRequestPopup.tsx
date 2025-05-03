@@ -59,7 +59,6 @@ const ReturnRequestPopup= ({
     formData.append("reason", reason);
     if (image) formData.append("image", image);
 
-    // Call the API using FormData
     await mutateAsync(formData);
 
   };

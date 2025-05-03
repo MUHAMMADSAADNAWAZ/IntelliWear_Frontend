@@ -75,7 +75,6 @@ const Signup = () => {
 
                 <div className=" text-center " >
                         <img src={logo} alt="Website Logo" className="mx-auto mb-2 w-44 h-44 cursor-pointer" onClick={()=>{navigate(ROUTE_HOME)}}/>
-                        {/* <h1 className="text-3xl font-bold text-yellow-500">IntelliWear</h1> */}
                 </div>
 
                     <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Signup</h2>

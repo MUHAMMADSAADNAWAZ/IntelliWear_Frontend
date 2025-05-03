@@ -80,10 +80,10 @@ const Checkout = () => {
   
   
   const formattedCartItems: CartItem[] = checkedCartItems.map(item => ({
-    product_id: item?.id,   // Mapping 'id' as 'product_id'
-    size: typeof item?.size === 'string' ? item?.size : item?.size?.size, // Ensuring size is a string
+    product_id: item?.id,  
+    size: typeof item?.size === 'string' ? item?.size : item?.size?.size,
     quantity: item?.quantity,
-    price: item?.price?.toString()  // Ensuring price is a string
+    price: item?.price?.toString() 
   }));
 
   const totalPrice: number = cartItems

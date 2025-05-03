@@ -70,4 +70,9 @@ export default class CustomerProductsApi extends BaseApi {
     return data;
   }
 
+  async nlpSearchProducts(query: string){
+    const data = await CustomerProductsApi.post(`${this.baseUrl}nlpSearch/` , {query} );
+    return data;
+  }
+
 }

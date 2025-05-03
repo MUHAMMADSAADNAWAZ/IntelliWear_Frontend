@@ -134,13 +134,6 @@ const ReturnOrderRequests = () => {
           },
         }}
         columns={[
-          //   {
-          //     name: "Order Item Number",
-          //     style:
-          //       "display:flex;justify-content:center;border-right: 1px solid #e0e0e0 !important",
-          //     selector: (row: ReturnOrderRequest) => row?.order_item,
-          //     sortable: true,
-          //   },
           {
             name: "Product Name",
             style: "display:flex;border-right: 1px solid #e0e0e0 !important",

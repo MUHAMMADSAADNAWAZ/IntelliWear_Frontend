@@ -8,7 +8,6 @@ import { Loader } from "@components/Loader";
 import { Footer } from "@components/Footer";
 import { FloatingChatbot } from "@components/AdminChatbot";
 import { isLoader } from "@redux/slices/loaderSlice";
-// import { ROUTE_CHATBOT } from '@routes/constants';
 
 interface HomeLayoutProps {
   children?: ReactNode;
